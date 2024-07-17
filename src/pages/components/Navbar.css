@@ -1,0 +1,18 @@
+.navbar {
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logoImage {
+  width: 70px;
+  height: 25px;
+}
+
+.icons {
+  display: flex;
+  gap: 1px;
+}
