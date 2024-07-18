@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Slider.css";
-import Card from "./Card";
+import "./PromoSlider.css";
+import Card from "./PromoCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 
-const Slider = () => {
+const PromoSlider = () => {
     const [width, setWidth] = useState(300);
     const [events, setEvents] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -231,25 +232,38 @@ const Slider = () => {
     ];
 
     return (
-        <section className="slider-wrap">
+        <section className="promo-wrap">
             <button
-                className="slider-btn slider-btn-left"
+                className="promo-btn promo-btn-left"
                 onClick={() => scrollBy(-width)}
             >
                 <FontAwesomeIcon icon={faAngleLeft} />
             </button>
             <button
-                className="slider-btn slider-btn-right"
+                className="promo-btn promo-btn-right"
                 onClick={() => scrollBy(width)}
             >
                 <FontAwesomeIcon icon={faAngleRight} />
             </button>
-            <section className="slider" ref={ref}>
+            <section className="promo" ref={ref}>
                 {data
                     // ?.filter((el, idx) => idx < 5)
                     .map((el, idx) => {
-                        console.log(el);
-                        return (
+                        console.log(idx);
+                        return idx === 2 ||
+                            idx === 3 ||
+                            idx === 5 ||
+                            idx === 6 ? (
+                            <Card
+                                key={idx}
+                                title={el.title}
+                                date={el.date}
+                                city={el.city}
+                                coverImage={el.coverImage}
+                                width={width}
+                                height={"half"}
+                            />
+                        ) : (
                             <Card
                                 key={idx}
                                 title={el.title}
@@ -265,4 +279,4 @@ const Slider = () => {
     );
 };
 
-export default Slider;
+export default PromoSlider;

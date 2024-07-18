@@ -1,13 +1,13 @@
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import React from "react";
 
-const Card = ({ title, date, city, coverImage, width }) => {
+const Card = ({ title, date, city, coverImage, width, height }) => {
     const localStyle = {
         width: width,
     };
 
     return (
-        <section className="card" style={localStyle}>
+        <section className={`card ${height}`} style={localStyle}>
             <img src={coverImage} alt="event cover" className="card-cover" />
             <section className="card-info">
                 <h3 className="card-title">{title}</h3>
