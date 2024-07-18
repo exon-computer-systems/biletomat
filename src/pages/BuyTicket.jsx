@@ -1,32 +1,14 @@
 import React, { useState } from "react";
-
 import "./BuyTicket.css";
 
 const dataTicket = [
-  {
-    title: "Dorośli",
-    price: 100,
-    name: "adults",
-  },
-  {
-    title: "Dzieci",
-    price: 50,
-    name: "children",
-  },
-  {
-    title: "Rodzinny 2+2",
-    price: 280,
-    name: "family",
-  },
-  {
-    title: "VIP",
-    price: 300,
-    name: "vip",
-  },
+  { title: "Dorośli", price: 100, name: "adults" },
+  { title: "Dzieci", price: 50, name: "children" },
+  { title: "Rodzinny 2+2", price: 280, name: "family" },
+  { title: "VIP", price: 300, name: "vip" },
 ];
 
 const BuyTicket = () => {
-  const [summary, setSummary] = useState("0 PLN");
   const [order, setOrder] = useState({
     adults: 0,
     children: 0,
@@ -34,9 +16,19 @@ const BuyTicket = () => {
     vip: 0,
   });
 
-  const onChange = e => {
-    setOrder(e.target.value);
+  const calculateTotal = order => {
+    return dataTicket.reduce((sum, ticket) => {
+      return sum + ticket.price * order[ticket.name];
+    }, 0);
   };
+
+  const onChange = e => {
+    const { name, value } = e.target;
+    const updatedOrder = { ...order, [name]: parseInt(value) || 0 };
+    setOrder(updatedOrder);
+  };
+
+  const total = calculateTotal(order);
 
   return (
     <div className="wrapper">
@@ -47,62 +39,26 @@ const BuyTicket = () => {
         </div>
 
         <section className="choice-boxes">
-          <div className="choice-box">
-            <h2>{dataTicket[0].title}</h2>
-            <div>
-              <span>{dataTicket[0].price} PLN</span>
-              <input
-                name={dataTicket.name}
-                type="number"
-                value={order}
-                onChange={onChange}
-              />
+          {dataTicket.map((data, index) => (
+            <div key={index} className="choice-box">
+              <h2>{data.title}</h2>
+              <div>
+                <span>{data.price} PLN</span>
+                <input
+                  name={data.name}
+                  type="number"
+                  value={order[data.name]}
+                  onChange={onChange}
+                  min={0}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="choice-box">
-            <h2>{dataTicket[1].title}</h2>
-            <div>
-              <span>{dataTicket[1].price} PLN</span>
-              <input
-                name={dataTicket.name}
-                type="number"
-                value={order}
-                onChange={onChange}
-              />
-            </div>
-          </div>
-
-          <div className="choice-box">
-            <h2>{dataTicket[2].title}</h2>
-            <div>
-              <span>{dataTicket[2].price} PLN</span>
-              <input
-                name={dataTicket.name}
-                type="number"
-                value={order}
-                onChange={onChange}
-              />
-            </div>
-          </div>
-
-          <div className="choice-box">
-            <h2>{dataTicket[3].title}</h2>
-            <div>
-              <span>{dataTicket[3].price} PLN</span>
-              <input
-                name={dataTicket.name}
-                type="number"
-                value={order}
-                onChange={onChange}
-              />
-            </div>
-          </div>
+          ))}
         </section>
 
         <div className="summary">
           <h2>
-            Całość - <span>{summary}</span>
+            Całość - <span>{total} PLN</span>
           </h2>
           <button>REZERWUJ</button>
         </div>
