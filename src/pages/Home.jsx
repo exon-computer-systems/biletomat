@@ -7,6 +7,7 @@ const Home = () => {
     return (
         <>
             <Navbar />
+
             <section className="home">
                 <Slider />
             </section>
