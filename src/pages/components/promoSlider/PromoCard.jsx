@@ -7,8 +7,12 @@ const Card = ({ title, date, city, coverImage, width, height }) => {
     };
 
     return (
-        <section className={`card ${height}`} style={localStyle}>
-            <img src={coverImage} alt="event cover" className="card-cover" />
+        <section className={`promo-card ${height}`} style={localStyle}>
+            <img
+                src={coverImage}
+                alt="event cover"
+                className="promo-card-cover"
+            />
             <section className="card-info">
                 <h3 className="card-title">{title}</h3>
                 <p className="card-date">{date}</p>

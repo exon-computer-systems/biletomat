@@ -1,11 +1,12 @@
 .home {
   position: relative;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-content: center;
+  justify-content: center;
+  align-items: center;
   gap: 5rem;
-
+  width: 100%;
   padding: 2rem;
-  background-color: lightgoldenrodyellow;
+  background-color: white;
 }
