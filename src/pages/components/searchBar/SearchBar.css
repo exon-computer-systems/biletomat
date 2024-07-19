@@ -1,19 +1,22 @@
 .search-wrapper {
   width: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
 }
 
 .search-bar {
   height: 60px;
   width: 1000px;
-  background-color: white;
-  -webkit-box-shadow: 10px 10px 247px -55px rgba(184, 173, 184, 0.89);
-  -moz-box-shadow: 10px 10px 247px -55px rgba(184, 173, 184, 0.89);
-  box-shadow: 10px 10px 247px -55px rgba(184, 173, 184, 0.89);
+  background-color: rgb(245, 243, 243);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
   border-radius: 1rem;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
+  z-index: 20;
 }
 
 .search-box {
@@ -24,6 +27,7 @@
   input {
     width: 100%;
     border: none;
+    background-color: rgb(245, 243, 243);
   }
   input:focus {
     outline: none;
@@ -31,10 +35,54 @@
   select {
     width: 100%;
     border: none;
+    background-color: rgb(245, 243, 243);
+  }
+  select:focus {
+    outline: none;
+  }
+  span {
+    height: 1.4rem;
+    border: 0.5px solid rgb(232, 231, 231);
+    align-self: center;
   }
 }
 
 .icons {
   align-self: center;
   padding-right: 0.7rem;
+}
+
+.expandable-search {
+  position: absolute;
+  top: 50px;
+  width: 70%;
+  height: 0px;
+  background-color: white;
+  overflow-y: auto;
+  z-index: 15;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.searched-cards {
+  padding: 1rem;
+  display: flex;
+
+  width: 100%px;
+  height: 70px;
+  img {
+    width: 80px;
+    height: 50px;
+  }
+  section {
+    line-height: 100%;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+    h1 {
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.5rem;
+      font-weight: 300;
+    }
+  }
 }
