@@ -1,33 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./Slider.css";
-import Card from "./Card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import "./EventList.css";
+import Event from "./Event";
 
-const Slider = () => {
-    const [width, setWidth] = useState(400);
-    const [events, setEvents] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    const ref = useRef(0);
-
-    const scrollBy = (scrollOffset) => {
-        ref.current.scrollLeft += scrollOffset;
-    };
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const events = await fetch(data);
-    //         const json = await events.json();
-
-    //         console.log(json);
-    //     };
-
-    //     fetchData();
-    // }, []);
-
-    // console.log(data);
-
+const EventList = () => {
     const data = [
         {
             artist: "Coldplay",
@@ -48,6 +23,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Warszawa",
+            sale: true,
+            goingFast: false,
         },
         {
             artist: "Taco Hemingway",
@@ -68,6 +45,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Bydgoszcz",
+            sale: false,
+            goingFast: true,
         },
         {
             artist: "Beyoncé",
@@ -88,6 +67,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Toruń",
+            sale: false,
+            goingFast: false,
         },
         {
             artist: "Ed Sheeran",
@@ -107,6 +88,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Gdańsk",
+            sale: false,
+            goingFast: false,
         },
         {
             artist: "Adele",
@@ -127,6 +110,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Bydgoszcz",
+            sale: true,
+            goingFast: true,
         },
         {
             artist: "Bruno Mars",
@@ -147,6 +132,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Katowice",
+            sale: false,
+            goingFast: false,
         },
         {
             artist: "The Weeknd",
@@ -167,6 +154,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Bydgoszcz",
+            sale: true,
+            goingFast: false,
         },
         {
             artist: "Rihanna",
@@ -207,6 +196,8 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Poznań",
+            sale: false,
+            goingFast: false,
         },
         {
             artist: "Post Malone",
@@ -227,41 +218,32 @@ const Slider = () => {
             ],
             eventType: "koncert",
             city: "Toruń",
+            sale: false,
+            goingFast: false,
         },
     ];
 
     return (
-        <section className="slider-wrap">
-            <button
-                className="slider-btn slider-btn-left"
-                onClick={() => scrollBy(-width)}
-            >
-                <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-            <button
-                className="slider-btn slider-btn-right"
-                onClick={() => scrollBy(width)}
-            >
-                <FontAwesomeIcon icon={faAngleRight} />
-            </button>
-            <section className="slider" ref={ref}>
-                {data
-                    // ?.filter((el, idx) => idx < 5)
-                    .map((el, idx) => {
-                        return (
-                            <Card
-                                key={idx}
-                                title={el.artist}
-                                date={el.date}
-                                city={el.city}
-                                coverImage={el.coverImage}
-                                width={width}
-                            />
-                        );
-                    })}
+        <section className="e-list-wrap">
+            <section className="e-list">
+                <h2 className="e-list-title">Najblizsze wydarzenia</h2>
+                <section className="e-list-events">
+                    {data?.map((el, idx) => (
+                        <Event
+                            key={idx}
+                            title={el.artist}
+                            desc={el.description}
+                            date={el.date}
+                            city={el.city}
+                            coverImage={el.coverImage}
+                            sale={el.sale}
+                            goingFast={el.goingFast}
+                        />
+                    ))}
+                </section>
             </section>
         </section>
     );
 };
 
-export default Slider;
+export default EventList;
