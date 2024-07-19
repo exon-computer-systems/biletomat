@@ -1,18 +1,32 @@
 .navbar {
-  background-color: rgb(0, 0, 0);
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
 }
 
 .logoImage {
-  width: 70px;
-  height: 25px;
+    width: 8.554rem;
+    height: 2.8rem;
+    margin-left: 1rem;
 }
 
 .icons {
-  display: flex;
-  gap: 1px;
+    display: flex;
+    gap: 1rem;
+    margin-right: 1rem;
+}
+
+.nav-btn {
+    cursor: pointer;
+    background-color: black;
+    border: none;
+    padding: 1rem;
+}
+
+.nav-icn {
+    color: white;
+    font-size: 1.5rem;
 }

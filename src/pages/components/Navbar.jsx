@@ -16,18 +16,20 @@ const Navbar = () => {
             <div className="icons">
                 <div className="favorites">
                     <button
+                        className="nav-btn fav-btn"
                         type="button"
                         onClick={() => console.log("Favourite clicked")}
                     >
-                        <FontAwesomeIcon icon={faHeart} />
+                        <FontAwesomeIcon icon={faHeart} className="nav-icn" />
                     </button>
                 </div>
                 <div className="login">
                     <button
+                        className="nav-btn log-btn"
                         type="button"
                         onClick={() => console.log("User clicked")}
                     >
-                        <FontAwesomeIcon icon={faUser} />
+                        <FontAwesomeIcon icon={faUser} className="nav-icn" />
                     </button>
                 </div>
             </div>
