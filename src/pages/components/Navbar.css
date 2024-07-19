@@ -8,11 +8,25 @@
 }
 
 .logoImage {
-  width: 70px;
-  height: 25px;
+  width: 8.554rem;
+  height: 2.8rem;
+  margin-left: 1rem;
 }
 
 .icons {
   display: flex;
-  gap: 1px;
+  gap: 1rem;
+  margin-right: 1rem;
+}
+
+.nav-btn {
+  cursor: pointer;
+  background-color: black;
+  border: none;
+  padding: 1rem;
+}
+
+.nav-icn {
+  color: white;
+  font-size: 1.5rem;
 }
