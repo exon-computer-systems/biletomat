@@ -176,6 +176,8 @@ const EventList = () => {
             ],
             eventType: "koncert",
             city: "Warszawa",
+            sale: true,
+            goingFast: true,
         },
         {
             artist: "Dawid Podsiadło",

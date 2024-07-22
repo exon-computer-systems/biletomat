@@ -3,10 +3,11 @@ import "./Slider.css";
 import Card from "./Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const Slider = () => {
     const [width, setWidth] = useState(400);
-    const [events, setEvents] = useState(null);
+    const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const ref = useRef(0);
@@ -15,16 +16,23 @@ const Slider = () => {
         ref.current.scrollLeft += scrollOffset;
     };
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const events = await fetch(data);
-    //         const json = await events.json();
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
 
-    //         console.log(json);
-    //     };
+            const res = await axios.get(
+                "https://biletomat-strapi-backend.onrender.com/api/events"
+            );
 
-    //     fetchData();
-    // }, []);
+            // console.log(res.data.data);
+
+            setEvents(res.data.data);
+
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
 
     // console.log(data);
 
@@ -245,7 +253,7 @@ const Slider = () => {
                 <FontAwesomeIcon icon={faAngleRight} />
             </button>
             <section className="slider" ref={ref}>
-                {data
+                {/* {data
                     // ?.filter((el, idx) => idx < 5)
                     .map((el, idx) => {
                         return (
@@ -258,7 +266,22 @@ const Slider = () => {
                                 width={width}
                             />
                         );
-                    })}
+                    })} */}
+
+                {loading ? (
+                    <p>Loading events...</p>
+                ) : (
+                    events.map((el) => (
+                        <Card
+                            key={el.attributes.uid}
+                            title={el.attributes.title}
+                            date={el.attributes.startDate}
+                            city={el.attributes.city}
+                            coverImage={el.attributes.coverLink}
+                            width={width}
+                        />
+                    ))
+                )}
             </section>
         </section>
     );
