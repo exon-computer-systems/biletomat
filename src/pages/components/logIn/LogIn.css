@@ -1,0 +1,100 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  background-color: white;
+  display: grid;
+  place-items: center;
+}
+
+.login-container {
+  width: 850px;
+  height: 750px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  border: 1px solid hsla(0, 0%, 71%, 0.7);
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: 3rem;
+  color: #b4b4b4;
+  .active {
+    color: black;
+  }
+  h1 {
+    font-size: 31px;
+    font-weight: 700;
+    width: 100%;
+  }
+  span {
+    width: 2px;
+    border: 0.1px solid hsla(0, 0%, 71%, 1);
+  }
+}
+
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5rem;
+  justify-content: space-evenly;
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  .welcome-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  input {
+    padding: 1rem;
+    border: 1px solid hsla(0, 0%, 71%, 1);
+    border-radius: 9px;
+    outline: none;
+    width: 75%;
+  }
+  input:focus {
+    outline: auto #485bfe;
+  }
+}
+
+.sign-google {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+
+  button {
+    width: 250px;
+    height: 60px;
+    border-radius: 35px;
+    border: none;
+    background-color: white;
+    border: 1px solid hsla(0, 0%, 71%, 0.7);
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  button:nth-child(1) {
+    color: white;
+    background: linear-gradient(90deg, #485bfe 0%, #717efc 70%);
+    border: none;
+  }
+
+  p {
+    font-weight: 200;
+    font-size: 15px;
+  }
+}
