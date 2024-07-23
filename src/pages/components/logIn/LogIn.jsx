@@ -33,10 +33,10 @@ const LogIn = ({ handleClose }) => {
             <motion.div
               onClick={e => e.stopPropagation()}
               className="login-container"
-              initial={{ opacity: 0, x: 500 }}
+              initial={{ opacity: 0, x: 0, y: -500 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               exit={{ opacity: 0, x: 500 }}
-              transition={{ type: "spring", stiffness: 30, delay: 0.2 }}
+              transition={{ type: "spring", stiffness: 30, duration: 0.1 }}
             >
               <section className="login-wrapper">
                 <div className="login active">
