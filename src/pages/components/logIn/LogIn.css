@@ -42,6 +42,7 @@
 }
 
 .form {
+  font-family: "Sora";
   height: 100%;
   display: flex;
   flex-direction: column;
