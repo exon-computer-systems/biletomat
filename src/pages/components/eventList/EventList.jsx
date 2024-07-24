@@ -3,6 +3,7 @@ import "./EventList.css";
 import Event from "./Event";
 
 const EventList = ({ events, isLoading }) => {
+
   return (
     <section className="e-list-wrap">
       <section className="e-list">
@@ -25,10 +26,10 @@ const EventList = ({ events, isLoading }) => {
               />
             ))
           )}
+              </section>
+            </section>
         </section>
-      </section>
-    </section>
-  );
+    );
 };
 
 export default EventList;
