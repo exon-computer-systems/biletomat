@@ -4,12 +4,14 @@ import Home from "./pages/Home";
 import "./App.css";
 import BuyTicket from "./pages/BuyTicket";
 import LogIn from "./pages/components/logIn/LogIn";
+import EventPage from "./pages/eventPage/EventPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path={`/event/:id`} element={<EventPage />} />
         <Route path="/buy" element={<BuyTicket />} />
       </Routes>
     </BrowserRouter>
