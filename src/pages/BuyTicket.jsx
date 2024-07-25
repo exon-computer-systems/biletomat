@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import { useNavigate } from "react-router";
-import Image from "./components/assets/exonLogoNoBg.png";
+
 import "./BuyTicket.css";
 
 const dataTicket = [
@@ -19,13 +19,13 @@ const BuyTicket = () => {
     vip: 0,
   });
 
-  const calculateTotal = (order) => {
+  const calculateTotal = order => {
     return dataTicket.reduce((sum, ticket) => {
       return sum + ticket.price * order[ticket.name];
     }, 0);
   };
 
-  const onChange = (e) => {
+  const onChange = e => {
     const { name, value } = e.target;
     const updatedOrder = { ...order, [name]: parseInt(value) || 0 };
     setOrder(updatedOrder);
