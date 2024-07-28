@@ -39,6 +39,7 @@ const EventPage = () => {
           <section className="section1-wrapper">
             <div className="cover-image">
               <img src={events.coverLink} />
+              <p>Organizator: XYZ</p>
             </div>
             <div className="title-descp">
               <div className="descp">
@@ -58,7 +59,7 @@ const EventPage = () => {
                 </div>
               </div>
               <div className="btns">
-                <button className="buy-ticket">Kup bilet</button>
+                <button className="buy-ticket">KUP BILET</button>
                 <button>
                   <FontAwesomeIcon icon={faHeart} className="heart-icon" />
                 </button>
