@@ -16,7 +16,7 @@ const EventList = ({ events, isLoading }) => {
                 id={el.attributes.uid}
                 key={el.idx}
                 title={el.attributes.title}
-                desc={el.attributes.description}
+                // desc={el.attributes.description}
                 date={el.attributes.startDate}
                 city={el.attributes.city}
                 coverImage={el.attributes.coverLink}
