@@ -15,7 +15,7 @@
 
 .section1-container {
   z-index: 12;
-  padding: 1rem 5rem;
+  padding: 01rem 5rem;
 }
 
 .section1-wrapper {
@@ -25,11 +25,23 @@
   border-radius: 2rem;
   background-color: white;
   z-index: 10;
+  flex-direction: column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.cover-buy-wrapper {
+  display: flex;
+}
+
+.arrow-down-btn {
+  cursor: pointer;
+  padding: 0.5rem 0 0 0;
+  transform: scale(1.5);
 }
 
 .cover-image {
   width: 25rem;
-  height: 350px;
+  height: 100%;
   gap: 0.9rem;
   display: flex;
   flex-direction: column;
@@ -55,7 +67,7 @@
   justify-content: space-evenly;
 
   width: 100%;
-  padding: 0 4rem;
+  padding: 0 2rem;
 }
 
 .date-place {

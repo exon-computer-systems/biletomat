@@ -6,6 +6,7 @@ import {
   faShare,
   faCalendar,
   faLocationDot,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./EventPage.css";
 import axios from "axios";
@@ -37,36 +38,42 @@ const EventPage = () => {
       <section className="event-page-container">
         <section className="section1-container">
           <section className="section1-wrapper">
-            <div className="cover-image">
-              <img src={events.coverImage} />
-            </div>
-            <div className="title-descp">
-              <div className="descp">
-                <h2>Event {events.title}</h2>
+            <div className="cover-buy-wrapper">
+              <div className="cover-image">
+                <img src={events.coverImage} />
               </div>
-              <div className="date-place">
-                <div className="place">
-                  <FontAwesomeIcon icon={faCalendar} className="place-icon" />
-                  <div className="place-info">
-                    <p className="start-date">{events.startDate}</p>
-                    <p className="hours">19:00 - 21:00</p>
+              <div className="title-descp">
+                <div className="descp">
+                  <h2>Event {events.title}</h2>
+                </div>
+                <div className="date-place">
+                  <div className="place">
+                    <FontAwesomeIcon icon={faCalendar} className="place-icon" />
+                    <div className="place-info">
+                      <p className="start-date">{events.startDate}</p>
+                      <p className="hours">19:00 - 21:00</p>
+                    </div>
+                  </div>
+                  <div className="date">
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="date-icon"
+                    />
+                    <p className="city">{events.city}</p>
                   </div>
                 </div>
-                <div className="date">
-                  <FontAwesomeIcon icon={faLocationDot} className="date-icon" />
-                  <p className="city">{events.city}</p>
+                <div className="btns">
+                  <button className="buy-ticket">KUP BILET</button>
+                  <button>
+                    <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+                  </button>
+                  <button>
+                    <FontAwesomeIcon icon={faShare} className="share-icon" />
+                  </button>
                 </div>
               </div>
-              <div className="btns">
-                <button className="buy-ticket">KUP BILET</button>
-                <button>
-                  <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-                </button>
-                <button>
-                  <FontAwesomeIcon icon={faShare} className="share-icon" />
-                </button>
-              </div>
             </div>
+            <FontAwesomeIcon icon={faAngleDown} className="arrow-down-btn" />
           </section>
         </section>
         <section className="section2-wrapper">
