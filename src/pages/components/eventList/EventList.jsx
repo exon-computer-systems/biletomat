@@ -13,15 +13,15 @@ const EventList = ({ events, isLoading }) => {
           ) : (
             events.map((el, idx) => (
               <Event
-                id={el.attributes.uid}
-                key={el.idx}
-                title={el.attributes.title}
-                // desc={el.attributes.description}
-                date={el.attributes.startDate}
-                city={el.attributes.city}
-                coverImage={el.attributes.coverLink}
-                sale={el.attributes.sale}
-                goingFast={el.attributes.goingFast}
+                id={el.id}
+                tid={el.tid}
+                key={idx}
+                title={el.title}
+                date={el.startDate}
+                city={el.city}
+                coverImage={el.coverImage}
+                sale={el.sale}
+                goingFast={el.goingFast}
               />
             ))
           )}

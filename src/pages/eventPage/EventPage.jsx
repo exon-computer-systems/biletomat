@@ -22,10 +22,10 @@ const EventPage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       const res = await axios.get(
-        `https://biletomat-strapi-backend.onrender.com/api/events/${id}`
+        `https://biletomat-be.onrender.com/events/${id}`
       );
-      console.log(res.data.data.attributes);
-      setEvents(res.data.data.attributes);
+
+      setEvents(res.data);
       setIsLoading(false);
     };
     fetchData();
@@ -38,8 +38,7 @@ const EventPage = () => {
         <section className="section1-container">
           <section className="section1-wrapper">
             <div className="cover-image">
-              <img src={events.coverLink} />
-              <p>Organizator: XYZ</p>
+              <img src={events.coverImage} />
             </div>
             <div className="title-descp">
               <div className="descp">

@@ -10,6 +10,7 @@ import React, { useState } from "react";
 
 const Event = ({
   id,
+  tid,
   title,
   desc,
   date,
@@ -29,8 +30,8 @@ const Event = ({
     <>
       <section
         className="event-wrap"
-        data-value={id}
-        onClick={() => nav(`/event/${id}`)}
+        data-value={tid}
+        onClick={() => nav(`/event/${tid}`)}
       >
         <section className="event-cover-wrapper">
           <img src={coverImage} alt="event cover" className="event-cover" />
