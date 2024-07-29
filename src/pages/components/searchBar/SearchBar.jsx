@@ -26,7 +26,7 @@ const SearchBar = () => {
 
   return (
     <section className="search-wrapper">
-      <section className="search-bar">
+      <section className={`search-bar ${isSelected !== "" ? "active" : ""}`}>
         <div className="search-box search">
           <input type="text" placeholder="Wyszukaj" onChange={handleChange} />
           <span></span>
@@ -66,15 +66,14 @@ const SearchBar = () => {
             Szukaj
           </button>
         </div>
+        <AnimateHeight
+          duration={500}
+          height={height}
+          className="expandable-search"
+        >
+          <Searched />
+        </AnimateHeight>
       </section>
-
-      <AnimateHeight
-        duration={500}
-        height={height}
-        className="expandable-search"
-      >
-        <Searched />
-      </AnimateHeight>
     </section>
   );
 };
