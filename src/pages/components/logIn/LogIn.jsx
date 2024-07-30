@@ -32,13 +32,6 @@ const LogIn = ({ handleClose }) => {
     //     setErrMsg("");
     // }, [userData]);
 
-    const handleConsole = () => {
-        const allowedRoles = [1984, 5150];
-        console.log(auth?.roles);
-        let test = auth.roles.find((role) => allowedRoles.includes(role));
-        test ? console.log("true") : console.log("false");
-    };
-
     // Handle input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,28 +41,21 @@ const LogIn = ({ handleClose }) => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(
-        //     JSON.stringify({
-        //         email: userData.email,
-        //         password: userData.password,
-        //     })
-        // );
+
         try {
             const response = await axios.post(
                 "http://localhost:3500/auth",
-                // LOGIN_URL,
                 JSON.stringify({
                     email: userData.email,
                     password: userData.password,
                 }),
                 {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                     withCredentials: true,
                 }
             );
             console.log(JSON.stringify(response?.data));
+            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
 
@@ -79,12 +65,8 @@ const LogIn = ({ handleClose }) => {
                 roles,
                 accessToken,
             });
-
-            handleConsole();
-
             setLogIn(true);
-            setIsClicked(e.target.id); // Set the ID of the clicked button
-            // console.log(userData);
+            setIsClicked(e.target.id);
         } catch (err) {
             if (!err?.response) {
                 console.error("No server response");

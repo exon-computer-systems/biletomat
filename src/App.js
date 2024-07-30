@@ -19,11 +19,11 @@ function App() {
             <Routes>
                 {/* public routes */}
                 <Route path="/" element={<Home />} />
-                <Route path={`/event/:id`} element={<EventPage />} />
 
                 {/* protected routes */}
                 {/* prettier-ignore */}
                 <Route element={ <RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} /> } >
+                    <Route path={`/event/:id`} element={<EventPage />} />
                     <Route path="/buy" element={<BuyTicket />} />
                 </Route>
             </Routes>
