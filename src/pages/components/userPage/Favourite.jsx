@@ -9,7 +9,6 @@ const Favourite = () => {
           <div className="ticket-wrapper">
             <div>
               <h3>bilet1</h3>
-              <p></p>
             </div>
             <div className="cta-ticket-btns">
               <button className="delete-favourite-btn">

@@ -48,6 +48,7 @@ ul {
   }
   .active {
     background-color: #edebeb;
+    border-radius: 1rem;
   }
 }
 

@@ -28,15 +28,24 @@ const UserPage = () => {
               />
             </div>
             <ul>
-              <li onClick={() => setIsClicked("main")}>
+              <li
+                className={isClicked === "main" ? "active" : ""}
+                onClick={() => setIsClicked("main")}
+              >
                 <FontAwesomeIcon icon={faHouse} />
                 Główne
               </li>
-              <li onClick={() => setIsClicked("favourite")}>
+              <li
+                className={isClicked === "favourite" ? "active" : ""}
+                onClick={() => setIsClicked("favourite")}
+              >
                 <FontAwesomeIcon icon={faHeart} />
                 Ulubione
               </li>
-              <li onClick={() => setIsClicked("mytickets")}>
+              <li
+                className={isClicked === "mytickets" ? "active" : ""}
+                onClick={() => setIsClicked("mytickets")}
+              >
                 <FontAwesomeIcon icon={faTicket} />
                 Moje Bilety
               </li>
