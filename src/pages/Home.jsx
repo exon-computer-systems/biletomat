@@ -39,7 +39,7 @@ const Home = () => {
       {isLogged && <LogIn isLogged={isLogged} handleClose={close} />}
       <Navbar close={close} open={open} isLogged={isLogged} />
       <section className="home">
-        <SearchBar />
+        <SearchBar events={events} />
 
         <Slider events={events} isLoading={isLoading} />
         {/* <PromoSlider /> */}

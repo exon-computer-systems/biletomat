@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import AnimateHeight from "react-animate-height";
 import Searched from "./Searched";
 
-const SearchBar = () => {
+const SearchBar = ({ events }) => {
   const [isSelected, setIsSelected] = useState("");
   const [height, setHeight] = useState(0);
   const handleChange = e => {
@@ -66,12 +66,8 @@ const SearchBar = () => {
             Szukaj
           </button>
         </div>
-        <AnimateHeight
-          duration={500}
-          height={height}
-          className="expandable-search"
-        >
-          <Searched />
+        <AnimateHeight duration={500} height={height} id="expandable-search">
+          <Searched events={events} />
         </AnimateHeight>
       </section>
     </section>
