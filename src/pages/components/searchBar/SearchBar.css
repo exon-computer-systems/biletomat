@@ -85,7 +85,7 @@
   color: #9b3660;
 }
 
-.expandable-search {
+#expandable-search {
   width: 1000px;
   height: 500px;
   position: absolute;
@@ -93,7 +93,7 @@
   left: 0;
   width: 99.9%;
   height: 0px;
-  overflow-y: auto;
+  overflow-y: scroll;
   background-color: white;
   overflow-y: scroll;
   border-radius: 0 0 1rem 1rem;
