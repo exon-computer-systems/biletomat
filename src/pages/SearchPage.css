@@ -1,0 +1,24 @@
+.search-pg-content {
+    /* background-color: lightblue; */
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.search-pg-finds {
+    padding-bottom: 2rem;
+}
+
+.search-pg-query {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+}
