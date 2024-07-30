@@ -196,15 +196,15 @@ const data = [
   },
 ];
 
-const Searched = () => {
+const Searched = ({ events }) => {
   return (
     <>
-      {data.map((d, index) => (
+      {events.map((event, index) => (
         <section className="searched-cards" key={index}>
-          <img src={d.coverImage} alt="" />
+          <img src={event.coverImage} alt="" />
           <section className="wrapper-desc">
-            <h1>{d.artist}</h1>
-            <p>{`${d.date} | ${d.city}`}</p>
+            <h1>{event.artists}</h1>
+            <p>{`${event.startDate} | ${event.city}`}</p>
           </section>
         </section>
       ))}
