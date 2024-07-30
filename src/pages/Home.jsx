@@ -10,43 +10,45 @@ import LogIn from "./components/logIn/LogIn";
 import axios from "axios";
 
 const Home = () => {
-  const [isActive, setIsActive] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
-  const close = () => setIsLogged(false);
-  const open = () => setIsLogged(true);
-  const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+    const [isActive, setIsActive] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
+    const close = () => setIsLogged(false);
+    const open = () => setIsLogged(true);
+    const [events, setEvents] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true);
 
-      const res = await axios.get("https://biletomat-be.onrender.com/events");
+            const res = await axios.get(
+                "https://biletomat-be.onrender.com/events"
+            );
 
-      console.log(res.data);
+            //   console.log(res.data);
 
-      setEvents(res.data);
+            setEvents(res.data);
 
-      setIsLoading(false);
-    };
+            setIsLoading(false);
+        };
 
-    fetchData();
-  }, []);
+        fetchData();
+    }, []);
 
-  return (
-    <>
-      {/* {isActive && <Welcome handleClick={() => setIsActive(false)} />} */}
-      {isLogged && <LogIn isLogged={isLogged} handleClose={close} />}
-      <Navbar close={close} open={open} isLogged={isLogged} />
-      <section className="home">
-        <SearchBar events={events} />
+    return (
+        <>
+            {/* {isActive && <Welcome handleClick={() => setIsActive(false)} />} */}
+            {isLogged && <LogIn isLogged={isLogged} handleClose={close} />}
+            <Navbar close={close} open={open} isLogged={isLogged} />
+            <section className="home">
+                <SearchBar events={events} />
 
-        <Slider events={events} isLoading={isLoading} />
-        {/* <PromoSlider /> */}
-        <EventList events={events} isLoading={isLoading} />
-      </section>
-    </>
-  );
+                <Slider events={events} isLoading={isLoading} />
+                {/* <PromoSlider /> */}
+                <EventList events={events} isLoading={isLoading} />
+            </section>
+        </>
+    );
 };
 
 export default Home;
