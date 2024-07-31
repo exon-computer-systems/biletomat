@@ -1,76 +1,39 @@
-import "./SearchBar.css";
-import {
-  faMagnifyingGlass,
-  faCalendar,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchBarForm from "./SearchBarForm";
+import axios from "../../api/axios";
 import { useEffect, useState } from "react";
-import AnimateHeight from "react-animate-height";
-import Searched from "./Searched";
 
-const SearchBar = ({ events }) => {
-  const [isSelected, setIsSelected] = useState("");
-  const [height, setHeight] = useState(0);
-  const handleChange = e => {
-    setIsSelected(() => e.target.value);
+const SearchBar = () => {
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useState({
+    title: "",
+    date: "",
+    artist: "",
+  });
 
-    console.log("test");
+  const fetchData = async params => {
+    try {
+      const response = await axios.get("/events/search", { params });
+      setEvents(response.data);
+      setError(null);
+    } catch (err) {
+      setError(err.response?.data?.message || "Error fetching events");
+      setEvents([]);
+    }
+  };
 
-    console.log(height);
+  const handleSearch = params => {
+    setSearchParams(params);
   };
 
   useEffect(() => {
-    setHeight(isSelected.length > 0 ? 300 : 0);
-  }, [isSelected]);
+    fetchData(searchParams);
+  }, [searchParams]);
 
   return (
-    <section className="search-wrapper">
-      <section className={`search-bar ${isSelected !== "" ? "active" : ""}`}>
-        <div className="search-box search">
-          <input type="text" placeholder="Wyszukaj" onChange={handleChange} />
-          <span></span>
-        </div>
-
-        <div className="search-box date">
-          <FontAwesomeIcon className="icons" icon={faCalendar} />
-          <input
-            type="text"
-            placeholder="Data"
-            onFocus={e => (e.target.type = "date")}
-            onBlur={e => (e.target.type = "text")}
-            id="date"
-          />
-          <span></span>
-        </div>
-        <div className="search-box localization">
-          <FontAwesomeIcon className="icons" icon={faLocationDot} />
-          <select required>
-            <option name="poznan" id="" value={1}>
-              Poznań
-            </option>
-            <option name="poznan" id="" value={2}>
-              Bydgoszcz
-            </option>
-            <option name="poznan" id="" value={3}>
-              Toruń
-            </option>
-            <option name="poznan" id="" value={4}>
-              Warszawa
-            </option>
-          </select>
-        </div>
-        <div className="search-box search-btn-wrapper">
-          <button>
-            <FontAwesomeIcon className="icons" icon={faMagnifyingGlass} />
-            Szukaj
-          </button>
-        </div>
-        <AnimateHeight duration={500} height={height} id="expandable-search">
-          <Searched events={events} />
-        </AnimateHeight>
-      </section>
-    </section>
+    <>
+      <SearchBarForm onSearch={handleSearch} events={events} />
+    </>
   );
 };
 
