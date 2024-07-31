@@ -10,12 +10,18 @@ import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
+import useLogout from "../hooks/useLogout";
 
 const Navbar = ({ setIsLogged, isLogged, close, open }) => {
     //   const [isClicked, setIsClicked] = useState(false);
 
     const nav = useNavigate();
     const { setAuth } = useAuth();
+    const logout = useLogout();
+
+    const signOut = async () => {
+        await logout();
+    };
 
     return (
         <>
@@ -35,7 +41,7 @@ const Navbar = ({ setIsLogged, isLogged, close, open }) => {
                             type="button"
                             onClick={() => {
                                 console.log("Logout");
-                                setAuth({});
+                                signOut();
                             }}
                         >
                             <FontAwesomeIcon
