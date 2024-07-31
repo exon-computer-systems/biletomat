@@ -15,5 +15,3 @@ export const axiosPrivate = axios.create({
     },
     withCredentials: true,
 });
-
-console.log(axiosPrivate);
