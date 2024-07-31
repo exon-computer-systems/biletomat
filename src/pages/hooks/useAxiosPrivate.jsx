@@ -8,11 +8,8 @@ const useAxiosPrivate = () => {
     const { auth } = useAuth();
 
     useEffect(() => {
-        // console.log("Setting up interceptors");
-
         const requestIntercept = axiosPrivate.interceptors.request.use(
             (config) => {
-                // console.log("Request intercepted:", config);
                 if (!config.headers["Authorization"]) {
                     config.headers[
                         "Authorization"
@@ -28,15 +25,12 @@ const useAxiosPrivate = () => {
 
         const responseIntercept = axiosPrivate.interceptors.response.use(
             (response) => {
-                // console.log("Response intercepted:", response);
                 return response;
             },
             async (error) => {
-                console.error("Response error:", error);
+                // console.error("Response error:", error);
                 const prevRequest = error?.config;
-                console.log("second");
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
-                    console.log("Refreshing token...");
                     prevRequest.sent = true;
                     try {
                         const newAccessToken = await refresh();

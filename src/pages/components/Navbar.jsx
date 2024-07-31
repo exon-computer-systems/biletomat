@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { faHeart, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+    faHeart,
+    faUser,
+    faRightFromBracket,
+    faPlusCircle,
+    faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = ({ setIsLogged, isLogged, close, open }) => {
     //   const [isClicked, setIsClicked] = useState(false);
 
     const nav = useNavigate();
+    const { setAuth } = useAuth();
 
     return (
         <>
@@ -21,6 +29,33 @@ const Navbar = ({ setIsLogged, isLogged, close, open }) => {
                     />
                 </div>
                 <div className="icons">
+                    <div className="logout">
+                        <button
+                            className="nav-btn logout-btn"
+                            type="button"
+                            onClick={() => {
+                                console.log("Logout");
+                                setAuth({});
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faRightFromBracket}
+                                className="nav-icn"
+                            />
+                        </button>
+                    </div>
+                    <div className="favorites">
+                        <button
+                            className="nav-btn fav-btn"
+                            type="button"
+                            onClick={() => nav("/user")}
+                        >
+                            <FontAwesomeIcon
+                                icon={faPlus}
+                                className="nav-icn"
+                            />
+                        </button>
+                    </div>
                     <div className="favorites">
                         <button
                             className="nav-btn fav-btn"

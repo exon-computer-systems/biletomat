@@ -3,16 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faHeart, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { useState, lazy, Suspense, useEffect } from "react";
 import useAxiosPrivates from "../../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const MainUserPage = lazy(() => import("./MainUserPage"));
 const Favourite = lazy(() => import("./Favourite"));
 const MyTickets = lazy(() => import("./MyTickets"));
 
 const UserPage = () => {
+    const axiosPrivate = useAxiosPrivates();
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const [isClicked, setIsClicked] = useState("main"); // setting state to main for site to always be open on the main option
 
-    const axiosPrivate = useAxiosPrivates();
-
+    // renew jwt using refreshToken
+    // after 24h refreshToken expires and redirects to homepage
     useEffect(() => {
         const controller = new AbortController();
         const getRefresh = async () => {
@@ -23,6 +28,10 @@ const UserPage = () => {
                 console.log(response.data);
             } catch (err) {
                 console.log(err);
+                navigate("/", {
+                    state: { from: location },
+                    replace: true,
+                });
             }
         };
 
