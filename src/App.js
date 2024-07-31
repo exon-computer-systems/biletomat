@@ -24,13 +24,15 @@ function App() {
         <Route path={`/event/:id`} element={<EventPage />} />
 
         {/* protected routes */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route path="/user" element={<UserPage />} />
+        </Route>
         <Route
           element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}
         >
-          <Route path="/user" element={<UserPage />} />
           <Route path="/buy" element={<BuyTicket />} />
+          <Route path="/edit-page" element={<EditPage />} />
         </Route>
-        <Route path="/edit-page" element={<EditPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -22,6 +22,7 @@ const MyTickets = () => {
   const handleClick = () => {
     setIsClicked(() => !isClicked);
   };
+
   return (
     <section className="tickets-wrapper">
       <div className="mytickets-header">
