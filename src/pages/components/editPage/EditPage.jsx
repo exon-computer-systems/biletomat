@@ -26,17 +26,32 @@ const EditPage = () => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="tid">Title ID</label>
-              <input type="text" name="tid" id="tid" />
+              <input
+                type="text"
+                name="tid"
+                id="tid"
+                placeholder="np. nazwa-nazwa"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="startDate">Rozpoczęcie Zdarzenia</label>
-              <input type="text" name="startDate" id="startDate" />
+              <input
+                type="text"
+                name="startDate"
+                id="startDate"
+                placeholder="YYYY-MM-DD"
+              />
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="endDate">Zakończenia Zdarzenia</label>
-              <input type="text" name="endDate" id="endDate" />
+              <input
+                type="text"
+                name="endDate"
+                id="endDate"
+                placeholder="YYYY-MM-DD"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="city">Miasto</label>
@@ -46,7 +61,12 @@ const EditPage = () => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="coverImage">Zdjęcie URL Zdarzenia</label>
-              <input type="text" name="coverImage" id="coverImage" />
+              <input
+                type="text"
+                name="coverImage"
+                id="coverImage"
+                placeholder="https://example.com"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="eventType">Rodzaj Eventu</label>
