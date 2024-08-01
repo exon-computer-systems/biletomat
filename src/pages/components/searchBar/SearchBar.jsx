@@ -9,11 +9,12 @@ const SearchBar = () => {
     title: "",
     date: "",
     artist: "",
+    city: "",
   });
 
   const fetchData = async params => {
     try {
-      const response = await axios.get("/events/search", { params });
+      const response = await axios.get(`/events/search`, { params });
       setEvents(response.data);
       setError(null);
     } catch (err) {
@@ -22,13 +23,12 @@ const SearchBar = () => {
     }
   };
 
-  const handleSearch = params => {
-    setSearchParams(params);
-  };
-
   useEffect(() => {
     fetchData(searchParams);
   }, [searchParams]);
+  const handleSearch = params => {
+    setSearchParams(params);
+  };
 
   return (
     <>
