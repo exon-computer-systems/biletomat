@@ -14,8 +14,10 @@ import useLogout from "../hooks/useLogout";
 
 const Navbar = ({ setIsLogged, isLogged, close, open, handleAuth }) => {
     //   const [isClicked, setIsClicked] = useState(false);
+    const allowedRoles = [1984, 2150];
 
     const nav = useNavigate();
+    const { auth } = useAuth();
 
     const logout = useLogout();
 
@@ -35,45 +37,21 @@ const Navbar = ({ setIsLogged, isLogged, close, open, handleAuth }) => {
                     />
                 </div>
                 <div className="icons">
-                    <div className="logout">
-                        <button
-                            className="nav-btn logout-btn"
-                            type="button"
-                            onClick={() => {
-                                console.log("Logout");
-                                signOut();
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faRightFromBracket}
-                                className="nav-icn"
-                            />
-                        </button>
-                    </div>
-                    <div className="add-post">
-                        <button
-                            className="nav-btn fav-btn"
-                            type="button"
-                            onClick={() => nav("/edit-page")}
-                        >
-                            <FontAwesomeIcon
-                                icon={faPlus}
-                                className="nav-icn"
-                            />
-                        </button>
-                    </div>
-                    <div className="favorites">
-                        <button
-                            className="nav-btn fav-btn"
-                            type="button"
-                            onClick={() => nav("/user")}
-                        >
-                            <FontAwesomeIcon
-                                icon={faHeart}
-                                className="nav-icn"
-                            />
-                        </button>
-                    </div>
+                    {allowedRoles.some((i) => auth?.roles?.includes(i)) && (
+                        <div className="add-post">
+                            <button
+                                className="nav-btn fav-btn"
+                                type="button"
+                                onClick={() => nav("/edit-page")}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faPlus}
+                                    className="nav-icn"
+                                />
+                            </button>
+                        </div>
+                    )}
+
                     <div className="login">
                         <button
                             className="nav-btn log-btn"
