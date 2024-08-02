@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faHeart, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { useState, lazy, Suspense, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const MainUserPage = lazy(() => import("./MainUserPage"));
 const Favourite = lazy(() => import("./Favourite"));
@@ -52,13 +52,13 @@ const UserPage = () => {
       <section className="menu-bar-wrapper">
         <section className="menu-bar">
           <div className="options-wrapper">
-            <div className="image-logo">
+            <Link to="/" className="image-logo">
               <img
                 className="exon-logo"
                 src="https://cyberbezpieczenstwo.exon.pl/mt-content/uploads/2020/10/ekson-logo-duze_przezroczyste_2020-10-16-09-07-44.png"
                 alt="exon logo"
               />
-            </div>
+            </Link>
             <ul>
               <li
                 className={isClicked === "main" ? "active" : ""}
