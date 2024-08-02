@@ -1,0 +1,11 @@
+.back-icon {
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: white;
+  text-decoration: none;
+  svg {
+    scale: 1.5;
+  }
+}

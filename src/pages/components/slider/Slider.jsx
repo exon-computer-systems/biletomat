@@ -49,6 +49,7 @@ const Slider = ({ events, isLoading }) => {
           events.map((el, i) => (
             <Card
               key={i}
+              tid={el.tid}
               title={el.title}
               date={el.date}
               city={el.city}
