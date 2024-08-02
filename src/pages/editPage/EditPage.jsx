@@ -13,7 +13,7 @@ const EditPage = () => {
   // const [isClicked, setIsClicked] = useState("");
   const [postPageData, setPostPageData] = useState({
     title: "",
-    artists: "",
+    artists: [],
     tid: "",
     description: "",
     startDate: "",
@@ -30,6 +30,12 @@ const EditPage = () => {
     goingFast: true,
   });
 
+  const handleInputArtists = e => {
+    const { name, value, type } = e.target;
+    const inputArtist = value.split(",");
+    setPostPageData(prev => ({ ...prev, artists: inputArtist }));
+  };
+
   const handleInputChange = e => {
     const { name, value, type } = e.target;
     const inputValue = type === "number" ? Number(value) : value;
@@ -43,7 +49,7 @@ const EditPage = () => {
     };
 
     fetchData();
-  }, [setPostPageData]);
+  }, [id]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -105,7 +111,7 @@ const EditPage = () => {
                   type="text"
                   name="title"
                   id="title"
-                  // value={postPageData.title}
+                  value={postPageData.title}
                   placeholder={postPageData.title}
                   required
                   onChange={handleInputChange}
@@ -117,9 +123,9 @@ const EditPage = () => {
                   type="text"
                   name="artists"
                   id="artists"
-                  // value={postPageData.artists}
+                  value={postPageData.artists}
                   required
-                  onChange={handleInputChange}
+                  onChange={handleInputArtists}
                 />
               </div>
             </div>
@@ -130,7 +136,7 @@ const EditPage = () => {
                   type="text"
                   name="description"
                   id="description"
-                  // value={postPageData.description}
+                  value={postPageData.description}
                   required
                   onChange={handleInputChange}
                 />
@@ -143,7 +149,7 @@ const EditPage = () => {
                   type="text"
                   name="tid"
                   id="tid"
-                  // value={postPageData.tid}
+                  value={postPageData.tid}
                   placeholder="np. nazwa-nazwa"
                   required
                   onChange={handleInputChange}
@@ -155,7 +161,7 @@ const EditPage = () => {
                   type="text"
                   name="startDate"
                   id="startDate"
-                  // value={postPageData.startDate}
+                  value={postPageData.startDate}
                   placeholder="YYYY-MM-DD"
                   required
                   onChange={handleInputChange}
@@ -170,7 +176,7 @@ const EditPage = () => {
                   name="endDate"
                   id="endDate"
                   placeholder="YYYY-MM-DD"
-                  // value={postPageData.endDate}
+                  value={postPageData.endDate}
                   required
                   onChange={handleInputChange}
                 />
@@ -181,7 +187,7 @@ const EditPage = () => {
                   type="text"
                   name="city"
                   id="city"
-                  // value={postPageData.city}
+                  value={postPageData.city}
                   required
                   onChange={handleInputChange}
                 />
@@ -195,7 +201,7 @@ const EditPage = () => {
                   name="coverImage"
                   id="coverImage"
                   placeholder="https://example.com"
-                  // value={postPageData.coverImage}
+                  value={postPageData.coverImage}
                   required
                   onChange={handleInputChange}
                 />
@@ -206,7 +212,7 @@ const EditPage = () => {
                   type="text"
                   name="eventType"
                   id="eventType"
-                  // value={postPageData.eventType}
+                  value={postPageData.eventType}
                   required
                   onChange={handleInputChange}
                 />
@@ -221,7 +227,7 @@ const EditPage = () => {
                     type="number"
                     name="adultTicket"
                     id="adultTicket"
-                    // value={postPageData.adultTicket}
+                    value={postPageData.adultTicket}
                     required
                     onChange={handleInputChange}
                   />
@@ -232,7 +238,7 @@ const EditPage = () => {
                     type="number"
                     name="kidTicket"
                     id="kidTicket"
-                    // value={postPageData.kidTicket}
+                    value={postPageData.kidTicket}
                     required
                     onChange={handleInputChange}
                   />
@@ -245,7 +251,7 @@ const EditPage = () => {
                     type="number"
                     name="vipTicket"
                     id="vipTicket"
-                    // value={postPageData.vipTicket}
+                    value={postPageData.vipTicket}
                     required
                     onChange={handleInputChange}
                   />
@@ -256,7 +262,7 @@ const EditPage = () => {
                     type="number"
                     name="totalSeats"
                     id="totalSeats"
-                    // value={postPageData.totalSeats}
+                    value={postPageData.totalSeats}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -266,7 +272,7 @@ const EditPage = () => {
                     type="number"
                     name="availableSeats"
                     id="availableSeats"
-                    // value={postPageData.availableSeats}
+                    value={postPageData.availableSeats}
                     onChange={handleInputChange}
                   />
                 </div>

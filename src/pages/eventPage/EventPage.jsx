@@ -19,7 +19,7 @@ import LinkBack from "../components/LinkBack/LinkBack";
 
 const EventPage = () => {
   const nav = useNavigate();
-  const auth = useAuth();
+  const { auth } = useAuth();
   const { id } = useParams(); //  Getting id from url to render page based on clicked event
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,11 +55,11 @@ const EventPage = () => {
                 <div className="descp">
                   <h2>
                     Event {events.title}
-                    {/* {allowedRoles.some(i => auth?.roles?.includes(i)) && ( */}
-                    <button onClick={() => nav(`/edit-page/${id}`)}>
-                      <FontAwesomeIcon icon={faPen} />
-                    </button>
-                    {/* )} */}
+                    {allowedRoles.some(i => auth?.roles?.includes(i)) && (
+                      <button onClick={() => nav(`/edit-page/${id}`)}>
+                        <FontAwesomeIcon icon={faPen} />
+                      </button>
+                    )}
                   </h2>
                 </div>
                 <div className="date-place">
