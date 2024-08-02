@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHeart as fullHeart,
@@ -48,7 +48,7 @@ const EventPage = () => {
         // console.log(events.tid);
         if (!auth) {
             console.log("user is not logged");
-            // return 0;
+            // TU DODAC OTWIERANIE AUTHPANEL
         }
 
         try {
@@ -86,7 +86,21 @@ const EventPage = () => {
                             </div>
                             <div className="title-descp">
                                 <div className="descp">
-                                    <h2>{events.title}</h2>
+                                    <h2>
+                                        {events.title}
+
+                                        {allowedRoles.some((i) =>
+                                            auth?.roles?.includes(i)
+                                        ) && (
+                                            <button
+                                                onClick={() =>
+                                                    nav(`/edit-page/${id}`)
+                                                }
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                        )}
+                                    </h2>
                                 </div>
                                 <div className="date-place">
                                     <div className="place">

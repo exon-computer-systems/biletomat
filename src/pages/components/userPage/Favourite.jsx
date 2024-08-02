@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
 
 const Favourite = () => {
     const { auth } = useAuth();
@@ -8,7 +9,15 @@ const Favourite = () => {
 
     useEffect(() => {
         setFavorites(auth?.likedEvents);
-    });
+
+        const fetchData = async () => {
+            const res = await axios.get(`/events`);
+
+            // setFavorites();
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <section className="tickets-wrapper">
