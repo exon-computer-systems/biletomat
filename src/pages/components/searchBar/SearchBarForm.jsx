@@ -21,27 +21,20 @@ const SearchBarForm = ({ events, onSearch }) => {
     date: "",
     city: "",
   });
-  // const queryParamters = new URLSearchParams(window.location.search);
-  // const title = queryParamters.get("title");
-  // const date = queryParamters.get("date");
-  // const city = queryParamters.get("city");
-
-  // console.log(title, date, city);
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSearch(searchData);
+    const searchParams = new URLSearchParams(searchData).toString();
+    nav(`/search-results?${searchParams}`);
   };
 
   const handleChange = e => {
     setIsSelected(() => e.target.value);
     const { name, value } = e.target;
     const updatedSearchData = { ...searchData, [name]: value };
-
     setSearchData(updatedSearchData);
+    onSearch(searchData);
   };
-
-  console.log(searchData);
 
   useEffect(() => {
     setHeight(isSelected.length > 0 ? 300 : 0);
@@ -50,8 +43,8 @@ const SearchBarForm = ({ events, onSearch }) => {
   return (
     <section className="search-wrapper">
       <form
-        onChange={handleSubmit}
-        // onSubmit={() => nav(`/${title}`)}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
         className={`search-bar ${isSelected !== "" ? "active" : ""}`}
       >
         <div className="search-box search">
@@ -60,7 +53,7 @@ const SearchBarForm = ({ events, onSearch }) => {
             placeholder="Wyszukaj"
             onChange={handleChange}
             value={searchData.title}
-            name={"title"}
+            name="title"
           />
           <span></span>
         </div>
@@ -73,7 +66,6 @@ const SearchBarForm = ({ events, onSearch }) => {
             onFocus={e => (e.target.type = "date")}
             onBlur={e => (e.target.type = "text")}
             onChange={handleChange}
-            id="date"
             value={searchData.date}
             name="date"
           />
@@ -82,22 +74,15 @@ const SearchBarForm = ({ events, onSearch }) => {
         <div className="search-box localization">
           <FontAwesomeIcon className="icons" icon={faLocationDot} />
           <select onChange={handleChange} value={searchData.city} name="city">
-            <option name="poznan" id="">
-              Poznań
-            </option>
-            <option name="poznan" id="">
-              Bydgoszcz
-            </option>
-            <option name="poznan" id="">
-              Toruń
-            </option>
-            <option name="poznan" id="">
-              Warszawa
-            </option>
+            <option value=""></option>
+            <option value="Poznań">Poznań</option>
+            <option value="Bydgoszcz">Bydgoszcz</option>
+            <option value="Toruń">Toruń</option>
+            <option value="Warszawa">Warszawa</option>
           </select>
         </div>
         <div className="search-box search-btn-wrapper">
-          <button type="submit">
+          <button onSubmit={handleSubmit} type="submit">
             <FontAwesomeIcon className="icons" icon={faMagnifyingGlass} />
             Szukaj
           </button>

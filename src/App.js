@@ -8,6 +8,7 @@ import EventPage from "./pages/eventPage/EventPage";
 import RequireAuth from "./pages/components/RequireAuth";
 import UserPage from "./pages/components/userPage/UserPage";
 import EditPage from "./pages/components/editPage/EditPage";
+import SearchResults from "./pages/SearchResults.jsx/SearchResults";
 
 function App() {
   const ROLES = {
@@ -22,6 +23,7 @@ function App() {
         {/* public routes */}
         <Route path="/" element={<Home />} />
         <Route path={`/event/:id`} element={<EventPage />} />
+        <Route path="/search-results" element={<SearchResults />} />
 
         {/* protected routes */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
