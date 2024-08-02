@@ -109,6 +109,7 @@
 
 .descp {
   display: flex;
+  width: 100%;
   flex-direction: column;
   gap: 0.5rem;
   font-weight: 300;
@@ -116,9 +117,17 @@
   h2 {
     font-size: 2rem;
     font-weight: 500;
+    display: flex;
+    width: 100%;
+    gap: 3rem;
   }
-  p {
-    line-height: 150%;
+  button {
+    padding: 0.5rem;
+    border: none;
+    background-color: white;
+  }
+  svg {
+    scale: 1.7;
   }
 }
 

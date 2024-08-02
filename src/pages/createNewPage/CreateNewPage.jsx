@@ -1,19 +1,18 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./CreateNewPage.css";
+import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
 
-const EditPage = () => {
+const CreateNewPage = () => {
   const { setAuth, auth } = useAuth();
-  const { id } = useParams();
-  // const [inputData, setInputData] = useState([]);
-
+  const nav = useNavigate();
   const axiosPrivate = useAxiosPrivate();
   // const [isClicked, setIsClicked] = useState("");
   const [postPageData, setPostPageData] = useState({
     title: "",
-    artists: [],
+    artists: "",
     tid: "",
     description: "",
     startDate: "",
@@ -30,32 +29,17 @@ const EditPage = () => {
     goingFast: true,
   });
 
-  const handleInputArtists = e => {
-    const { name, value, type } = e.target;
-    const inputArtist = value.split(",");
-    setPostPageData(prev => ({ ...prev, artists: inputArtist }));
-  };
-
   const handleInputChange = e => {
     const { name, value, type } = e.target;
     const inputValue = type === "number" ? Number(value) : value;
     setPostPageData(prev => ({ ...prev, [name]: inputValue }));
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axiosPrivate.get(`/events/${id}`);
-      setPostPageData(res.data);
-    };
-
-    fetchData();
-  }, [id]);
-
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const response = await axiosPrivate.put(
-        `/events/${id}`,
+      const response = await axiosPrivate.post(
+        "/events",
         JSON.stringify(postPageData),
         {
           headers: {
@@ -75,6 +59,8 @@ const EditPage = () => {
         roles,
         accessToken,
       }));
+
+      nav("/success"); // Navigate to a success page if needed
     } catch (err) {
       if (!err?.response) {
         console.error("No server response");
@@ -94,13 +80,11 @@ const EditPage = () => {
     }
   };
 
-  console.log(postPageData);
-
   return (
     <>
       {/* <Navbar /> */}
       <section className="edit-page-container">
-        <h1>Edytuj Post</h1>
+        <h1>Dodaj Post</h1>
         <section className="edit-page-wrapper">
           <form onSubmit={handleSubmit}>
             <h2 className="ogolne">Ogólne</h2>
@@ -112,7 +96,6 @@ const EditPage = () => {
                   name="title"
                   id="title"
                   value={postPageData.title}
-                  placeholder={postPageData.title}
                   required
                   onChange={handleInputChange}
                 />
@@ -125,7 +108,7 @@ const EditPage = () => {
                   id="artists"
                   value={postPageData.artists}
                   required
-                  onChange={handleInputArtists}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -297,4 +280,4 @@ const EditPage = () => {
   );
 };
 
-export default EditPage;
+export default CreateNewPage;

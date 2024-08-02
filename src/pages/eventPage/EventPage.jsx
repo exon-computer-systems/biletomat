@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -7,7 +7,7 @@ import {
   faCalendar,
   faLocationDot,
   faAngleDown,
-  faAngleLeft,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import "./EventPage.css";
 import axios from "axios";
@@ -18,10 +18,13 @@ import useAuth from "../hooks/useAuth";
 import LinkBack from "../components/LinkBack/LinkBack";
 
 const EventPage = () => {
-  const auth = useAuth();
+  const nav = useNavigate();
+  const { auth } = useAuth();
   const { id } = useParams(); //  Getting id from url to render page based on clicked event
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const allowedRoles = [1984, 2150];
+
   // Fetching data
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +38,6 @@ const EventPage = () => {
     };
     fetchData();
   }, [id]);
-
-  console.log(auth);
 
   return (
     <>
@@ -52,7 +53,14 @@ const EventPage = () => {
               </div>
               <div className="title-descp">
                 <div className="descp">
-                  <h2>Event {events.title}</h2>
+                  <h2>
+                    Event {events.title}
+                    {allowedRoles.some(i => auth?.roles?.includes(i)) && (
+                      <button onClick={() => nav(`/edit-page/${id}`)}>
+                        <FontAwesomeIcon icon={faPen} />
+                      </button>
+                    )}
+                  </h2>
                 </div>
                 <div className="date-place">
                   <div className="place">
