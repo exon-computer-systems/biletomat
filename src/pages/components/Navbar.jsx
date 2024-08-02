@@ -10,19 +10,21 @@ import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
-import useLogout from "../hooks/useLogout";
+import AuthPanel from "./authPanel/AuthPanel";
 
-const Navbar = ({ setIsLogged, isLogged, close, open, handleAuth }) => {
+const Navbar = ({ handleLogin }) => {
     //   const [isClicked, setIsClicked] = useState(false);
-    const allowedRoles = [1984, 2150];
+
+    // const handleLogin = () => setActiveAuthPanel(true);
 
     const nav = useNavigate();
     const { auth } = useAuth();
 
-    const logout = useLogout();
+    const allowedRoles = [1984, 2150];
+    const [activeAuthPanel, setActiveAuthPanel] = useState(false);
 
-    const signOut = async () => {
-        await logout();
+    const handleAuth2 = () => {
+        auth?.email ? nav("/user") : setActiveAuthPanel(true);
     };
 
     return (
@@ -37,6 +39,7 @@ const Navbar = ({ setIsLogged, isLogged, close, open, handleAuth }) => {
                     />
                 </div>
                 <div className="icons">
+                    {/* // display button if user contains allowed role */}
                     {allowedRoles.some((i) => auth?.roles?.includes(i)) && (
                         <div className="add-post">
                             <button
@@ -51,13 +54,12 @@ const Navbar = ({ setIsLogged, isLogged, close, open, handleAuth }) => {
                             </button>
                         </div>
                     )}
-
                     <div className="login">
                         <button
                             className="nav-btn log-btn"
                             type="button"
                             // onClick={() => (isLogged ? close() : open())}
-                            onClick={handleAuth}
+                            onClick={handleAuth2}
                         >
                             <FontAwesomeIcon
                                 icon={faUser}
@@ -67,6 +69,10 @@ const Navbar = ({ setIsLogged, isLogged, close, open, handleAuth }) => {
                     </div>
                 </div>
             </header>
+
+            {activeAuthPanel && (
+                <AuthPanel handleClose={() => setActiveAuthPanel(false)} />
+            )}
         </>
     );
 };

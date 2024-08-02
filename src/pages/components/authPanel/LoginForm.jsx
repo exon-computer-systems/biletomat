@@ -9,7 +9,6 @@ const LoginForm = () => {
     const emailRef = useRef();
 
     const [userData, setUserData] = useState({
-        name: "",
         email: "",
         password: "",
     });
@@ -42,16 +41,27 @@ const LoginForm = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
+            // console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
+            const firstName = response?.data?.firstName;
+            const lastName = response?.data?.lastName;
+            const id = response?.data?.id;
+            const likedEvents = response?.data?.likedEvents;
 
             setAuth({
+                id,
                 email: userData.email,
-                password: userData.password,
+                firstName,
+                lastName,
                 roles,
                 accessToken,
+                likedEvents,
             });
+            // setUserData({
+            //     email: "",
+            //     password: "",
+            // });
         } catch (err) {
             if (!err?.response) {
                 console.error("No server response");
