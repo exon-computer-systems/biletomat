@@ -1,8 +1,8 @@
 import "./SearchBar.css";
 import {
-  faMagnifyingGlass,
-  faCalendar,
-  faLocationDot,
+    faMagnifyingGlass,
+    faCalendar,
+    faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import Searched from "./Searched";
 import { useNavigate } from "react-router-dom";
 
 const SearchBarForm = ({ events, onSearch }) => {
+
   const [isSelected, setIsSelected] = useState("");
   const [height, setHeight] = useState(0);
   const nav = useNavigate();
@@ -36,9 +37,11 @@ const SearchBarForm = ({ events, onSearch }) => {
     onSearch(searchData);
   };
 
-  useEffect(() => {
-    setHeight(isSelected.length > 0 ? 300 : 0);
-  }, [isSelected]);
+
+    useEffect(() => {
+        setHeight(isSelected.length > 0 ? "auto" : 0);
+    }, [isSelected]);
+
 
   return (
     <section className="search-wrapper">
@@ -93,6 +96,7 @@ const SearchBarForm = ({ events, onSearch }) => {
       </form>
     </section>
   );
+
 };
 
 export default SearchBarForm;
