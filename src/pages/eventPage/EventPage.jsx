@@ -79,7 +79,12 @@ const EventPage = () => {
                   </div>
                 </div>
                 <div className="btns">
-                  <button className="buy-ticket">KUP BILET</button>
+                  <button
+                    className="buy-ticket"
+                    onClick={() => nav(`/buy/${id}`)}
+                  >
+                    KUP BILET
+                  </button>
                   <button>
                     <FontAwesomeIcon icon={faHeart} className="heart-icon" />
                   </button>

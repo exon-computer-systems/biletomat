@@ -1,63 +1,115 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { useNavigate } from "react-router";
+import axios from "./api/axios";
+import { useParams } from "react-router-dom";
+
+import {
+  faAngleLeft,
+  faMinus,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./BuyTicket.css";
-
-const dataTicket = [
-  { title: "Dorośli", price: 100, name: "adults" },
-  { title: "Dzieci", price: 50, name: "children" },
-  { title: "Rodzinny 2+2", price: 280, name: "family" },
-  { title: "VIP", price: 300, name: "vip" },
-];
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BuyTicket = () => {
+  const { id } = useParams();
   const [order, setOrder] = useState({
-    adults: 0,
-    children: 0,
-    family: 0,
-    vip: 0,
+    kid_ticket: { price: 0, quantity: 0 },
+    adult_ticket: { price: 0, quantity: 0 },
+    vip_ticket: { price: 0, quantity: 0 },
   });
 
-  const calculateTotal = order => {
-    return dataTicket.reduce((sum, ticket) => {
-      return sum + ticket.price * order[ticket.name];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://biletomat-be.onrender.com/events/${id}`
+        );
+        console.log(response.data);
+        const { kid_ticket, adult_ticket, vip_ticket } = response.data;
+        setOrder({
+          kid_ticket: { price: kid_ticket, quantity: 0 },
+          adult_ticket: { price: adult_ticket, quantity: 0 },
+          vip_ticket: { price: vip_ticket, quantity: 0 },
+        });
+      } catch (error) {
+        console.error("Error fetching ticket data:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const handleIncrease = ticketType => {
+    setOrder(prevOrder => ({
+      ...prevOrder,
+      [ticketType]: {
+        ...prevOrder[ticketType],
+        quantity: prevOrder[ticketType].quantity + 1,
+      },
+    }));
+  };
+
+  const handleDecrease = ticketType => {
+    setOrder(prevOrder => ({
+      ...prevOrder,
+      [ticketType]: {
+        ...prevOrder[ticketType],
+        quantity: Math.max(prevOrder[ticketType].quantity - 1, 0),
+      },
+    }));
+  };
+
+  const calculateTotal = () => {
+    return Object.values(order).reduce((sum, { price, quantity }) => {
+      return sum + price * quantity;
     }, 0);
   };
 
-  const onChange = e => {
-    const { name, value } = e.target;
-    const updatedOrder = { ...order, [name]: parseInt(value) || 0 };
-    setOrder(updatedOrder);
-  };
-
-  const total = calculateTotal(order);
-
-  const nav = useNavigate();
+  const total = calculateTotal();
 
   return (
     <>
-      <Navbar />
       <div className="wrapper">
         <section className="container">
+          <div className="buy-txt">
+            <div className="back-btn">
+              <FontAwesomeIcon icon={faAngleLeft} />
+            </div>
+            <h1>Kup bilet</h1>
+          </div>
           <div className="ticket-descp">
-            <h1>Dawid Podsiadło</h1>
+            <h1></h1>
             <p>20.07.2024 16:00 / TORUŃ / HALA SPORTOWA</p>
           </div>
 
           <section className="choice-boxes">
-            {dataTicket.map((data, index) => (
-              <div key={index} className="choice-box">
-                <h2>{data.title}</h2>
+            {Object.entries(order).map(([ticketType, data]) => (
+              <div key={ticketType} className="choice-box">
+                <h2>{ticketType.replace("_", " ").toUpperCase()}</h2>
                 <div className="input">
-                  <span>{data.price} PLN</span>
+                  <div
+                    className="cta-btns"
+                    onClick={() => handleDecrease(ticketType)}
+                  >
+                    <FontAwesomeIcon icon={faMinus} className="minus-btn" />
+                  </div>
                   <input
-                    name={data.name}
+                    name={ticketType}
                     type="number"
-                    value={order[data.name]}
-                    onChange={onChange}
+                    value={data.quantity}
                     min={0}
+                    disabled
                   />
+                  <div
+                    className="cta-btns"
+                    onClick={() => handleIncrease(ticketType)}
+                  >
+                    <FontAwesomeIcon icon={faPlus} className="plus-btn" />
+                  </div>
                 </div>
               </div>
             ))}

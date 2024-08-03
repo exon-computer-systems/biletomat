@@ -25,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path={`/event/:id`} element={<EventPage />} />
         <Route path="/search-results" element={<SearchResults />} />
+        <Route path="/buy/:id" element={<BuyTicket />} />
 
         {/* protected routes */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
@@ -33,7 +34,6 @@ function App() {
         <Route
           element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}
         >
-          <Route path="/buy" element={<BuyTicket />} />
           <Route path="/create-new-page" element={<CreateNewPage />} />
           <Route path="/edit-page/:id" element={<EditPage />} />
         </Route>
