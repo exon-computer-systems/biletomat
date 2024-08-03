@@ -161,20 +161,60 @@ const EventPage = () => {
                         <button>bilet warszawa</button>
                         <button>bilet warszawa</button>
                     </div>
-                </section>
-                <section className="section3-wrapper">
-                    <h2>Pozostali artyści</h2>
-                    <span></span>
-                    <OtherArtists />
-                </section>
-                <section className="section4-wrapper">
-                    <h2>Pozostałe wydarzenia</h2>
-                    <span></span>
-                    <PromoSlider />
-                </section>
-            </section>
-        </>
-    );
+
+                  </div>
+                  <div className="date">
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="date-icon"
+                    />
+                    <p className="city">{events.city}</p>
+                  </div>
+                </div>
+                <div className="btns">
+                  <button
+                    className="buy-ticket"
+                    onClick={() => nav(`/buy/${id}`)}
+                  >
+                    KUP BILET
+                  </button>
+                  <button>
+                    <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+                  </button>
+                  <button>
+                    <FontAwesomeIcon icon={faShare} className="share-icon" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <FontAwesomeIcon icon={faAngleDown} className="arrow-down-btn" />
+          </section>
+        </section>
+        <section className="section2-wrapper">
+          <div className="other-tickets">
+            <span></span>
+            <h2>Pozostałe bilety</h2>
+            <button>bilet warszawa</button>
+            <button>bilet warszawa</button>
+            <button>bilet warszawa</button>
+            <button>bilet warszawa</button>
+          </div>
+        </section>
+        <section className="section3-wrapper">
+          <h2>Pozostali artyści</h2>
+          <span></span>
+          <OtherArtists />
+        </section>
+        <section className="section4-wrapper">
+          <h2>Pozostałe wydarzenia</h2>
+          <span></span>
+          <PromoSlider />
+        </section>
+      </section>
+    </>
+  );
+
+
 };
 
 export default EventPage;
