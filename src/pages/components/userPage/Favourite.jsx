@@ -12,7 +12,6 @@ const Favourite = () => {
 
         const fetchData = async () => {
             const res = await axios.get(`/events`);
-
             // setFavorites();
         };
 

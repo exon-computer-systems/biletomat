@@ -19,7 +19,6 @@ const RegisterForm = () => {
     });
     const [errorMsg, setErrorMsg] = useState("");
     const [matchPwd, setMatchPwd] = useState(false);
-    const [birthDate, setBirthDate] = useState("");
 
     const handleNextStep = (e) => {
         e.preventDefault();
@@ -45,10 +44,6 @@ const RegisterForm = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUserData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleDateChange = (e) => {
-        setBirthDate(e.target.value);
     };
 
     const handleSubmit = async (e) => {
@@ -154,10 +149,10 @@ const RegisterForm = () => {
                                 </p>
                                 <input
                                     className="apanel-input"
-                                    type="date"
+                                    type="number"
                                     name="age"
-                                    onChange={handleDateChange}
-                                    value={birthDate}
+                                    onChange={handleInputChange}
+                                    value={userData.age}
                                     required
                                 />
                             </label>

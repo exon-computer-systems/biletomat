@@ -8,6 +8,7 @@ import {
     faLocationDot,
     faAngleDown,
     faAngleLeft,
+    faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import "./EventPage.css";
@@ -21,9 +22,12 @@ import LinkBack from "../components/LinkBack/LinkBack";
 const EventPage = () => {
     const { auth, setAuth } = useAuth();
     const { id } = useParams(); //  Getting id from url to render page based on clicked event
+    const nav = useNavigate();
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isFavorite, setIsFavorite] = useState(false);
+
+    const allowedRoles = [1984, 2150];
 
     // Fetching data
     useEffect(() => {
