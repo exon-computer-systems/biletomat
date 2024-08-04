@@ -1,16 +1,31 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./RedeemTicket.css";
 import Navbar from "../components/Navbar";
+import axios from "../api/axios";
 
 const RedeemTicket = () => {
     const inputRef = useRef();
 
-    const handleRedeem = () => {
+    const [code, setCode] = useState("");
+
+    const handleRedeem = async (e) => {
+        e.preventDefault();
         console.log("Redeem Ticket");
+
+        try {
+            const response = await axios.post("/redeem", { redeemCode: code });
+            console.log(response.data.data);
+        } catch (err) {
+            console.warn(err);
+        }
+    };
+
+    const handleChange = (e) => {
+        setCode(e.target.value);
     };
 
     useEffect(() => {
-        inputRef?.current.focus();
+        inputRef.current?.focus();
     }, []);
 
     return (
@@ -24,9 +39,13 @@ const RedeemTicket = () => {
                             ref={inputRef}
                             type="text"
                             className="redeem-input"
+                            value={code}
+                            onChange={handleChange}
                         />
 
-                        <button onClick={handleRedeem}>Sprawdz bilet</button>
+                        <button className="redeem-btn" onClick={handleRedeem}>
+                            Sprawdz bilet
+                        </button>
                     </section>
                 </section>
             </section>

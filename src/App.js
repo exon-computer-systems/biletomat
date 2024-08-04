@@ -27,10 +27,10 @@ function App() {
                 <Route path={`/event/:id`} element={<EventPage />} />
                 <Route path={`/redeem`} element={<RedeemTicket />} />
                 <Route path="/search-results" element={<SearchResults />} />
+                <Route path="/user" element={<UserPage />} />
 
                 {/* protected routes */}
                 <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-                    <Route path="/user" element={<UserPage />} />
                     <Route path="/buy/:id" element={<BuyTicket />} />
                 </Route>
 

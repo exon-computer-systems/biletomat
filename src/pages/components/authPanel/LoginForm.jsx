@@ -48,6 +48,7 @@ const LoginForm = () => {
             const lastName = response?.data?.lastName;
             const id = response?.data?.id;
             const likedEvents = response?.data?.likedEvents;
+            const purchasedTickets = response?.data?.purchasedTickets;
 
             setAuth({
                 id,
@@ -57,11 +58,8 @@ const LoginForm = () => {
                 roles,
                 accessToken,
                 likedEvents,
+                purchasedTickets,
             });
-            // setUserData({
-            //     email: "",
-            //     password: "",
-            // });
         } catch (err) {
             if (!err?.response) {
                 console.error("No server response");

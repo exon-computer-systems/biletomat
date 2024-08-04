@@ -34,10 +34,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
     width: 100%;
 }
 
 .redeem-input {
     width: 80%;
+    padding: 1rem 1rem;
+}
+
+.redeem-btn {
+    width: 180px;
+    height: 60px;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    border: 1px solid hsla(0, 0%, 71%, 0.7);
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    background: linear-gradient(90deg, #485bfe 0%, #717efc 70%);
+    box-shadow: 0 4px 6px -5px #485bfe, 0 2px 4px -2px #485bfe;
+    border: none;
 }
