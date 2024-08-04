@@ -12,15 +12,16 @@ import {
 
 import "./BuyTicket.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useAuth from "./hooks/useAuth";
 
 const BuyTicket = () => {
   const { id } = useParams();
   const [order, setOrder] = useState({
-    kid_ticket: { price: 0, quantity: 0 },
-    adult_ticket: { price: 0, quantity: 0 },
-    vip_ticket: { price: 0, quantity: 0 },
+    kidTicket: { price: 0, quantity: 0 },
+    adultTicket: { price: 0, quantity: 0 },
+    vipTicket: { price: 0, quantity: 0 },
   });
-
+  const { auth } = useAuth();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -29,12 +30,13 @@ const BuyTicket = () => {
         const response = await axios.get(
           `https://biletomat-be.onrender.com/events/${id}`
         );
-        console.log(response.data);
-        const { kid_ticket, adult_ticket, vip_ticket } = response.data;
+        console.log(response.data._id);
+        console.log("email", auth.id);
+        const { kidTicket, adultTicket, vipTicket } = response.data;
         setOrder({
-          kid_ticket: { price: kid_ticket, quantity: 0 },
-          adult_ticket: { price: adult_ticket, quantity: 0 },
-          vip_ticket: { price: vip_ticket, quantity: 0 },
+          kidTicket: { price: kidTicket, quantity: 0 },
+          adultTicket: { price: adultTicket, quantity: 0 },
+          vipTicket: { price: vipTicket, quantity: 0 },
         });
       } catch (error) {
         console.error("Error fetching ticket data:", error);
@@ -82,7 +84,7 @@ const BuyTicket = () => {
             <h1>Kup bilet</h1>
           </div>
           <div className="ticket-descp">
-            <h1></h1>
+            <h1>{}</h1>
             <p>20.07.2024 16:00 / TORUŃ / HALA SPORTOWA</p>
           </div>
 
