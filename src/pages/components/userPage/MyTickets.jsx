@@ -28,6 +28,7 @@ const MyTickets = () => {
             try {
                 console.log("Fetching tickets for user:", auth.id);
 
+                console.log(auth.purchasedTickets);
                 setCryptedTickets(auth.purchasedTickets);
 
                 const response = await axiosPrivate.post("/tickets", {
@@ -63,13 +64,15 @@ const MyTickets = () => {
                     cryptedTickets.map((el) => {
                         console.log(el);
                         return (
-                            <QRCode
-                                title="Test"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                                value={el}
-                                size={400}
-                            />
+                            <section className="ticket">
+                                <QRCode
+                                    title="Test"
+                                    bgColor="#FFFFFF"
+                                    fgColor="#000000"
+                                    value={el}
+                                    size={300}
+                                />
+                            </section>
                         );
                     })}
             </section>
