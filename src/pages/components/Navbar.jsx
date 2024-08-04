@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     faHeart,
     faUser,
@@ -12,18 +12,14 @@ import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import AuthPanel from "./authPanel/AuthPanel";
 
-const Navbar = ({ handleLogin }) => {
-    //   const [isClicked, setIsClicked] = useState(false);
-
-    // const handleLogin = () => setActiveAuthPanel(true);
-
+const Navbar = ({ handlePanel }) => {
     const nav = useNavigate();
     const { auth } = useAuth();
 
     const allowedRoles = [1984, 2150];
     const [activeAuthPanel, setActiveAuthPanel] = useState(false);
 
-    const handleAuth2 = () => {
+    const handleAuth = () => {
         auth?.email ? nav("/user") : setActiveAuthPanel(true);
     };
 
@@ -45,7 +41,7 @@ const Navbar = ({ handleLogin }) => {
                             <button
                                 className="nav-btn fav-btn"
                                 type="button"
-                                onClick={() => nav("/edit-page")}
+                                onClick={() => nav("/create-new-page")}
                             >
                                 <FontAwesomeIcon
                                     icon={faPlus}
@@ -59,7 +55,7 @@ const Navbar = ({ handleLogin }) => {
                             className="nav-btn log-btn"
                             type="button"
                             // onClick={() => (isLogged ? close() : open())}
-                            onClick={handleAuth2}
+                            onClick={handleAuth}
                         >
                             <FontAwesomeIcon
                                 icon={faUser}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import "./EventPage.css";
-import axios from "../api/axios";
+import axios, { axiosPrivate } from "../api/axios";
 import PromoSlider from "../components/promoSlider/PromoSlider";
 import OtherArtists from "../otherArtists/OtherArtistsList";
 import NavBar from "../components/Navbar";
@@ -23,6 +23,7 @@ const EventPage = () => {
     const { auth, setAuth } = useAuth();
     const { id } = useParams(); //  Getting id from url to render page based on clicked event
     const nav = useNavigate();
+
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -56,7 +57,7 @@ const EventPage = () => {
         }
 
         try {
-            const response = await axios.put(
+            const response = await axiosPrivate.put(
                 `/users/${auth.id}`,
                 JSON.stringify({
                     tid: events.tid,
@@ -130,7 +131,10 @@ const EventPage = () => {
                                     </div>
                                 </div>
                                 <div className="btns">
-                                    <button className="buy-ticket">
+                                    <button
+                                        className="buy-ticket"
+                                        // onClick={handleBuy}
+                                    >
                                         KUP BILET
                                     </button>
                                     <button onClick={handleFavorite}>
