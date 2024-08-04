@@ -64,16 +64,7 @@ const EditPage = () => {
                     withCredentials: true,
                 }
             );
-
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-
-            setAuth((prevAuth) => ({
-                ...prevAuth,
-                ...postPageData,
-                roles,
-                accessToken,
-            }));
+            console.log(response);
         } catch (err) {
             if (!err?.response) {
                 console.error("No server response");

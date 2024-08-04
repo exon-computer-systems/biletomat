@@ -10,6 +10,7 @@ import UserPage from "./pages/components/userPage/UserPage";
 import CreateNewPage from "./pages/createNewPage/CreateNewPage";
 import SearchResults from "./pages/SearchResults.jsx/SearchResults";
 import EditPage from "./pages/editPage/EditPage";
+import RedeemTicket from "./pages/redeemTicket/RedeemTicket";
 
 function App() {
     const ROLES = {
@@ -24,6 +25,7 @@ function App() {
                 {/* public routes */}
                 <Route path="/" element={<Home />} />
                 <Route path={`/event/:id`} element={<EventPage />} />
+                <Route path={`/redeem`} element={<RedeemTicket />} />
                 <Route path="/search-results" element={<SearchResults />} />
 
                 {/* protected routes */}

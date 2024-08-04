@@ -1,0 +1,43 @@
+.redeem-cont {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.redeem {
+    width: 800px;
+    height: 1200px;
+    border-radius: 0.75rem;
+    background-color: white;
+    padding: 10rem 5rem;
+
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 3rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+        0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.redeem-title {
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.redeem-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.redeem-input {
+    width: 80%;
+}
