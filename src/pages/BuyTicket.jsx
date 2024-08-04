@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { useNavigate } from "react-router";
-import axios from "./api/axios";
+import axios, { axiosPrivate } from "./api/axios";
 import { useParams } from "react-router-dom";
 
 import {
@@ -12,16 +12,25 @@ import {
 
 import "./BuyTicket.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useAuth from "./hooks/useAuth";
 
 const BuyTicket = () => {
   const { id } = useParams();
   const [order, setOrder] = useState({
-    kid_ticket: { price: 0, quantity: 0 },
-    adult_ticket: { price: 0, quantity: 0 },
-    vip_ticket: { price: 0, quantity: 0 },
+    kidTicket: { price: 0, quantity: 0 },
+    adultTicket: { price: 0, quantity: 0 },
+    vipTicket: { price: 0, quantity: 0 },
   });
-
-  const [data, setData] = useState([]);
+  const { auth, setAuth } = useAuth();
+  const [data, setData] = useState({
+    eventId: "",
+    userId: "",
+    tickets: {
+      adultTicket: 0,
+      kidTicket: 0,
+      vipTicket: 0,
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,12 +38,22 @@ const BuyTicket = () => {
         const response = await axios.get(
           `https://biletomat-be.onrender.com/events/${id}`
         );
-        console.log(response.data);
-        const { kid_ticket, adult_ticket, vip_ticket } = response.data;
+        const event_id = response.data._id;
+
+        const { kidTicket, adultTicket, vipTicket } = response.data;
         setOrder({
-          kid_ticket: { price: kid_ticket, quantity: 0 },
-          adult_ticket: { price: adult_ticket, quantity: 0 },
-          vip_ticket: { price: vip_ticket, quantity: 0 },
+          kidTicket: { price: kidTicket, quantity: 0 },
+          adultTicket: { price: adultTicket, quantity: 0 },
+          vipTicket: { price: vipTicket, quantity: 0 },
+        });
+        setData({
+          eventId: event_id,
+          userId: auth.id,
+          tickets: {
+            adultTicket: order.adultTicket.quantity,
+            kidTicket: order.kidTicket.quantity,
+            vipTicket: order.vipTicket.quantity,
+          },
         });
       } catch (error) {
         console.error("Error fetching ticket data:", error);
@@ -42,6 +61,41 @@ const BuyTicket = () => {
     };
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    setData(prevData => ({
+      ...prevData,
+      tickets: {
+        adultTicket: order.adultTicket.quantity,
+        kidTicket: order.kidTicket.quantity,
+        vipTicket: order.vipTicket.quantity,
+      },
+    }));
+  }, [order]);
+
+  const handleSubmitData = async e => {
+    e.preventDefault();
+    try {
+      const response = await axiosPrivate.post("/buy", JSON.stringify(data), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+
+      setAuth(prevAuth => ({
+        ...prevAuth,
+        ...data,
+        roles,
+        accessToken,
+      }));
+    } catch (err) {
+      console.error("Cannot post data: ", err);
+    }
+  };
+  console.log(data);
 
   const handleIncrease = ticketType => {
     setOrder(prevOrder => ({
@@ -82,7 +136,7 @@ const BuyTicket = () => {
             <h1>Kup bilet</h1>
           </div>
           <div className="ticket-descp">
-            <h1></h1>
+            <h1>{}</h1>
             <p>20.07.2024 16:00 / TORUŃ / HALA SPORTOWA</p>
           </div>
 
@@ -119,7 +173,7 @@ const BuyTicket = () => {
             <h2>
               Całość - <span>{total} PLN</span>
             </h2>
-            <button>REZERWUJ</button>
+            <button onClick={handleSubmitData}>REZERWUJ</button>
           </div>
         </section>
       </div>
