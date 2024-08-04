@@ -70,17 +70,71 @@ const RegisterForm = ({ handleClose, setResponse }) => {
       // login after success register
       if (response.data.success) {
         try {
-          const response = await axios.post(
-            "/auth",
-            // "https://biletomat-be.onrender.com/auth",
-            // "http://localhost:3500/auth",
-            JSON.stringify({
-              email: userData.email,
-              password: userData.password,
-            }),
-            {
-              headers: { "Content-Type": "application/json" },
-              withCredentials: true,
+
+            const response = await axios.post(
+                "/register",
+                JSON.stringify({
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    password: userData.password,
+                    age: userData.age,
+                }),
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
+            console.log(JSON.stringify(response?.data.success));
+
+            // login after success register
+            if (response.data.success) {
+                try {
+                    const response = await axios.post(
+                        "/auth",
+                        // "https://biletomat-be.onrender.com/auth",
+                        // "http://localhost:3500/auth",
+                        {
+                            email: userData.email,
+                            password: userData.password,
+                        },
+                        {
+                            headers: { "Content-Type": "application/json" },
+                            withCredentials: true,
+                        }
+                    );
+                    console.log(JSON.stringify(response?.data));
+                    //console.log(JSON.stringify(response));
+                    const accessToken = response?.data?.accessToken;
+                    const roles = response?.data?.roles;
+                    const firstName = response?.data?.firstName;
+                    const lastName = response?.data?.lastName;
+                    const id = response?.data?.id;
+                    const likedEvents = response?.data?.likedEvents;
+                    const purchasedTickets = response?.data?.purchasedTickets;
+
+                    setAuth({
+                        id,
+                        email: userData.email,
+                        firstName,
+                        lastName,
+                        roles,
+                        accessToken,
+                        likedEvents,
+                        purchasedTickets,
+                    });
+                } catch (err) {
+                    if (!err?.response) {
+                        console.error("No server response");
+                    } else if (err.response?.status == 400) {
+                        console.error("Missing username or password");
+                    } else if (err.response?.status == 401) {
+                        console.error("Unauthorized");
+                    } else {
+                        console.error("Login failed");
+                    }
+                }
+
             }
           );
           console.log(JSON.stringify(response?.data));

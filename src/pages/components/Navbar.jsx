@@ -5,6 +5,7 @@ import {
     faRightFromBracket,
     faPlusCircle,
     faPlus,
+    faQrcode,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -50,6 +51,18 @@ const Navbar = ({ handlePanel }) => {
                             </button>
                         </div>
                     )}
+                    <div className="scan">
+                        <button
+                            className="nav-btn log-btn"
+                            type="button"
+                            onClick={() => nav("/redeem")}
+                        >
+                            <FontAwesomeIcon
+                                icon={faQrcode}
+                                className="nav-icn"
+                            />
+                        </button>
+                    </div>
                     <div className="login">
                         <button
                             className="nav-btn log-btn"
