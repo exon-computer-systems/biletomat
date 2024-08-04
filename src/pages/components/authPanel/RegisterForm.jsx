@@ -74,10 +74,10 @@ const RegisterForm = () => {
                         "/auth",
                         // "https://biletomat-be.onrender.com/auth",
                         // "http://localhost:3500/auth",
-                        JSON.stringify({
+                        {
                             email: userData.email,
                             password: userData.password,
-                        }),
+                        },
                         {
                             headers: { "Content-Type": "application/json" },
                             withCredentials: true,
@@ -87,12 +87,21 @@ const RegisterForm = () => {
                     //console.log(JSON.stringify(response));
                     const accessToken = response?.data?.accessToken;
                     const roles = response?.data?.roles;
+                    const firstName = response?.data?.firstName;
+                    const lastName = response?.data?.lastName;
+                    const id = response?.data?.id;
+                    const likedEvents = response?.data?.likedEvents;
+                    const purchasedTickets = response?.data?.purchasedTickets;
 
                     setAuth({
+                        id,
                         email: userData.email,
-                        password: userData.password,
+                        firstName,
+                        lastName,
                         roles,
                         accessToken,
+                        likedEvents,
+                        purchasedTickets,
                     });
                 } catch (err) {
                     if (!err?.response) {

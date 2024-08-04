@@ -12,7 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import "./EventPage.css";
-import axios, { axiosPrivate } from "../api/axios";
+import axios from "../api/axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import PromoSlider from "../components/promoSlider/PromoSlider";
 import OtherArtists from "../otherArtists/OtherArtistsList";
 import NavBar from "../components/Navbar";
@@ -23,6 +24,7 @@ const EventPage = () => {
     const { auth, setAuth } = useAuth();
     const { id } = useParams(); //  Getting id from url to render page based on clicked event
     const nav = useNavigate();
+    const axiosPrivate = useAxiosPrivate();
 
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -59,9 +61,9 @@ const EventPage = () => {
         try {
             const response = await axiosPrivate.put(
                 `/users/${auth.id}`,
-                JSON.stringify({
+                {
                     tid: events.tid,
-                }),
+                },
                 {
                     headers: { "Content-Type": "application/json" },
                     withCredentials: true,
