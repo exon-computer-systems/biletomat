@@ -77,9 +77,15 @@ const EventPage = () => {
     }
   };
 
-  return (
-    <>
-      <NavBar />
+
+    const handleBuy = () => {
+        auth?.email ? nav(`/buy/${id}`) : console.log("user is not logged");
+    };
+
+    return (
+        <>
+            <NavBar />
+
 
       <section className="event-page-container">
         <LinkBack />
@@ -94,19 +100,82 @@ const EventPage = () => {
                   <h2>
                     {events.title}
 
-                    {allowedRoles.some(i => auth?.roles?.includes(i)) && (
-                      <button onClick={() => nav(`/edit-page/${id}`)}>
-                        <FontAwesomeIcon icon={faPen} />
-                      </button>
-                    )}
-                  </h2>
-                </div>
-                <div className="date-place">
-                  <div className="place">
-                    <FontAwesomeIcon icon={faCalendar} className="place-icon" />
-                    <div className="place-info">
-                      <p className="start-date">{events.startDate}</p>
-                      <p className="hours">19:00 - 21:00</p>
+
+                                        {allowedRoles.some((i) =>
+                                            auth?.roles?.includes(i)
+                                        ) && (
+                                            <button
+                                                onClick={() =>
+                                                    nav(`/edit-page/${id}`)
+                                                }
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                        )}
+                                    </h2>
+                                </div>
+                                <div className="date-place">
+                                    <div className="place">
+                                        <FontAwesomeIcon
+                                            icon={faCalendar}
+                                            className="place-icon"
+                                        />
+                                        <div className="place-info">
+                                            <p className="start-date">
+                                                {events.startDate}
+                                            </p>
+                                            <p className="hours">
+                                                19:00 - 21:00
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="date">
+                                        <FontAwesomeIcon
+                                            icon={faLocationDot}
+                                            className="date-icon"
+                                        />
+                                        <p className="city">{events.city}</p>
+                                    </div>
+                                </div>
+                                <div className="btns">
+                                    <button
+                                        className="buy-ticket"
+                                        onClick={handleBuy}
+                                    >
+                                        KUP BILET
+                                    </button>
+                                    <button onClick={handleFavorite}>
+                                        <FontAwesomeIcon
+                                            icon={
+                                                isFavorite
+                                                    ? fullHeart
+                                                    : emptyHeart
+                                            }
+                                            className="heart-icon"
+                                        />
+                                    </button>
+                                    <button>
+                                        <FontAwesomeIcon
+                                            icon={faShare}
+                                            className="share-icon"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>{events.description}</p>
+                    </section>
+                </section>
+                <section className="section2-wrapper">
+                    <div className="other-tickets">
+                        <span></span>
+                        <h2>Pozostałe bilety</h2>
+                        <button>bilet warszawa</button>
+                        <button>bilet warszawa</button>
+                        <button>bilet warszawa</button>
+                        <button>bilet warszawa</button>
+
                     </div>
                   </div>
                   <div className="date">
