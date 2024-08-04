@@ -13,6 +13,7 @@ import "./BuyTicket.css";
 
 const BuyTicket = () => {
     const { id } = useParams();
+    const { setAuth } = useAuth();
     const [order, setOrder] = useState({
         adultTicket: { price: 0, quantity: 0 },
         kidTicket: { price: 0, quantity: 0 },
@@ -81,6 +82,11 @@ const BuyTicket = () => {
                     withCredentials: true,
                 }
             );
+
+            setAuth((prev) => ({
+                ...prev,
+                purchasedTickets: [...prev.purchasedTickets, response.data],
+            }));
             if (response.status === 201) {
                 setResponse(true);
                 console.log(response.data);

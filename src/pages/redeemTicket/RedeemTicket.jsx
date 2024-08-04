@@ -91,7 +91,7 @@ const RedeemTicket = () => {
 
     return (
         <>
-            <Navbar />
+            {!showConfirmation && <Navbar />}
 
             {showConfirmation ? (
                 <Confirmation confirmationData={data} />
