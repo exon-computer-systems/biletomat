@@ -77,15 +77,13 @@ const EventPage = () => {
     }
   };
 
+  const handleBuy = () => {
+    auth?.email ? nav(`/buy/${id}`) : console.log("user is not logged");
+  };
 
-    const handleBuy = () => {
-        auth?.email ? nav(`/buy/${id}`) : console.log("user is not logged");
-    };
-
-    return (
-        <>
-            <NavBar />
-
+  return (
+    <>
+      <NavBar />
 
       <section className="event-page-container">
         <LinkBack />
@@ -100,82 +98,19 @@ const EventPage = () => {
                   <h2>
                     {events.title}
 
-
-                                        {allowedRoles.some((i) =>
-                                            auth?.roles?.includes(i)
-                                        ) && (
-                                            <button
-                                                onClick={() =>
-                                                    nav(`/edit-page/${id}`)
-                                                }
-                                            >
-                                                <FontAwesomeIcon icon={faPen} />
-                                            </button>
-                                        )}
-                                    </h2>
-                                </div>
-                                <div className="date-place">
-                                    <div className="place">
-                                        <FontAwesomeIcon
-                                            icon={faCalendar}
-                                            className="place-icon"
-                                        />
-                                        <div className="place-info">
-                                            <p className="start-date">
-                                                {events.startDate}
-                                            </p>
-                                            <p className="hours">
-                                                19:00 - 21:00
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="date">
-                                        <FontAwesomeIcon
-                                            icon={faLocationDot}
-                                            className="date-icon"
-                                        />
-                                        <p className="city">{events.city}</p>
-                                    </div>
-                                </div>
-                                <div className="btns">
-                                    <button
-                                        className="buy-ticket"
-                                        onClick={handleBuy}
-                                    >
-                                        KUP BILET
-                                    </button>
-                                    <button onClick={handleFavorite}>
-                                        <FontAwesomeIcon
-                                            icon={
-                                                isFavorite
-                                                    ? fullHeart
-                                                    : emptyHeart
-                                            }
-                                            className="heart-icon"
-                                        />
-                                    </button>
-                                    <button>
-                                        <FontAwesomeIcon
-                                            icon={faShare}
-                                            className="share-icon"
-                                        />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p>{events.description}</p>
-                    </section>
-                </section>
-                <section className="section2-wrapper">
-                    <div className="other-tickets">
-                        <span></span>
-                        <h2>Pozostałe bilety</h2>
-                        <button>bilet warszawa</button>
-                        <button>bilet warszawa</button>
-                        <button>bilet warszawa</button>
-                        <button>bilet warszawa</button>
-
+                    {allowedRoles.some(i => auth?.roles?.includes(i)) && (
+                      <button onClick={() => nav(`/edit-page/${id}`)}>
+                        <FontAwesomeIcon icon={faPen} />
+                      </button>
+                    )}
+                  </h2>
+                </div>
+                <div className="date-place">
+                  <div className="place">
+                    <FontAwesomeIcon icon={faCalendar} className="place-icon" />
+                    <div className="place-info">
+                      <p className="start-date">{events.startDate}</p>
+                      <p className="hours">19:00 - 21:00</p>
                     </div>
                   </div>
                   <div className="date">
@@ -187,10 +122,7 @@ const EventPage = () => {
                   </div>
                 </div>
                 <div className="btns">
-                  <button
-                    className="buy-ticket"
-                    onClick={() => nav(`/buy/${id}`)}
-                  >
+                  <button className="buy-ticket" onClick={handleBuy}>
                     KUP BILET
                   </button>
                   <button onClick={handleFavorite}>
@@ -209,26 +141,26 @@ const EventPage = () => {
             <p>{events.description}</p>
           </section>
         </section>
-        <section className="section2-wrapper">
-          <div className="other-tickets">
-            <span></span>
-            <h2>Pozostałe bilety</h2>
-            <button>bilet warszawa</button>
-            <button>bilet warszawa</button>
-            <button>bilet warszawa</button>
-            <button>bilet warszawa</button>
-          </div>
-        </section>
-        <section className="section3-wrapper">
-          <h2>Pozostali artyści</h2>
+      </section>
+      <section className="section2-wrapper">
+        <div className="other-tickets">
           <span></span>
-          <OtherArtists />
-        </section>
-        <section className="section4-wrapper">
-          <h2>Pozostałe wydarzenia</h2>
-          <span></span>
-          <PromoSlider />
-        </section>
+          <h2>Pozostałe bilety</h2>
+          <button>bilet warszawa</button>
+          <button>bilet warszawa</button>
+          <button>bilet warszawa</button>
+          <button>bilet warszawa</button>
+        </div>
+      </section>
+      <section className="section3-wrapper">
+        <h2>Pozostali artyści</h2>
+        <span></span>
+        <OtherArtists />
+      </section>
+      <section className="section4-wrapper">
+        <h2>Pozostałe wydarzenia</h2>
+        <span></span>
+        <PromoSlider />
       </section>
     </>
   );
