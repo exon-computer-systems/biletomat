@@ -77,6 +77,10 @@ const EventPage = () => {
         }
     };
 
+    const handleBuy = () => {
+        auth?.email ? nav(`/buy/${id}`) : console.log("user is not logged");
+    };
+
     return (
         <>
             <NavBar />
@@ -133,7 +137,7 @@ const EventPage = () => {
                                 <div className="btns">
                                     <button
                                         className="buy-ticket"
-                                        onClick={() => nav(`/buy/${id}`)}
+                                        onClick={handleBuy}
                                     >
                                         KUP BILET
                                     </button>
