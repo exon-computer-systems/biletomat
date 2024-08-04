@@ -24,7 +24,7 @@ const Favourite = () => {
                 <h1>Ulubione</h1>
             </div>
             <section className="tickets">
-                {favorites.length > 0 &&
+                {favorites?.length > 0 &&
                     favorites.map((el) => (
                         <div className="ticket" key={el}>
                             <div className="ticket-wrapper">
