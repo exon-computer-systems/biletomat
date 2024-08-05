@@ -231,3 +231,10 @@ ul {
 .ticket-btn > svg {
     font-size: 1rem;
 }
+
+.user-page-container {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: white;
+}
