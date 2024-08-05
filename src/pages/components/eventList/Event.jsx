@@ -1,9 +1,4 @@
-import {
-  faCircle,
-  faClock,
-  faPercent,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navigate, useNavigate } from "react-router-dom";
 
