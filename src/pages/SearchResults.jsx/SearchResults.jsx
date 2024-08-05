@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import Navbar from "../components/Navbar";
 import "./SearchResults.css";
@@ -10,6 +10,8 @@ const SearchResults = () => {
   const [eventResults, setEventResults] = useState([]);
   const location = useLocation();
   const [isClicked, setIsClicked] = useState(false);
+  const nav = useNavigate();
+  const [eventId, setEventId] = useState("");
 
   const handleClick = () => {
     setIsClicked(() => !isClicked);
@@ -19,7 +21,7 @@ const SearchResults = () => {
   const searchParams = {
     title: queryParams.get("title") || "",
     artists: queryParams.get("artists") || "",
-    date: queryParams.get("date") || "",
+    startDate: queryParams.get("startDate") || "",
     city: queryParams.get("city") || "",
   };
 
@@ -28,6 +30,7 @@ const SearchResults = () => {
       const response = await axios.get(`/events/search`, {
         params: searchParams,
       });
+      console.log(response.data);
       setEventResults(response.data);
     };
 
@@ -38,9 +41,9 @@ const SearchResults = () => {
     <>
       <Navbar />
       <section className="search-results-container">
-        <h2>
+        <h2 className="results-query">
           Wyniki wyszukiwania dla: "
-          {searchParams.title || searchParams.date || searchParams.city}"
+          {searchParams.title || searchParams.starDate || searchParams.city}"
         </h2>
         {eventResults.length > 0 ? (
           eventResults.map((event, i) => (
@@ -61,11 +64,11 @@ const SearchResults = () => {
                   </div>
                   <button>Sprawdź bilet</button>
                 </section>
-              </section>{" "}
+              </section>
             </>
           ))
         ) : (
-          <p>No results found</p>
+          <p>Nie znaleziono wyników</p>
         )}
       </section>
     </>
