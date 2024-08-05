@@ -20,7 +20,7 @@ const AuthPanel = ({ handleClose }) => {
                 className={`apanel-switch-btn ${showLogin ? "active" : ""}`}
                 onClick={() => setShowLogin(true)}
               >
-                Login
+                LogIn
               </button>
               <span className="vert-line"></span>
               <button

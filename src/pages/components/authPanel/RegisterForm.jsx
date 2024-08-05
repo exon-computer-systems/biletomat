@@ -15,7 +15,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
     email: "",
     password: "",
     passwordConfirmation: "",
-    age: 22,
+    age: null,
   });
   const [errorMsg, setErrorMsg] = useState("");
   const [matchPwd, setMatchPwd] = useState(false);
@@ -66,75 +66,20 @@ const RegisterForm = ({ handleClose, setResponse }) => {
         }
       );
       console.log(JSON.stringify(response?.data.success));
-
       // login after success register
       if (response.data.success) {
         try {
-
-            const response = await axios.post(
-                "/register",
-                JSON.stringify({
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    email: userData.email,
-                    password: userData.password,
-                    age: userData.age,
-                }),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
-                }
-            );
-            console.log(JSON.stringify(response?.data.success));
-
-            // login after success register
-            if (response.data.success) {
-                try {
-                    const response = await axios.post(
-                        "/auth",
-                        // "https://biletomat-be.onrender.com/auth",
-                        // "http://localhost:3500/auth",
-                        {
-                            email: userData.email,
-                            password: userData.password,
-                        },
-                        {
-                            headers: { "Content-Type": "application/json" },
-                            withCredentials: true,
-                        }
-                    );
-                    console.log(JSON.stringify(response?.data));
-                    //console.log(JSON.stringify(response));
-                    const accessToken = response?.data?.accessToken;
-                    const roles = response?.data?.roles;
-                    const firstName = response?.data?.firstName;
-                    const lastName = response?.data?.lastName;
-                    const id = response?.data?.id;
-                    const likedEvents = response?.data?.likedEvents;
-                    const purchasedTickets = response?.data?.purchasedTickets;
-
-                    setAuth({
-                        id,
-                        email: userData.email,
-                        firstName,
-                        lastName,
-                        roles,
-                        accessToken,
-                        likedEvents,
-                        purchasedTickets,
-                    });
-                } catch (err) {
-                    if (!err?.response) {
-                        console.error("No server response");
-                    } else if (err.response?.status == 400) {
-                        console.error("Missing username or password");
-                    } else if (err.response?.status == 401) {
-                        console.error("Unauthorized");
-                    } else {
-                        console.error("Login failed");
-                    }
-                }
-
+          const response = await axios.post(
+            "/auth",
+            // "https://biletomat-be.onrender.com/auth",
+            // "http://localhost:3500/auth",
+            {
+              email: userData.email,
+              password: userData.password,
+            },
+            {
+              headers: { "Content-Type": "application/json" },
+              withCredentials: true,
             }
           );
           console.log(JSON.stringify(response?.data));
@@ -142,16 +87,22 @@ const RegisterForm = ({ handleClose, setResponse }) => {
           setResponse(true);
           const accessToken = response?.data?.accessToken;
           const roles = response?.data?.roles;
+          const firstName = response?.data?.firstName;
+          const lastName = response?.data?.lastName;
+          const id = response?.data?.id;
+          const likedEvents = response?.data?.likedEvents;
+          const purchasedTickets = response?.data?.purchasedTickets;
 
           setAuth({
+            id,
             email: userData.email,
-            password: userData.password,
+            firstName,
+            lastName,
             roles,
             accessToken,
+            likedEvents,
+            purchasedTickets,
           });
-          setTimeout(() => {
-            handleClose();
-          }, 2000);
         } catch (err) {
           if (!err?.response) {
             console.error("No server response");
@@ -164,6 +115,10 @@ const RegisterForm = ({ handleClose, setResponse }) => {
           }
         }
       }
+
+      setTimeout(() => {
+        handleClose();
+      }, 2000);
     } catch (err) {
       console.error(err);
     }
@@ -177,7 +132,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
           {nextStep ? (
             <>
               <label className="register-label apanel-label">
-                <p className="register-label-text">First name</p>
+                <p className="register-label-text">Imię</p>
                 <input
                   className="apanel-input"
                   type="text"
@@ -188,7 +143,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
                 />
               </label>
               <label className="register-label apanel-label">
-                <p className="register-label-text">Last name</p>
+                <p className="register-label-text">Nazwisko</p>
                 <input
                   className="apanel-input"
                   type="text"
@@ -200,7 +155,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
               </label>
 
               <label className="register-label apanel-label">
-                <p className="register-label-text">Date of birth</p>
+                <p className="register-label-text">Wiek</p>
                 <input
                   className="apanel-input"
                   type="number"
@@ -226,7 +181,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
                 />
               </label>
               <label className="register-label apanel-label">
-                <p className="register-label-text">Password</p>
+                <p className="register-label-text">Hasło</p>
                 <input
                   className="apanel-input"
                   type="password"
@@ -237,7 +192,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
                 />
               </label>
               <label className="register-label apanel-label">
-                <p className="register-label-text">Confirm password</p>
+                <p className="register-label-text">Potwierdź hasło</p>
                 <input
                   className="apanel-input"
                   type="password"
@@ -259,14 +214,14 @@ const RegisterForm = ({ handleClose, setResponse }) => {
                 className="register-btn apanel-btn"
                 onClick={() => setNextStep(false)}
               >
-                Go back
+                Wstecz
               </button>
               <button
                 type="submit"
                 className="register-btn apanel-btn"
                 onSubmit={handleSubmit}
               >
-                Register
+                Zarejestruj
               </button>
             </>
           ) : (
@@ -283,7 +238,7 @@ const RegisterForm = ({ handleClose, setResponse }) => {
               className="register-btn apanel-btn"
               onClick={handleNextStep}
             >
-              Next step
+              Dalej
             </button>
           )}
         </section>
