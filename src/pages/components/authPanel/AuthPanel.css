@@ -136,13 +136,13 @@
   height: 60px;
   border-radius: 20px;
   border: none;
-  background-color: white;
+  font-size: 1rem;
   border: 1px solid hsla(0, 0%, 71%, 0.7);
   cursor: pointer;
   color: white;
   font-weight: 500;
-  background: linear-gradient(90deg, #485bfe 0%, #717efc 70%);
-  box-shadow: 0 4px 6px -5px #485bfe, 0 2px 4px -2px #485bfe;
+  background-color: #0254bc;
+  box-shadow: 0 4px 6px -5px#0254bc, 0 2px 4px -2px#0254bc;
   border: none;
 }
 

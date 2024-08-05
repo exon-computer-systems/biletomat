@@ -98,7 +98,7 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
           </label>
 
           <label className="login-label apanel-label">
-            <p className="login-label-text">Password</p>
+            <p className="login-label-text">Hasło</p>
             <input
               className="apanel-input"
               type="password"
@@ -111,7 +111,7 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
           <p className="apanel-error">{errorMsg}</p>
         </section>
         <button className="login-btn apanel-btn" type="submit">
-          Login
+          Zaloguj
         </button>
       </form>
     </section>
