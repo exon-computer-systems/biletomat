@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios, { axiosPrivate } from "./api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +12,7 @@ import useAuth from "./hooks/useAuth";
 import "./BuyTicket.css";
 
 const BuyTicket = () => {
+    const nav = useNavigate();
     const { id } = useParams();
     const { setAuth } = useAuth();
     const [order, setOrder] = useState({
@@ -163,7 +164,7 @@ const BuyTicket = () => {
                 <div className="wrapper">
                     <section className="container">
                         <div className="buy-txt">
-                            <div className="back-btn">
+                            <div className="back-btn" onClick={() => nav("/")}>
                                 <FontAwesomeIcon icon={faAngleLeft} />
                             </div>
                             <h1>Kup bilet</h1>
