@@ -94,6 +94,7 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
               value={userData.email}
               ref={emailRef}
               required
+              autoComplete="off"
             />
           </label>
 
