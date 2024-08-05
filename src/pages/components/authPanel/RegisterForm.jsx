@@ -127,7 +127,11 @@ const RegisterForm = ({ handleClose, setResponse }) => {
   return (
     <section className="apanel-form-cont register-form-cont">
       <h1 className="apanel-title register-title">Utwórz konto</h1>
-      <form className="register-form apanel-form" onSubmit={handleSubmit}>
+      <form
+        className="register-form apanel-form"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
         <section className="apanel-inputs">
           {nextStep ? (
             <>

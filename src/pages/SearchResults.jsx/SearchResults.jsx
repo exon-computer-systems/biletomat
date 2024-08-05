@@ -9,13 +9,7 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 const SearchResults = () => {
   const [eventResults, setEventResults] = useState([]);
   const location = useLocation();
-  const [isClicked, setIsClicked] = useState(false);
   const nav = useNavigate();
-  const [eventId, setEventId] = useState("");
-
-  const handleClick = () => {
-    setIsClicked(() => !isClicked);
-  };
 
   const queryParams = new URLSearchParams(location.search);
   const searchParams = {
@@ -30,7 +24,6 @@ const SearchResults = () => {
       const response = await axios.get(`/events/search`, {
         params: searchParams,
       });
-      console.log(response.data);
       setEventResults(response.data);
     };
 
@@ -43,29 +36,32 @@ const SearchResults = () => {
       <section className="search-results-container">
         <h2 className="results-query">
           Wyniki wyszukiwania dla: "
-          {searchParams.title || searchParams.starDate || searchParams.city}"
+          {searchParams.title || searchParams.startDate || searchParams.city}"
         </h2>
+
         {eventResults.length > 0 ? (
           eventResults.map((event, i) => (
-            <>
-              <section key={i} className="search-results-wrapper">
-                <div className="result-img-cover">
-                  <img src={event.coverImage} />
-                </div>
-                <section className="results-info">
-                  <div>
-                    <div className="title-favourite">
-                      <h2>{event.title}</h2>
-                      <FontAwesomeIcon icon={faHeart} />
-                    </div>
-                    <p>
-                      {event.startDate} | {event.city}
-                    </p>
+            <section
+              key={i}
+              className="search-results-wrapper"
+              onClick={() => nav(`/event/${event.tid}`)}
+            >
+              <div className="result-img-cover">
+                <img src={event.coverImage} alt={`${event.title} cover`} />
+              </div>
+              <section className="results-info">
+                <div>
+                  <div className="title-favourite">
+                    <h2>{event.title}</h2>
+                    <FontAwesomeIcon icon={faHeart} />
                   </div>
-                  <button>Sprawdź bilet</button>
-                </section>
+                  <p>
+                    {event.startDate} | {event.city}
+                  </p>
+                </div>
+                <button>Sprawdź bilet</button>
               </section>
-            </>
+            </section>
           ))
         ) : (
           <p>Nie znaleziono wyników</p>

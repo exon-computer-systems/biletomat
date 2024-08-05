@@ -179,12 +179,8 @@ const EventPage = () => {
                         <button>bilet warszawa</button>
                     </div>
                 </section>
+
                 <section className="section3-wrapper">
-                    <h2>Pozostali artyści</h2>
-                    <span></span>
-                    <OtherArtists />
-                </section>
-                <section className="section4-wrapper">
                     <h2>Pozostałe wydarzenia</h2>
                     <span></span>
                     <PromoSlider />
