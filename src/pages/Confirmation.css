@@ -76,6 +76,7 @@ html {
     justify-content: center;
     flex-direction: column;
     border: 1px solid #acacac;
+    border-bottom: none;
     gap: 2rem;
     button:nth-child(1) {
         background-color: #0254bc;

@@ -73,7 +73,7 @@ ul {
     border: none;
     padding: 1rem 0.5rem;
     border-radius: 0.75rem;
-    margin-bottom: 2rem;
+    /* padding-bottom: 2.5rem; */
 }
 
 .main-user-menu {
@@ -137,11 +137,11 @@ ul {
             font-size: 1.2rem;
         }
     }
-    .info-sections {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+}
+.info-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 /* MYTICKETS SECTION */
@@ -230,11 +230,4 @@ ul {
 
 .ticket-btn > svg {
     font-size: 1rem;
-}
-
-.user-page-container {
-    width: 100vw;
-    height: 100vh;
-
-    background-color: white;
 }
