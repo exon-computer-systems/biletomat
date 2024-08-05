@@ -8,13 +8,37 @@ const Slider = ({ events, isLoading }) => {
   const [width, setWidth] = useState(300);
 
   const ref = useRef(0);
+  const intervalRef = useRef(null);
+
+  const totalEvents = [...events, ...events, ...events]; // Clone events list
 
   const scrollBy = scrollOffset => {
-    ref.current.scrollLeft += scrollOffset;
+    if (ref.current) {
+      ref.current.scrollLeft += scrollOffset;
+    }
   };
 
+  const startScrolling = () => {
+    intervalRef.current = setInterval(() => {
+      scrollBy(width);
+    }, 2000); // Adjust the interval time as needed (2000ms = 2s)
+  };
+
+  const stopScrolling = () => {
+    clearInterval(intervalRef.current);
+  };
+
+  useEffect(() => {
+    startScrolling();
+    return () => stopScrolling();
+  }, [width]);
+
   return (
-    <section className="slider-wrap">
+    <section
+      className="slider-wrap"
+      onMouseEnter={stopScrolling}
+      onMouseLeave={startScrolling}
+    >
       <button
         className="slider-btn slider-btn-left"
         onClick={() => scrollBy(-width)}
@@ -28,25 +52,10 @@ const Slider = ({ events, isLoading }) => {
         <FontAwesomeIcon icon={faAngleRight} />
       </button>
       <section className="slider" ref={ref}>
-        {/* {data
-                    // ?.filter((el, idx) => idx < 5)
-                    .map((el, idx) => {
-                        return (
-                            <Card
-                                key={idx}
-                                title={el.artist}
-                                date={el.date}
-                                city={el.city}
-                                coverImage={el.coverImage}
-                                width={width}
-                            />
-                        );
-                    })} */}
-
         {isLoading ? (
           <p>Loading events...</p>
         ) : (
-          events.map((el, i) => (
+          totalEvents.map((el, i) => (
             <Card
               key={i}
               tid={el.tid}
