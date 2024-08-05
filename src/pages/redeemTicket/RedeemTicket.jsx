@@ -99,7 +99,10 @@ const RedeemTicket = () => {
                 <section className="redeem-cont">
                     <section className="redeem">
                         <h1 className="redeem-title">Zeskanuj bilet</h1>
-                        <section className="redeem-content">
+                        <form
+                            className="redeem-content"
+                            onSubmit={handleRedeem}
+                        >
                             <input
                                 ref={inputRef}
                                 type="text"
@@ -114,7 +117,7 @@ const RedeemTicket = () => {
                             >
                                 Sprawdz bilet
                             </button>
-                        </section>
+                        </form>
                     </section>
                 </section>
             )}

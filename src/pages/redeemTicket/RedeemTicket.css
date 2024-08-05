@@ -43,6 +43,10 @@
     padding: 1rem 1rem;
 }
 
+.redeem-input:focus {
+    outline: auto #485bfe;
+}
+
 .redeem-btn {
     width: 180px;
     height: 60px;
