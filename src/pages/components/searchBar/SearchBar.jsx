@@ -7,7 +7,7 @@ const SearchBar = () => {
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useState({
     title: "",
-    date: "",
+    startDate: "",
     artist: "",
     city: "",
   });
@@ -23,8 +23,8 @@ const SearchBar = () => {
         setEvents([]);
       }
     };
-    if (Object.values(searchParams).every(x => x !== ""))
-      fetchData(searchParams);
+    // if (Object.values(searchParams).every(x => x !== ""))
+    fetchData(searchParams);
   }, [searchParams]);
 
   const handleSearch = params => {

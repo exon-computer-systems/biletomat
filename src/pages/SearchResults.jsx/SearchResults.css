@@ -6,6 +6,11 @@
   background-color: rgb(250, 251, 253);
   padding: 2rem 5rem;
   gap: 5rem;
+  .results-query {
+    padding-top: 4rem;
+    z-index: 100;
+    color: white;
+  }
 }
 .search-results-wrapper {
   width: 100%;
@@ -14,7 +19,7 @@
   flex-direction: row;
   border: 1px solid rgb(207, 207, 207);
   /* align-items: center; */
-  background-color: ;
+  background-color: white;
   justify-content: flex-start;
   padding: 2rem 1rem;
   z-index: 25;

@@ -18,14 +18,25 @@ const SearchBarForm = ({ events, onSearch }) => {
   const [searchData, setSearchData] = useState({
     title: "",
     artists: "",
-    date: "",
+    startDate: "",
     city: "",
   });
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (searchData.title || searchData.city || searchData.date) {
-      const searchParams = new URLSearchParams(searchData).toString();
+
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (searchData.date && !dateRegex.test(searchData.date)) {
+      alert("Niepoprawny format daty. Proszę użyć formatu YYYY-MM-DD.");
+      return;
+    }
+
+    const filteredSearchData = Object.fromEntries(
+      Object.entries(searchData).filter(([key, value]) => value !== "")
+    );
+
+    if (Object.keys(filteredSearchData).length > 0) {
+      const searchParams = new URLSearchParams(filteredSearchData).toString();
       nav(`/search-results?${searchParams}`);
     }
   };
@@ -34,6 +45,7 @@ const SearchBarForm = ({ events, onSearch }) => {
     setIsSelected(() => e.target.value);
     const { name, value } = e.target;
     const updatedSearchData = { ...searchData, [name]: value };
+    console.log(updatedSearchData);
     setSearchData(updatedSearchData);
     onSearch(searchData);
   };
@@ -69,7 +81,7 @@ const SearchBarForm = ({ events, onSearch }) => {
             onBlur={e => (e.target.type = "text")}
             onChange={handleChange}
             value={searchData.date}
-            name="date"
+            name="startDate"
           />
           <span></span>
         </div>
@@ -77,10 +89,14 @@ const SearchBarForm = ({ events, onSearch }) => {
           <FontAwesomeIcon className="icons" icon={faLocationDot} />
           <select onChange={handleChange} value={searchData.city} name="city">
             <option value=""></option>
-            <option value="Poznań">Poznań</option>
             <option value="Bydgoszcz">Bydgoszcz</option>
             <option value="Toruń">Toruń</option>
             <option value="Warszawa">Warszawa</option>
+            <option value="Gdańsk">Gdańsk</option>
+            <option value="Kraków">Kraków</option>
+            <option value="Gdynia">Gdynia</option>
+            <option value="Katowice">Katowice</option>
+            <option value="Szczecin">Szczecin</option>
           </select>
         </div>
         <div className="search-box search-btn-wrapper">
