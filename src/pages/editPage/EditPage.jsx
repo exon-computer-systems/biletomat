@@ -3,6 +3,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
+import LinkBack from "../components/LinkBack/LinkBack";
 
 const EditPage = () => {
     const { setAuth, auth } = useAuth();
@@ -90,6 +91,7 @@ const EditPage = () => {
         <>
             {/* <Navbar /> */}
             <section className="edit-page-container">
+                <LinkBack />
                 <h1>Edytuj Post</h1>
                 <section className="edit-page-wrapper">
                     <form onSubmit={handleSubmit}>

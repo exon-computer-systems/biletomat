@@ -114,7 +114,6 @@
     flex-direction: column;
     gap: 0.5rem;
     font-weight: 300;
-
     h2 {
         font-size: 2rem;
         font-weight: 500;
@@ -230,5 +229,18 @@
     span {
         width: 100%;
         border: 1px solid rgb(226, 226, 226);
+    }
+}
+
+.link-back {
+    z-index: 20;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.8rem;
+    color: white;
+    text-decoration: none;
+    svg {
+        scale: 1.5;
     }
 }

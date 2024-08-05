@@ -88,7 +88,10 @@ const EventPage = () => {
             <NavBar />
 
             <section className="event-page-container">
-                <LinkBack />
+                <Link to={"/"} className="link-back">
+                    <FontAwesomeIcon icon={faAngleLeft} />
+                    Wróć
+                </Link>
                 <section className="section1-container">
                     <section className="section1-wrapper">
                         <div className="cover-buy-wrapper">

@@ -1,9 +1,10 @@
 import "./CreateNewPage.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
+import LinkBack from "../components/LinkBack/LinkBack";
 
 const CreateNewPage = () => {
     // const { setAuth, auth } = useAuth();
@@ -73,6 +74,7 @@ const CreateNewPage = () => {
         <>
             {/* <Navbar /> */}
             <section className="edit-page-container">
+                <LinkBack />
                 <h1>Dodaj Post</h1>
                 <section className="edit-page-wrapper">
                     <form onSubmit={handleSubmit}>
