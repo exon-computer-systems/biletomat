@@ -128,22 +128,6 @@ ul {
     color: rgb(88, 140, 236);
   }
 
-<<<<<<< HEAD
-    .user-l {
-        display: flex;
-        gap: 3rem;
-        flex-direction: column;
-        label {
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-    }
-}
-.info-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-=======
   .user-l {
     display: flex;
     gap: 3rem;
@@ -158,7 +142,6 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 2rem;
->>>>>>> 17768e8 (change)
 }
 
 /* MYTICKETS SECTION */
