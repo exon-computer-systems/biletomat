@@ -19,6 +19,7 @@ import OtherArtists from "../otherArtists/OtherArtistsList";
 import NavBar from "../components/Navbar";
 import useAuth from "../hooks/useAuth";
 import LinkBack from "../components/LinkBack/LinkBack";
+import SectorMap from "../components/sectorMap/SectorMap";
 
 const EventPage = () => {
     const { auth, setAuth } = useAuth();
@@ -26,7 +27,7 @@ const EventPage = () => {
     const nav = useNavigate();
     const axiosPrivate = useAxiosPrivate();
 
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -38,6 +39,7 @@ const EventPage = () => {
             setIsLoading(true);
             const res = await axios.get(`/events/${id}`);
 
+            console.log(res.data);
             setEvents(res.data);
             setIsLoading(false);
         };
@@ -169,16 +171,8 @@ const EventPage = () => {
                         <p>{events.description}</p>
                     </section>
                 </section>
-                <section className="section2-wrapper">
-                    <div className="other-tickets">
-                        <span></span>
-                        <h2>Pozostałe bilety</h2>
-                        <button>bilet warszawa</button>
-                        <button>bilet warszawa</button>
-                        <button>bilet warszawa</button>
-                        <button>bilet warszawa</button>
-                    </div>
-                </section>
+
+                <SectorMap event={events} />
 
                 <section className="section3-wrapper">
                     <h2>Pozostałe wydarzenia</h2>
