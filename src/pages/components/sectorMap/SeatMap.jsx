@@ -14,6 +14,8 @@ const SeatMap = ({
     selectedSeats,
     setSelectedSeats,
     checkOutHandle,
+    order,
+    setOrder,
 }) => {
     const { auth } = useAuth();
     const { id } = useParams();
@@ -22,6 +24,7 @@ const SeatMap = ({
     const [seatsData, setSeatsData] = useState([]);
     const [eventData, setEventData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const [prices, setPrices] = useState({});
 
     const flattenSeats = (rows) => {
         let seats = [];
@@ -49,11 +52,18 @@ const SeatMap = ({
             try {
                 const response = await axios.get(`/events/${id}`);
 
+                console.log(response.data);
                 setEventData(response.data);
 
                 const sectorArray = response.data.theater.sectors.find(
                     (sector) => sector.sectorName === sectorId
                 );
+
+                const pricesObj = response.data.ticketInfo.find(
+                    (sector) => sector.sector === sectorId
+                );
+
+                setPrices(pricesObj);
 
                 console.log(sectorArray);
 
@@ -79,6 +89,7 @@ const SeatMap = ({
     };
 
     const handleSeatClick = (seat) => {
+        console.log(seat);
         if (seat.status === "free") {
             console.log(seat);
             if (selectedSeats.some((el) => el._id === seat._id)) {
@@ -93,34 +104,18 @@ const SeatMap = ({
         }
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     console.log(selectedSeats);
+    const handleClick = () => {
+        console.log(prices);
+        console.log(order);
 
-    //     try {
-    //         if (auth.email) {
-    //             // WYSWIETLIC AUTH PANEL JESLI UZYTKOWNIK NIE JEST ZALOGOWANY
-    //             const requests = selectedSeats.map((selectedSeat) =>
-    //                 axios.post("/events/reserve", {
-    //                     eventId: eventData._id,
-    //                     sectorName: selectedSeat.rowInfo.sectorName,
-    //                     rowNumber: selectedSeat.rowInfo.rowNumber,
-    //                     seatNumber: selectedSeat.seatNumber,
-    //                     userId: auth.id,
-    //                 })
-    //             );
+        let total =
+            order.normal * prices.normal +
+            order.discounted * prices.discounted +
+            order.senior * prices.senior;
 
-    //             setSelectedSeats([]);
-    //             const responses = await Promise.all(requests);
-
-    //             responses.forEach((response) => {
-    //                 console.log("Response:", response.data.qrCodeUrl);
-    //             });
-    //         }
-    //     } catch (err) {
-    //         console.warn(err);
-    //     }
-    // };
+        setOrder((prev) => ({ ...prev, total: total }));
+        checkOutHandle();
+    };
 
     return (
         <section className="seat-map-cont">
@@ -156,7 +151,8 @@ const SeatMap = ({
                           );
                       })}
             </form>
-            <button onClick={checkOutHandle}>Rezerwuj</button>
+            {/* <button onClick={checkOutHandle}>Rezerwuj</button> */}
+            <button onClick={handleClick}>Rezerwuj</button>
         </section>
     );
 };

@@ -10,15 +10,9 @@ import {
 import Confirmation from "./Confirmation";
 import useAuth from "./hooks/useAuth";
 import "./BuyTicket.css";
+import SectorMap from "./components/sectorMap/SectorMap";
 
-const BuyTicket = ({ event }) => {
-    const [order, setOrder] = useState({
-        normal: 0,
-        discounted: 0,
-        senior: 0,
-        sum: 0,
-    });
-
+const BuyTicket = ({ event, order, setOrder, setOrderSteps }) => {
     const [pricesRange, setPricesRange] = useState();
 
     useEffect(() => {
@@ -72,12 +66,13 @@ const BuyTicket = ({ event }) => {
         }));
     }, [order.normal, order.discounted, order.senior]);
 
+    const handleSubmit = () => {
+        if (order.normal !== 0 || order.discounted !== 0 || order.senior !== 0)
+            setOrderSteps(2);
+    };
+
     return (
         <>
-            {/* {response ? (
-                <Confirmation confirmationData={confirmationData} />
-            ) : ( */}
-
             {pricesRange && (
                 <div className="wrapper">
                     <section className="container">
@@ -199,7 +194,9 @@ const BuyTicket = ({ event }) => {
                             <h2>
                                 Łącznie <span>{order.sum}</span> biletów
                             </h2>
-                            <button type="submit">DALEJ</button>
+                            <button type="submit" onClick={handleSubmit}>
+                                DALEJ
+                            </button>
                         </div>
                     </section>
                 </div>

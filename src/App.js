@@ -31,7 +31,6 @@ function App() {
                 <Route path={`/redeem`} element={<RedeemTicket />} />
                 <Route path="/search-results" element={<SearchResults />} />
                 <Route path="/rodo" element={<Rodo />} />
-                <Route path="/create-new-page" element={<CreateNewPage />} />
 
                 {/* protected routes */}
                 <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
@@ -46,6 +45,10 @@ function App() {
                         />
                     }
                 >
+                    <Route
+                        path="/create-new-page"
+                        element={<CreateNewPage />}
+                    />
                     <Route path="/edit-page/:id" element={<EditPage />} />
                 </Route>
             </Routes>
