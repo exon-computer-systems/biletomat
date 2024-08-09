@@ -8,7 +8,7 @@ import SearchBar from "./components/searchBar/SearchBar";
 import Welcome from "./components/welcome/Welcome";
 import LogIn from "./components/logIn/LogIn";
 
-import axios from "axios";
+import axios from "./api/axios";
 
 const Home = () => {
     const [isActive, setIsActive] = useState(true);
@@ -23,9 +23,7 @@ const Home = () => {
         const fetchData = async () => {
             setIsLoading(true);
 
-            const res = await axios.get(
-                "https://biletomat-be.onrender.com/events"
-            );
+            const res = await axios.get("/events");
 
             //   console.log(res.data);
 

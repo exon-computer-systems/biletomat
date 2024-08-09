@@ -19,7 +19,9 @@ import OtherArtists from "../otherArtists/OtherArtistsList";
 import NavBar from "../components/Navbar";
 import useAuth from "../hooks/useAuth";
 import LinkBack from "../components/LinkBack/LinkBack";
+import SectorMap from "../components/sectorMap/SectorMap";
 import BuyTicket from "../BuyTicket";
+
 
 const EventPage = () => {
   const { auth, setAuth } = useAuth();
@@ -27,9 +29,11 @@ const EventPage = () => {
   const nav = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
-  const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
+
+    const [events, setEvents] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [isFavorite, setIsFavorite] = useState(false);
+
 
   const allowedRoles = [1984, 2150];
 
@@ -38,12 +42,12 @@ const EventPage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       const res = await axios.get(`/events/${id}`);
-
-      setEvents(res.data);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [id]);
+      console.log(res.data);
+            setEvents(res.data);
+            setIsLoading(false);
+        };
+        fetchData();
+    }, [id]);
 
   useEffect(() => {
     // console.log(auth);
@@ -141,12 +145,14 @@ const EventPage = () => {
               </div>
             </div>
 
+
             <p>{events.description}</p>
           </section>
         </section>
         <section className="section2-wrapper">
           <span></span>
           <BuyTicket />
+        //<SectorMap event={events} />
         </section>
       </section>
     </>
