@@ -15,38 +15,42 @@ import ScrollToTop from "./pages/components/scrollToTop/scrollToTop";
 import Rodo from "./pages/rodo/Rodo";
 
 function App() {
-  const ROLES = {
-    User: 2001,
-    Editor: 1984,
-    Admin: 5150,
-  };
+    const ROLES = {
+        User: 2001,
+        Editor: 1984,
+        Admin: 5150,
+    };
 
-  return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        {/* public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path={`/event/:id`} element={<EventPage />} />
-        <Route path={`/redeem`} element={<RedeemTicket />} />
-        <Route path="/search-results" element={<SearchResults />} />
-        <Route path="/rodo" element={<Rodo />} />
+    return (
+        <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+                {/* public routes */}
+                <Route path="/" element={<Home />} />
+                <Route path={`/event/:id`} element={<EventPage />} />
+                <Route path={`/redeem`} element={<RedeemTicket />} />
+                <Route path="/search-results" element={<SearchResults />} />
+                <Route path="/rodo" element={<Rodo />} />
+                <Route path="/create-new-page" element={<CreateNewPage />} />
 
-        {/* protected routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-          <Route path="/buy/:id" element={<BuyTicket />} />
-          <Route path="/user" element={<UserPage />} />
-        </Route>
+                {/* protected routes */}
+                <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+                    <Route path="/buy/:id" element={<BuyTicket />} />
+                    <Route path="/user" element={<UserPage />} />
+                </Route>
 
-        <Route
-          element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}
-        >
-          <Route path="/create-new-page" element={<CreateNewPage />} />
-          <Route path="/edit-page/:id" element={<EditPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+                <Route
+                    element={
+                        <RequireAuth
+                            allowedRoles={[ROLES.Editor, ROLES.Admin]}
+                        />
+                    }
+                >
+                    <Route path="/edit-page/:id" element={<EditPage />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

@@ -14,26 +14,27 @@ const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
     const [eventData, setEventData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
-    const flattenSeats = (sectors) => {
+    const flattenSeats = (rows) => {
         let seats = [];
-        sectors.forEach((sector) => {
-            sector.rows.forEach((row) => {
-                row.seats.forEach((seat) => {
-                    seats.push({
-                        ...seat,
-                        rowInfo: {
-                            rowNumber: row.rowNumber,
-                            sectorName: sector.sectorName,
-                        },
-                    });
+
+        rows.forEach((row) => {
+            // console.log(row);
+            row.seats.forEach((seat) => {
+                seats.push({
+                    ...seat,
+                    rowInfo: {
+                        rowNumber: row.rowNumber,
+                        sectorName: sectorId,
+                    },
                 });
             });
         });
+
         return seats;
     };
 
     useEffect(() => {
-        console.log(auth);
+        // console.log(auth);
 
         const fetchSeatData = async () => {
             setIsLoading(true);
@@ -41,10 +42,20 @@ const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
                 const response = await axios.get(`/events/${id}`);
 
                 setEventData(response.data);
-                console.log(response.data.theater.sectors);
+                // console.log(
+                //     response.data.theater.sectors.find(
+                //         (sector) => sector.sectorName === sectorId
+                //     )
+                // );
+
+                const sectorArray = response.data.theater.sectors.find(
+                    (sector) => sector.sectorName === sectorId
+                );
+
+                console.log(sectorArray);
 
                 // Log the response to inspect structure
-                const flatSeats = flattenSeats(response.data.theater.sectors);
+                const flatSeats = flattenSeats(sectorArray.rows);
                 console.log(flatSeats);
                 setSeatsData(flatSeats);
             } catch (err) {

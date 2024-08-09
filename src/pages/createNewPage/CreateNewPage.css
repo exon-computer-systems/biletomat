@@ -39,8 +39,9 @@
 .form-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .form-group {
@@ -52,6 +53,12 @@
 
 .form-group:last-child {
     margin-right: 0;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 label {
@@ -75,6 +82,10 @@ input {
 
 .form-row:last-child input {
     margin-right: 0;
+}
+
+.form-group-btn {
+    border: none;
 }
 
 .edit-page-btn-container {

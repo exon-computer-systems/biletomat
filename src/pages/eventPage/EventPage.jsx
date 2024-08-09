@@ -167,8 +167,8 @@ const EventPage = () => {
                 </section>
                 <section className="section2-wrapper">
                     <span></span>
-                    <BuyTicket />
-                    //
+                    {/* <BuyTicket /> */}
+
                     <SectorMap event={events} />
                 </section>
             </section>

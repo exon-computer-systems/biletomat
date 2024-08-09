@@ -92,7 +92,3 @@ const SectorMap = ({ event }) => {
 };
 
 export default SectorMap;
-
-/*
- 
-*/
