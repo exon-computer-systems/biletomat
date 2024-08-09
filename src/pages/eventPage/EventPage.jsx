@@ -20,6 +20,7 @@ import NavBar from "../components/Navbar";
 import useAuth from "../hooks/useAuth";
 import LinkBack from "../components/LinkBack/LinkBack";
 import SectorMap from "../components/sectorMap/SectorMap";
+import BuyTicket from "../BuyTicket";
 
 const EventPage = () => {
     const { auth, setAuth } = useAuth();
@@ -38,7 +39,6 @@ const EventPage = () => {
         const fetchData = async () => {
             setIsLoading(true);
             const res = await axios.get(`/events/${id}`);
-
             console.log(res.data);
             setEvents(res.data);
             setIsLoading(false);
@@ -142,12 +142,6 @@ const EventPage = () => {
                                     </div>
                                 </div>
                                 <div className="btns">
-                                    <button
-                                        className="buy-ticket"
-                                        onClick={handleBuy}
-                                    >
-                                        KUP BILET
-                                    </button>
                                     <button onClick={handleFavorite}>
                                         <FontAwesomeIcon
                                             icon={
@@ -171,13 +165,11 @@ const EventPage = () => {
                         <p>{events.description}</p>
                     </section>
                 </section>
-
-                <SectorMap event={events} />
-
-                <section className="section3-wrapper">
-                    <h2>Pozostałe wydarzenia</h2>
+                <section className="section2-wrapper">
                     <span></span>
-                    <PromoSlider />
+                    <BuyTicket />
+                    //
+                    <SectorMap event={events} />
                 </section>
             </section>
         </>
