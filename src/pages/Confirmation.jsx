@@ -4,10 +4,11 @@ import "./Confirmation.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { faCalendar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import useAuth from "./hooks/useAuth";
 
 const Confirmation = ({ confirmationData, selectedSeats, events, total }) => {
   const nav = useNavigate();
-
+  const { auth } = useAuth();
   useEffect(() => {
     console.log(confirmationData);
   }, [confirmationData]);
@@ -48,23 +49,23 @@ const Confirmation = ({ confirmationData, selectedSeats, events, total }) => {
             <div className="name info1">
               <p>Imię</p>
               <p>
-                {confirmationData.firstName} {confirmationData.lastName}
+                {auth.firstName} {auth.lastName}
               </p>
             </div>
             <div className="email info1">
               <p>Email</p>
-              <p>{confirmationData.email}</p>
+              <p>{auth.email}</p>
             </div>
             <div className="ticket-type info1">
               <p>Rodzaj biletu</p>
               {confirmationData.ticketType.adultTicket > 0 && (
-                <p>{`Dorośli: ${confirmationData.ticketType.adultTicket}`}</p>
+                <p>{`Normalny: ${confirmationData.ticketType.adultTicket}`}</p>
               )}
               {confirmationData.ticketType.kidTicket > 0 && (
-                <p>{`Dziecięce: ${confirmationData.ticketType.kidTicket}`}</p>
+                <p>{`Ulgowy: ${confirmationData.ticketType.kidTicket}`}</p>
               )}
               {confirmationData.ticketType.vipTicket > 0 && (
-                <p>{`VIP: ${confirmationData.ticketType.vipTicket}`}</p>
+                <p>{`Senior: ${confirmationData.ticketType.vipTicket}`}</p>
               )}
             </div>
           </div>
