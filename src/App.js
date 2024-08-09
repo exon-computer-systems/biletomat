@@ -12,6 +12,7 @@ import SearchResults from "./pages/SearchResults.jsx/SearchResults";
 import EditPage from "./pages/editPage/EditPage";
 import RedeemTicket from "./pages/redeemTicket/RedeemTicket";
 import ScrollToTop from "./pages/components/scrollToTop/scrollToTop";
+import Rodo from "./pages/rodo/Rodo";
 
 function App() {
   const ROLES = {
@@ -29,6 +30,7 @@ function App() {
         <Route path={`/event/:id`} element={<EventPage />} />
         <Route path={`/redeem`} element={<RedeemTicket />} />
         <Route path="/search-results" element={<SearchResults />} />
+        <Route path="/rodo" element={<Rodo />} />
 
         {/* protected routes */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
