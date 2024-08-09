@@ -5,11 +5,20 @@ import { useParams } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
-const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
+const SeatMap = ({
+    rows,
+    cols,
+    maxSelected,
+    sectorId,
+    event,
+    selectedSeats,
+    setSelectedSeats,
+    checkOutHandle,
+}) => {
     const { auth } = useAuth();
     const { id } = useParams();
 
-    const [selectedSeats, setSelectedSeats] = useState([]);
+    // const [selectedSeats, setSelectedSeats] = useState([]);
     const [seatsData, setSeatsData] = useState([]);
     const [eventData, setEventData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +27,6 @@ const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
         let seats = [];
 
         rows.forEach((row) => {
-            // console.log(row);
             row.seats.forEach((seat) => {
                 seats.push({
                     ...seat,
@@ -42,11 +50,6 @@ const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
                 const response = await axios.get(`/events/${id}`);
 
                 setEventData(response.data);
-                // console.log(
-                //     response.data.theater.sectors.find(
-                //         (sector) => sector.sectorName === sectorId
-                //     )
-                // );
 
                 const sectorArray = response.data.theater.sectors.find(
                     (sector) => sector.sectorName === sectorId
@@ -90,34 +93,34 @@ const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(selectedSeats);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     console.log(selectedSeats);
 
-        try {
-            if (auth.email) {
-                // WYSWIETLIC AUTH PANEL JESLI UZYTKOWNIK NIE JEST ZALOGOWANY
-                const requests = selectedSeats.map((selectedSeat) =>
-                    axios.post("/events/reserve", {
-                        eventId: eventData._id,
-                        sectorName: selectedSeat.rowInfo.sectorName,
-                        rowNumber: selectedSeat.rowInfo.rowNumber,
-                        seatNumber: selectedSeat.seatNumber,
-                        userId: auth.id,
-                    })
-                );
+    //     try {
+    //         if (auth.email) {
+    //             // WYSWIETLIC AUTH PANEL JESLI UZYTKOWNIK NIE JEST ZALOGOWANY
+    //             const requests = selectedSeats.map((selectedSeat) =>
+    //                 axios.post("/events/reserve", {
+    //                     eventId: eventData._id,
+    //                     sectorName: selectedSeat.rowInfo.sectorName,
+    //                     rowNumber: selectedSeat.rowInfo.rowNumber,
+    //                     seatNumber: selectedSeat.seatNumber,
+    //                     userId: auth.id,
+    //                 })
+    //             );
 
-                setSelectedSeats([]);
-                const responses = await Promise.all(requests);
+    //             setSelectedSeats([]);
+    //             const responses = await Promise.all(requests);
 
-                responses.forEach((response) => {
-                    console.log("Response:", response.data.qrCodeUrl);
-                });
-            }
-        } catch (err) {
-            console.warn(err);
-        }
-    };
+    //             responses.forEach((response) => {
+    //                 console.log("Response:", response.data.qrCodeUrl);
+    //             });
+    //         }
+    //     } catch (err) {
+    //         console.warn(err);
+    //     }
+    // };
 
     return (
         <section className="seat-map-cont">
@@ -153,7 +156,7 @@ const SeatMap = ({ rows, cols, maxSelected, sectorId, event }) => {
                           );
                       })}
             </form>
-            <button onClick={handleSubmit}>Rezerwuj</button>
+            <button onClick={checkOutHandle}>Rezerwuj</button>
         </section>
     );
 };

@@ -5,7 +5,7 @@ import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
 import LinkBack from "../components/LinkBack/LinkBack";
-import theaterData from "../../assets/theaterData.js";
+// import theaterData from "../../assets/theaterData.js";
 
 const CreateNewPage = () => {
     let data = {

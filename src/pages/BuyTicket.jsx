@@ -199,7 +199,7 @@ const BuyTicket = ({ event }) => {
                             <h2>
                                 Łącznie <span>{order.sum}</span> biletów
                             </h2>
-                            <button type="submit">REZERWUJ</button>
+                            <button type="submit">DALEJ</button>
                         </div>
                     </section>
                 </div>
