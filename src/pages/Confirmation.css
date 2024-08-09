@@ -13,6 +13,7 @@ html {
   height: 100%;
   display: flex;
   padding-top: 10rem;
+  gap: 3rem;
   flex-direction: column;
   justify-content: center;
   .success-icon {
@@ -41,12 +42,11 @@ html {
 }
 
 .confirmation-header {
-  padding-top: 5rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
+  gap: 1.2rem;
   flex-direction: row;
   .confirmation-cover {
     display: flex;
@@ -68,12 +68,19 @@ html {
     p {
       font-size: 2rem;
     }
+    .conf-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      scale: 2;
+    }
   }
 }
 
 .ticket-info-wrapper {
   width: 100%;
-  padding-top: 10rem;
+  padding-top: 4rem;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -90,7 +97,7 @@ html {
 .info1 {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0rem;
   font-size: 2.5rem;
   p:nth-child(1) {
     color: #acacac;
@@ -110,6 +117,7 @@ html {
   gap: 2rem;
   h2 {
     padding: 1rem;
+    font-size: 2rem;
   }
 
   button {

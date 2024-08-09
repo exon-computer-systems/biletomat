@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { faCalendar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const Confirmation = ({ confirmationData, selectedSeats, events }) => {
+const Confirmation = ({ confirmationData, selectedSeats, events, total }) => {
   const nav = useNavigate();
 
   useEffect(() => {
@@ -16,6 +16,8 @@ const Confirmation = ({ confirmationData, selectedSeats, events }) => {
     "selected: ",
     selectedSeats.map(el => el.seatNumber)
   );
+
+  console.log("confirmationData", confirmationData);
 
   return (
     <section className="confirmation-container">
@@ -28,14 +30,14 @@ const Confirmation = ({ confirmationData, selectedSeats, events }) => {
             <h1>{events.title}</h1>
             <div className="date-place">
               <div className="place">
-                <FontAwesomeIcon icon={faCalendar} className="place-icon" />
+                <FontAwesomeIcon icon={faCalendar} className="conf-icon" />
                 <div className="place-info">
                   <p className="start-date">{events.startDate}</p>
                   <p className="hours">19:00 - 21:00</p>
                 </div>
               </div>
               <div className="date">
-                <FontAwesomeIcon icon={faLocationDot} className="date-icon" />
+                <FontAwesomeIcon icon={faLocationDot} className="conf-icon" />
                 <p className="city">{events.city}</p>
               </div>
             </div>
@@ -73,16 +75,20 @@ const Confirmation = ({ confirmationData, selectedSeats, events }) => {
             </div>
             <div className="seats info1">
               <p>Miejsca</p>
-              <p>{selectedSeats.map(el => el.seatNumber)}</p>
+              {selectedSeats.map(el => {
+                return (
+                  <p key={el._id}>
+                    R{el.rowInfo.rowNumber} {el.seatNumber}
+                  </p>
+                );
+              })}
             </div>
-            <div className="price info1">
-              <p>Rząd</p>
-              <p>{selectedSeats.map(el => el.rowInfo.rowNumber)}</p>
-            </div>
+
+            <div className="price info1"></div>
           </div>
         </section>
         <section className="conf-cta">
-          <h2>Łącznie: </h2>
+          <h2>Łącznie: {total}</h2>
           <section className="conf-cta-btn">
             <button>Kup Bilet</button>
           </section>
