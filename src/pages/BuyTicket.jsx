@@ -11,15 +11,17 @@ import Confirmation from "./Confirmation";
 import useAuth from "./hooks/useAuth";
 import "./BuyTicket.css";
 
-const BuyTicket = () => {
+const BuyTicket = ({
+  setConfirmationData,
+  confirmationData,
+  order,
+  setOrder,
+  total,
+}) => {
   const nav = useNavigate();
   const { id } = useParams();
   const { setAuth } = useAuth();
-  const [order, setOrder] = useState({
-    adultTicket: { price: 0, quantity: 0 },
-    kidTicket: { price: 0, quantity: 0 },
-    vipTicket: { price: 0, quantity: 0 },
-  });
+
   const [response, setResponse] = useState(false);
   const { auth } = useAuth();
   const [data, setData] = useState({
@@ -31,23 +33,6 @@ const BuyTicket = () => {
       vipTicket: 0,
     },
   });
-
-  const [confirmationData, setConfirmationData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    startDate: "",
-    ticketType: [],
-    price: 0,
-  });
-
-  const calculateTotal = () => {
-    return Object.values(order).reduce((sum, { price, quantity }) => {
-      return sum + price * quantity;
-    }, 0);
-  };
-
-  const total = calculateTotal();
 
   useEffect(() => {
     setData(prevData => ({
@@ -154,59 +139,55 @@ const BuyTicket = () => {
 
   return (
     <>
-      {response ? (
-        <Confirmation confirmationData={confirmationData} />
-      ) : (
-        <div className="wrapper">
-          <section className="container">
-            <form onSubmit={handleSubmitData}>
-              <section className="choice-boxes">
-                <h2>Wybierz bilety</h2>
-                {Object.entries(order).map(([ticketType, data]) => (
-                  <div key={ticketType} className="choice-box">
-                    <div className="ticket-name">
-                      <h2>{ticketType}</h2>
+      <div className="wrapper">
+        <section className="container">
+          <form onSubmit={handleSubmitData}>
+            <section className="choice-boxes">
+              <h2>Wybierz bilety</h2>
+              {Object.entries(order).map(([ticketType, data]) => (
+                <div key={ticketType} className="choice-box">
+                  <div className="ticket-name">
+                    <h2>{ticketType}</h2>
+                  </div>
+
+                  <span>170 PLN</span>
+
+                  <div className="input">
+                    <div
+                      className="cta-btns"
+                      onClick={() => handleDecrease(ticketType)}
+                    >
+                      <FontAwesomeIcon icon={faMinus} className="minus-btn" />
                     </div>
-
-                    <span>170 PLN</span>
-
-                    <div className="input">
-                      <div
-                        className="cta-btns"
-                        onClick={() => handleDecrease(ticketType)}
-                      >
-                        <FontAwesomeIcon icon={faMinus} className="minus-btn" />
-                      </div>
-                      <span
-                        name={ticketType}
-                        type="number"
-                        value={data.quantity}
-                        min={0}
-                        disabled
-                      >
-                        {data.quantity}
-                      </span>
-                      <div
-                        className="cta-btns"
-                        onClick={() => handleIncrease(ticketType)}
-                      >
-                        <FontAwesomeIcon icon={faPlus} className="plus-btn" />
-                      </div>
+                    <span
+                      name={ticketType}
+                      type="number"
+                      value={data.quantity}
+                      min={0}
+                      disabled
+                    >
+                      {data.quantity}
+                    </span>
+                    <div
+                      className="cta-btns"
+                      onClick={() => handleIncrease(ticketType)}
+                    >
+                      <FontAwesomeIcon icon={faPlus} className="plus-btn" />
                     </div>
                   </div>
-                ))}
-              </section>
+                </div>
+              ))}
+            </section>
 
-              <div className="summary">
-                <h2>
-                  Całość - <span>{total} PLN</span>
-                </h2>
-                <button type="submit">REZERWUJ</button>
-              </div>
-            </form>
-          </section>
-        </div>
-      )}
+            {/* <div className="summary">
+              <h2>
+                Całość - <span>{total} PLN</span>
+              </h2>
+              <button type="submit">REZERWUJ</button>
+            </div> */}
+          </form>
+        </section>
+      </div>
     </>
   );
 };

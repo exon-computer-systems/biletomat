@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import "./SearchResults.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import SearchBar from "../components/searchBar/SearchBar";
 
 const SearchResults = () => {
   const [eventResults, setEventResults] = useState([]);
@@ -34,6 +35,7 @@ const SearchResults = () => {
     <>
       <Navbar />
       <section className="search-results-container">
+        <SearchBar />
         <h2 className="results-query">
           Wyniki wyszukiwania dla: "
           {searchParams.title || searchParams.startDate || searchParams.city}"
