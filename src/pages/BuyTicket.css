@@ -6,193 +6,197 @@
 } */
 
 .wrapper {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .buy-txt {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 1.5rem;
-  gap: 15rem;
-  .back-btn {
+    width: 100%;
     display: flex;
-    border: 0.5px solid rgb(190, 190, 190);
-    padding: 2rem 2.4rem;
-    border-radius: 3rem;
-  }
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.5rem;
+    gap: 15rem;
+    .back-btn {
+        display: flex;
+        border: 0.5px solid rgb(190, 190, 190);
+        padding: 2rem 2.4rem;
+        border-radius: 3rem;
+    }
 }
 
 .container {
-  color: black;
-  background-color: #f4f4f4;
-  border: none;
-  padding: 2rem 5rem;
+    color: black;
+    background-color: #f4f4f4;
+    border: none;
+    padding: 2rem 5rem;
 }
 
 .ticket-descp {
-  h1 {
-    font-size: 48px;
-    font-weight: 700;
-  }
-  p {
-    font-size: 32px;
-    font-weight: 400;
-  }
+    h1 {
+        font-size: 48px;
+        font-weight: 700;
+    }
+    p {
+        font-size: 32px;
+        font-weight: 400;
+    }
 }
 
 .choice-boxes {
-  color: black;
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-  padding-bottom: 5rem;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding-bottom: 5rem;
 }
 
 .choice-box {
-  color: black;
-  width: 100%;
-  /* height: 100%; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2rem;
-  gap: 2rem;
+    color: black;
+    width: 100%;
+    /* height: 100%; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    gap: 2rem;
 
-  border-radius: 20px;
+    border-radius: 20px;
 
-  h2 {
-    font-weight: 400;
-    font-size: 36px;
-  }
-  span {
-    font-size: 26px;
-    font-weight: 400;
-    width: 5rem;
-  }
+    h2 {
+        font-weight: 400;
+        font-size: 36px;
+        width: 200px;
+    }
+}
+
+.choice-box-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10rem;
 }
 
 .input {
-  display: flex;
-  align-items: center;
-  /* gap: 2rem; */
-  .cta-btns {
-    cursor: pointer;
     display: flex;
-    border: 1px solid #0254bc;
-    border-radius: 5rem;
-    padding: 2.5rem;
-    background-color: #0254bc;
-    svg {
-      scale: 1.5;
-      color: white;
+    align-items: center;
+    gap: 1.5rem;
+
+    .cta-btns {
+        cursor: pointer;
+        display: flex;
+        border: 1px solid #0254bc;
+        border-radius: 5rem;
+        padding: 2.5rem;
+        background-color: #0254bc;
+        svg {
+            scale: 1.5;
+            color: white;
+        }
     }
-  }
 }
 
 .choice-box span {
-  font-weight: 600;
+    font-weight: 600;
 
-  text-align: center;
-  font-size: 2rem;
-  border: 1px solid transparent;
-  background-color: #f6f6f6;
-  border-radius: 1.8rem;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid transparent;
+    background-color: #f6f6f6;
+    border-radius: 1.8rem;
 }
 
 .ticket-name h2 {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  background-color: #0254bc;
-  height: 136px;
-  padding: 0 64px;
-  border-radius: 20px;
-  h2 {
-    font-size: 36px;
-    font-weight: 400;
-  }
-  button {
-    border: none;
-    width: 186px;
-    height: 70px;
-    border-radius: 42px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    font-size: 24px;
-    font-weight: 400;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background-color: #0254bc;
+    height: 136px;
+    padding: 0 64px;
+    border-radius: 20px;
+    h2 {
+        font-size: 36px;
+        font-weight: 400;
+    }
+    button {
+        border: none;
+        width: 186px;
+        height: 70px;
+        border-radius: 42px;
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        font-size: 24px;
+        font-weight: 400;
+    }
 }
 
 /* Media queries for mobile devices */
 @media (max-width: 600px) {
-  .buy-txt {
-    flex-direction: column;
-    font-size: 1.2rem;
-    gap: 1rem;
-    .back-btn {
-      padding: 1rem 1.2rem;
-      border-radius: 2rem;
+    .buy-txt {
+        flex-direction: column;
+        font-size: 1.2rem;
+        gap: 1rem;
+        .back-btn {
+            padding: 1rem 1.2rem;
+            border-radius: 2rem;
+        }
     }
-  }
 
-  .container {
-    padding: 1rem 2rem;
-  }
-
-  .ticket-descp h1 {
-    font-size: 32px;
-  }
-  .ticket-descp p {
-    font-size: 24px;
-  }
-
-  .choice-boxes {
-    gap: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .choice-box {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
-    h2 {
-      font-size: 24px;
+    .container {
+        padding: 1rem 2rem;
     }
-    span {
-      font-size: 18px;
-    }
-  }
 
-  .input .cta-btns {
-    padding: 1.5rem;
-  }
-
-  .choice-box span {
-    font-size: 1.5rem;
-    border-radius: 1rem;
-  }
-
-  .summary {
-    flex-direction: column;
-    height: auto;
-    padding: 1rem;
-    gap: 1rem;
-    h2 {
-      font-size: 24px;
+    .ticket-descp h1 {
+        font-size: 32px;
     }
-    button {
-      width: 100%;
-      height: 50px;
-      font-size: 18px;
+    .ticket-descp p {
+        font-size: 24px;
     }
-  }
+
+    .choice-boxes {
+        gap: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .choice-box {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        gap: 1rem;
+        h2 {
+            font-size: 24px;
+        }
+        span {
+            font-size: 18px;
+        }
+    }
+
+    .input .cta-btns {
+        padding: 1.5rem;
+    }
+
+    .choice-box span {
+        font-size: 1.5rem;
+        border-radius: 1rem;
+    }
+
+    .summary {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        gap: 1rem;
+        h2 {
+            font-size: 24px;
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            font-size: 18px;
+        }
+    }
 }
