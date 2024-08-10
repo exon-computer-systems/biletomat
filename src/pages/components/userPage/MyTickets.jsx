@@ -28,23 +28,10 @@ const MyTickets = () => {
             try {
                 console.log("Fetching tickets for user:", auth.id);
 
-                console.log(auth.purchasedTickets);
-                setCryptedTickets(auth.purchasedTickets);
+                const response = await axios.get(`/users/${auth.id}`);
 
-                const response = await axiosPrivate.post("/tickets", {
-                    id: auth.id,
-                });
-
-                // Log and set tickets
-                console.log("Fetched tickets:", response.data);
-                setTickets(response.data); // Set tickets in state
-
-                if (response) {
-                    const eventResponse = await axios.get("/events");
-
-                    console.log(eventResponse.data);
-                    setEvents(eventResponse.data);
-                }
+                console.log(response.data.reservations);
+                setTickets(response.data.reservations);
             } catch (err) {
                 console.warn("Error fetching tickets:", err);
             }
@@ -60,17 +47,25 @@ const MyTickets = () => {
             </div>
 
             <section className="tickets">
-                {cryptedTickets.length > 0 &&
-                    cryptedTickets.map((el) => {
+                {tickets.length > 0 &&
+                    tickets.map((el) => {
                         console.log(el);
                         return (
-                            <section className="ticket">
-                                <QRCode
-                                    title="Test"
-                                    bgColor="#FFFFFF"
-                                    fgColor="#000000"
-                                    value={el}
-                                    size={300}
+                            <section className="ticket" key={el._id}>
+                                <section className="ticket-info">
+                                    <h4 className="ticket-info-title">
+                                        {el.eventTitle}
+                                    </h4>
+                                    <p className="ticket-info-date">
+                                        {el.eventDate} - 19:00
+                                    </p>
+                                    <p className="ticket-info-sector">{`Sektor: ${el.sectorName}`}</p>
+                                    <p className="ticket-info-row">{`Rząd: ${el.rowNumber}`}</p>
+                                    <p className="ticket-info-seat">{`Miejsce: ${el.seatNumber}`}</p>
+                                </section>
+                                <img
+                                    className="ticket-info-qr"
+                                    src={el.qrCodeUrl}
                                 />
                             </section>
                         );

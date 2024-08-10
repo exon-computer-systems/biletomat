@@ -26,7 +26,7 @@ const Navbar = ({ handlePanel }) => {
 
     return (
         <>
-            {/* <div className="wave-background"></div> */}
+            <div className="wave-background"></div>
             <header className="navbar">
                 <div className="logo" onClick={() => nav("/")}>
                     <img

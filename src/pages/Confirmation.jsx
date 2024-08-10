@@ -7,7 +7,13 @@ import { faCalendar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "./hooks/useAuth";
 import axios from "./api/axios";
 
-const Confirmation = ({ selectedSeats, event, order, setSelectedSeats }) => {
+const Confirmation = ({
+    selectedSeats,
+    event,
+    order,
+    setSelectedSeat,
+    setOrderSteps,
+}) => {
     const nav = useNavigate();
     const { auth } = useAuth();
 
@@ -46,6 +52,8 @@ const Confirmation = ({ selectedSeats, event, order, setSelectedSeats }) => {
                 responses.forEach((response) => {
                     console.log("Response:", response.data.qrCodeUrl);
                 });
+
+                setOrderSteps(4);
             }
         } catch (err) {
             console.warn(err);
@@ -114,14 +122,15 @@ const Confirmation = ({ selectedSeats, event, order, setSelectedSeats }) => {
                     <div className="section-info">
                         <div className="date info1">
                             <p>Sektor</p>
-                            <p>{selectedSeats.at(0).rowInfo.sectorName}</p>
+                            <p>{selectedSeats?.at(0)?.rowInfo?.sectorName}</p>
                         </div>
                         <div className="seats info1">
                             <p>Miejsca</p>
                             {selectedSeats.map((el) => {
                                 return (
                                     <p key={el._id}>
-                                        R{el.rowInfo.rowNumber} {el.seatNumber}
+                                        R{el?.rowInfo?.rowNumber}{" "}
+                                        {el?.seatNumber}
                                     </p>
                                 );
                             })}

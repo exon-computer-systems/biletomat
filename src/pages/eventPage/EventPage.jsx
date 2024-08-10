@@ -22,6 +22,7 @@ import LinkBack from "../components/LinkBack/LinkBack";
 import SectorMap from "../components/sectorMap/SectorMap";
 import BuyTicket from "../BuyTicket";
 import Confirmation from "../Confirmation";
+import SuccessBuy from "../components/successBuy/SuccessBuy";
 
 const EventPage = () => {
     const { auth, setAuth } = useAuth();
@@ -119,13 +120,16 @@ const EventPage = () => {
 
     return (
         <>
-            {isSelected ? (
+            {orderSteps === 4 ? (
+                <SuccessBuy />
+            ) : isSelected ? (
                 <Confirmation
                     selectedSeats={selectedSeats}
                     setSelectedSeats={setSelectedSeats}
                     confirmationData={confirmationData}
                     event={events}
                     order={order}
+                    setOrderSteps={setOrderSteps}
                 />
             ) : (
                 <>

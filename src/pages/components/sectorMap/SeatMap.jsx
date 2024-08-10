@@ -16,6 +16,7 @@ const SeatMap = ({
     checkOutHandle,
     order,
     setOrder,
+    setOrderSteps,
 }) => {
     const { auth } = useAuth();
     const { id } = useParams();
@@ -105,8 +106,8 @@ const SeatMap = ({
     };
 
     const handleClick = () => {
-        console.log(prices);
-        console.log(order);
+        // console.log(prices);
+        // console.log(order);
 
         let total =
             order.normal * prices.normal +
@@ -114,6 +115,7 @@ const SeatMap = ({
             order.senior * prices.senior;
 
         setOrder((prev) => ({ ...prev, total: total }));
+        setOrderSteps(3);
         checkOutHandle();
     };
 

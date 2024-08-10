@@ -36,6 +36,7 @@ const SectorMap = ({
                     selectedSeats={selectedSeats}
                     setSelectedSeats={setSelectedSeats}
                     checkOutHandle={checkOutHandle}
+                    setOrderSteps={setOrderSteps}
                 />
             ) : (
                 <section className="smap">
