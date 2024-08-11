@@ -1,82 +1,100 @@
 .smap-cont {
-    /* background-color: lightslategray; */
-    width: 100%;
-    /* width: 320px; */
-    height: 200px;
-    max-width: 1024px;
-    z-index: 10;
+  /* background-color: lightslategray; */
+  width: 100%;
+  /* width: 320px; */
+  height: 200px;
+  max-width: 1024px;
+  z-index: 10;
 }
 
 .smap {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0.25rem;
-    grid-row-gap: 0.25rem;
-    width: 100%;
-    height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0.25rem;
+  grid-row-gap: 0.25rem;
+  width: 100%;
+  height: 100%;
 }
 
 .smap-sector {
-    /* width: 100%;
+  /* width: 100%;
     height: 100%; */
-    /* background-color: red; */
-    border: none;
+  /* background-color: red; */
+  border: none;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .smap-sector1 {
-    grid-area: 1 / 2 / 2 / 4;
-    background-color: #faf0ca;
+  grid-area: 1 / 2 / 2 / 4;
+  background-color: #faf0ca;
 }
 .smap-sector2 {
-    grid-area: 2 / 2 / 3 / 4;
-    background-color: #f4d35e;
+  grid-area: 2 / 2 / 3 / 4;
+  background-color: #f4d35e;
 }
 .smap-sector3 {
-    grid-area: 1 / 1 / 3 / 2;
-    background-color: #ee964b;
+  grid-area: 1 / 1 / 3 / 2;
+  background-color: #ee964b;
 }
 .smap-sector4 {
-    grid-area: 1 / 4 / 3 / 5;
-    background-color: #ee964b;
+  grid-area: 1 / 4 / 3 / 5;
+  background-color: #ee964b;
 }
 .smap-sector5 {
-    grid-area: 3 / 1 / 4 / 5;
-    background-color: #f95738;
+  grid-area: 3 / 1 / 4 / 5;
+  background-color: #f95738;
 }
 
 /* SEAT MAP */
 
 .seat-map {
-    display: grid;
-    width: 100%;
-    grid-gap: 0.25rem;
+  display: grid;
+  width: 100%;
+  grid-gap: 0.25rem;
 }
 
 .seat {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.25rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  position: relative; /* Make .seat the reference for absolutely positioned children */
+  scale: 1.5;
+  /* You can set z-index to 0 or remove it if not needed */
+}
+
+.seat span {
+  position: absolute;
+  top: 0; /* Adjust these values to position the number correctly over the icon */
+
+  z-index: 5; /* Ensure the number is above the icon */
+  color: white; /* Optional: Change text color for contrast */
+
+  padding: 0.2rem 0.4rem; /* Optional: Adjust padding for better appearance */
+  font-size: 12px; /* Adjust the size as needed */
+}
+
+.seat-icon {
+  z-index: 1; /* Ensure the icon is below the number */
 }
 
 .seat.reserved {
-    cursor: not-allowed;
-    color: red;
+  cursor: not-allowed;
+  color: #838f97;
 }
 
 .seat.free {
-    cursor: pointer;
-    color: black;
+  cursor: pointer;
+  color: #4caf50;
 }
 
 .seat.selected {
-    /* Styles for selected seats */
-    color: green;
+  /* Styles for selected seats */
+  color: black;
 }
