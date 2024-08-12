@@ -37,23 +37,33 @@ const BuyTicket = ({
         };
 
         if (event?._id) {
-            const prices = event.ticketInfo.reduce((acc, curr) => {
-                acc.normal.min = Math.min(acc.normal.min, curr.normal);
-                acc.normal.max = Math.max(acc.normal.max, curr.normal);
-                acc.discounted.min = Math.min(
-                    acc.discounted.min,
-                    curr.discounted
-                );
-                acc.discounted.max = Math.max(
-                    acc.discounted.max,
-                    curr.discounted
-                );
-                acc.senior.min = Math.min(acc.senior.min, curr.senior);
-                acc.senior.max = Math.max(acc.senior.max, curr.senior);
-                return acc;
-            }, initialValues);
+            if (!event.seated) {
+                const prices = {
+                    normal: { max: event.ticketInfo[0].normal },
+                    discounted: { max: event.ticketInfo[0].discounted },
+                    senior: { max: event.ticketInfo[0].senior },
+                };
 
-            setPricesRange(prices);
+                setPricesRange(prices);
+            } else {
+                const prices = event.ticketInfo.reduce((acc, curr) => {
+                    acc.normal.min = Math.min(acc.normal.min, curr.normal);
+                    acc.normal.max = Math.max(acc.normal.max, curr.normal);
+                    acc.discounted.min = Math.min(
+                        acc.discounted.min,
+                        curr.discounted
+                    );
+                    acc.discounted.max = Math.max(
+                        acc.discounted.max,
+                        curr.discounted
+                    );
+                    acc.senior.min = Math.min(acc.senior.min, curr.senior);
+                    acc.senior.max = Math.max(acc.senior.max, curr.senior);
+                    return acc;
+                }, initialValues);
+                console.log(prices);
+                setPricesRange(prices);
+            }
         }
     }, [event]);
 
