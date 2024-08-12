@@ -6,11 +6,10 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const Slider = ({ events, isLoading }) => {
   const [width, setWidth] = useState(300);
-
-  const ref = useRef(0);
+  const ref = useRef(null);
   const intervalRef = useRef(null);
 
-  const totalEvents = [...events, ...events, ...events]; // Clone events list
+  const totalEvents = [...events, ...events];
 
   const scrollBy = scrollOffset => {
     if (ref.current) {
@@ -20,8 +19,14 @@ const Slider = ({ events, isLoading }) => {
 
   const startScrolling = () => {
     intervalRef.current = setInterval(() => {
-      scrollBy(width);
-    }, 2000); // Adjust the interval time as needed (2000ms = 2s)
+      if (ref.current) {
+        scrollBy(width);
+
+        if (ref.current.scrollLeft >= ref.current.scrollWidth / 2) {
+          ref.current.scrollLeft = 0;
+        }
+      }
+    }, 2000);
   };
 
   const stopScrolling = () => {

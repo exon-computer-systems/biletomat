@@ -9,9 +9,13 @@ import Welcome from "./components/welcome/Welcome";
 import LogIn from "./components/logIn/LogIn";
 
 import axios from "./api/axios";
+import useAuth from "./hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [isActive, setIsActive] = useState(true);
+    const { auth } = useAuth();
+    const nav = useNavigate();
     // const close = () => setIsLogged(false);
     // const open = () => setIsLogged(true);
     const [events, setEvents] = useState([]);
