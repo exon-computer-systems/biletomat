@@ -11,54 +11,96 @@ const Confirmation = ({
     selectedSeats,
     event,
     order,
-    setSelectedSeat,
+    setSelectedSeats,
     setOrderSteps,
 }) => {
     const nav = useNavigate();
     const { auth } = useAuth();
 
-    // console.log(
-    //     "selected: ",
-    //     selectedSeats.map((el) => el.seatNumber)
-    // );
-
-    // console.log("confirmationData", confirmationData);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(selectedSeats);
 
         try {
             if (auth.email) {
-                // WYSWIETLIC AUTH PANEL JESLI UZYTKOWNIK NIE JEST ZALOGOWANY
-                const requests = selectedSeats.map((selectedSeat) => {
-                    console.log({
-                        eventId: event._id,
-                        sectorName: selectedSeat.rowInfo.sectorName,
-                        rowNumber: selectedSeat.rowInfo.rowNumber,
-                        seatNumber: selectedSeat.seatNumber,
-                        userId: auth.id,
+                if (event.seated) {
+                    // For seated events, reserve specific seats
+                    const requests = selectedSeats.map((selectedSeat) => {
+                        return axios.post("/events/reserve", {
+                            eventId: event._id,
+                            sectorName: selectedSeat.rowInfo.sectorName,
+                            rowNumber: selectedSeat.rowInfo.rowNumber,
+                            seatNumber: selectedSeat.seatNumber,
+                            userId: auth.id,
+                        });
                     });
 
-                    return axios.post("/events/reserve", {
-                        eventId: event._id,
-                        sectorName: selectedSeat.rowInfo.sectorName,
-                        rowNumber: selectedSeat.rowInfo.rowNumber,
-                        seatNumber: selectedSeat.seatNumber,
-                        userId: auth.id,
+                    const responses = await Promise.all(requests);
+                    responses.forEach((response) => {
+                        console.log("Response:", response.data.qrCodeUrl);
                     });
-                });
-                const responses = await Promise.all(requests);
-                responses.forEach((response) => {
-                    console.log("Response:", response.data.qrCodeUrl);
-                });
+                } else {
+                    // For non-seated events, reserve tickets based on order types
+                    const ticketRequests = [];
+
+                    // Create reservation requests for each ticket type
+                    if (order.normal > 0) {
+                        for (let i = 0; i < order.normal; i++) {
+                            ticketRequests.push(
+                                axios.post("/events/reserve", {
+                                    eventId: event._id,
+                                    sectorName: "",
+                                    rowNumber: 0,
+                                    seatNumber: 0,
+                                    userId: auth.id,
+                                })
+                            );
+                        }
+                    }
+
+                    if (order.discounted > 0) {
+                        for (let i = 0; i < order.discounted; i++) {
+                            ticketRequests.push(
+                                axios.post("/events/reserve", {
+                                    eventId: event._id,
+                                    sectorName: "",
+                                    rowNumber: 0,
+                                    seatNumber: 0,
+                                    userId: auth.id,
+                                })
+                            );
+                        }
+                    }
+
+                    if (order.senior > 0) {
+                        for (let i = 0; i < order.senior; i++) {
+                            ticketRequests.push(
+                                axios.post("/events/reserve", {
+                                    eventId: event._id,
+                                    sectorName: "",
+                                    rowNumber: 0,
+                                    seatNumber: 0,
+                                    userId: auth.id,
+                                })
+                            );
+                        }
+                    }
+
+                    console.log(ticketRequests);
+
+                    const responses = await Promise.all(ticketRequests);
+                    responses.forEach((response) => {
+                        console.log("Response:", response.data.qrCodeUrl);
+                    });
+                }
 
                 setOrderSteps(4);
+            } else {
+                console.warn("User is not logged in.");
             }
         } catch (err) {
             console.warn(err);
         } finally {
-            // setSelectedSeats([]);
+            setSelectedSeats([]);
         }
     };
 
@@ -67,7 +109,7 @@ const Confirmation = ({
             <section className="confirmation-wrapper">
                 <div className="confirmation-header">
                     <div className="confirmation-cover">
-                        <img src={event.coverImage} alt="" />
+                        <img src={event.coverImage} alt={event.title} />
                     </div>
                     <div className="confirmation-info">
                         <h1>{event.title}</h1>
@@ -119,25 +161,26 @@ const Confirmation = ({
                             )}
                         </div>
                     </div>
-                    <div className="section-info">
-                        <div className="date info1">
-                            <p>Sektor</p>
-                            <p>{selectedSeats?.at(0)?.rowInfo?.sectorName}</p>
-                        </div>
-                        <div className="seats info1">
-                            <p>Miejsca</p>
-                            {selectedSeats.map((el) => {
-                                return (
+                    {event.seated && (
+                        <div className="section-info">
+                            <div className="date info1">
+                                <p>Sektor</p>
+                                <p>
+                                    {selectedSeats?.[0]?.rowInfo?.sectorName ||
+                                        "N/A"}
+                                </p>
+                            </div>
+                            <div className="seats info1">
+                                <p>Miejsca</p>
+                                {selectedSeats.map((el) => (
                                     <p key={el._id}>
                                         R{el?.rowInfo?.rowNumber}{" "}
                                         {el?.seatNumber}
                                     </p>
-                                );
-                            })}
+                                ))}
+                            </div>
                         </div>
-
-                        <div className="price info1"></div>
-                    </div>
+                    )}
                 </section>
                 <section className="conf-cta">
                     <h2>Łącznie: {order.total}</h2>

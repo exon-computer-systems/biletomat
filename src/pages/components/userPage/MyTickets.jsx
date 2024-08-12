@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import axios from "../../api/axios";
-import QRCode from "react-qr-code";
 
 const MyTickets = () => {
     const { auth } = useAuth();
@@ -13,9 +10,6 @@ const MyTickets = () => {
     const [isClicked, setIsClicked] = useState(false);
 
     const [tickets, setTickets] = useState([]);
-    const [cryptedTickets, setCryptedTickets] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [filteredEvents, setFilteredEvents] = useState([]);
 
     const handleClick = () => {
         setIsClicked(() => !isClicked);
@@ -31,7 +25,11 @@ const MyTickets = () => {
                 const response = await axios.get(`/users/${auth.id}`);
 
                 console.log(response.data.reservations);
-                setTickets(response.data.reservations);
+
+                // Reverse the tickets array before setting the state
+                const reversedTickets = response.data.reservations.reverse();
+
+                setTickets(reversedTickets);
             } catch (err) {
                 console.warn("Error fetching tickets:", err);
             }
@@ -56,16 +54,28 @@ const MyTickets = () => {
                                     <h4 className="ticket-info-title">
                                         {el.eventTitle}
                                     </h4>
+
                                     <p className="ticket-info-date">
                                         {el.eventDate} - 19:00
                                     </p>
-                                    <p className="ticket-info-sector">{`Sektor: ${el.sectorName}`}</p>
-                                    <p className="ticket-info-row">{`Rząd: ${el.rowNumber}`}</p>
-                                    <p className="ticket-info-seat">{`Miejsce: ${el.seatNumber}`}</p>
+                                    {el.sectorName !== "" ? (
+                                        <>
+                                            <p className="ticket-info-sector">
+                                                {`Sektor: ${el.sectorName}`}
+                                            </p>
+                                            <p className="ticket-info-row">{`Rząd: ${el.rowNumber}`}</p>
+                                            <p className="ticket-info-seat">{`Miejsce: ${el.seatNumber}`}</p>
+                                        </>
+                                    ) : (
+                                        <p className="ticket-info-seat">
+                                            Wydarzenie bez przydzielonych miejsc
+                                        </p>
+                                    )}
                                 </section>
                                 <img
                                     className="ticket-info-qr"
                                     src={el.qrCodeUrl}
+                                    alt="QR Code"
                                 />
                             </section>
                         );

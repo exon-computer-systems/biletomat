@@ -1,23 +1,22 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeart as fullHeart,
-  faShare,
-  faCalendar,
-  faLocationDot,
-  faAngleDown,
-  faAngleLeft,
-  faPen,
+    faHeart as fullHeart,
+    faShare,
+    faCalendar,
+    faLocationDot,
+    faAngleLeft,
+    faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
-import "./EventPage.css";
 import axios from "../api/axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
+
 import PromoSlider from "../components/promoSlider/PromoSlider";
 import OtherArtists from "../otherArtists/OtherArtistsList";
 import NavBar from "../components/Navbar";
-import useAuth from "../hooks/useAuth";
 import LinkBack from "../components/LinkBack/LinkBack";
 import SectorMap from "../components/sectorMap/SectorMap";
 import BuyTicket from "../BuyTicket";
@@ -25,213 +24,224 @@ import Confirmation from "../Confirmation";
 import SuccessBuy from "../components/successBuy/SuccessBuy";
 import AuthPanel from "../components/authPanel/AuthPanel";
 
+import "./EventPage.css";
+
 const EventPage = () => {
-  const { auth, setAuth } = useAuth();
-  const { id } = useParams(); //  Getting id from url to render page based on clicked event
-  const nav = useNavigate();
-  const axiosPrivate = useAxiosPrivate();
+    const { auth, setAuth } = useAuth();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const axiosPrivate = useAxiosPrivate();
 
-  const [orderSteps, setOrderSteps] = useState(1);
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [events, setEvents] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
-  const [confirmationData, setConfirmationData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    startDate: "",
-    ticketType: [],
-    price: 0,
-  });
-  const [order, setOrder] = useState({
-    normal: 0,
-    discounted: 0,
-    senior: 0,
-    sum: 0,
-  });
+    const [orderSteps, setOrderSteps] = useState(1);
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [events, setEvents] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isSelected, setIsSelected] = useState(false);
+    const [confirmationData, setConfirmationData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        startDate: "",
+        ticketType: [],
+        price: 0,
+    });
+    const [order, setOrder] = useState({
+        normal: 0,
+        discounted: 0,
+        senior: 0,
+        sum: 0,
+    });
+    const [activeAuthPanel, setActiveAuthPanel] = useState(false);
 
-  const [activeAuthPanel, setActiveAuthPanel] = useState(false);
+    const allowedRoles = [1984, 2150];
 
-  const handleClose = () => {
-    setActiveAuthPanel(false);
-  };
+    useEffect(() => {
+        console.log(order);
+    }, [order]);
 
-  useEffect(() => {
-    console.log(order);
-  }, [order.normal]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                const response = await axios.get(`/events/${id}`);
+                setEvents(response.data);
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Error fetching event data:", error);
+            }
+        };
 
-  const allowedRoles = [1984, 2150];
-  const checkOutHandle = () => {
-    const allSeatsMatch = selectedSeats.every(
-      seat => seat.rowInfo.rowNumber && seat.seatNumber
-    );
+        fetchData();
+    }, [id]);
 
-    if (allSeatsMatch) {
-      setIsSelected(true);
-    }
-  };
+    useEffect(() => {
+        setIsFavorite(auth?.likedEvents?.includes(events.tid));
+    }, [auth, events]);
 
-  console.log(isSelected);
-  // Fetching data
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const res = await axios.get(`/events/${id}`);
-      console.log(res.data);
-      setEvents(res.data);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [id]);
-
-  useEffect(() => {
-    // console.log(auth);
-    // console.log(auth?.likedEvents?.includes(events.tid));
-    setIsFavorite(auth?.likedEvents?.includes(events.tid));
-  }, [auth, isLoading]);
-
-  const handleFavorite = async () => {
-    // console.log(auth.id);
-    // console.log(events.tid);
-    if (auth.email == undefined) {
-      setActiveAuthPanel(true);
-      return;
-    }
-
-    try {
-      const response = await axiosPrivate.put(
-        `/users/${auth.id}`,
-        {
-          tid: events.tid,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+    const handleFavorite = async () => {
+        if (!auth?.email) {
+            setActiveAuthPanel(true);
+            return;
         }
-      );
-      // console.log(response);
-      setAuth(prevAuth => ({
-        ...prevAuth,
-        likedEvents: response.data.likedEvents,
-      }));
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
-  const handleBuy = () => {
-    auth?.email ? nav(`/buy/${id}`) : console.log("user is not logged");
-  };
+        try {
+            const response = await axiosPrivate.put(
+                `/users/${auth.id}`,
+                { tid: events.tid },
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
+            setAuth((prevAuth) => ({
+                ...prevAuth,
+                likedEvents: response.data.likedEvents,
+            }));
+        } catch (err) {
+            console.error("Error updating favorite events:", err);
+        }
+    };
 
-  return (
-    <>
-      {activeAuthPanel && <AuthPanel handleClose={handleClose} />}
-      {orderSteps === 4 ? (
-        <SuccessBuy />
-      ) : isSelected ? (
-        <Confirmation
-          selectedSeats={selectedSeats}
-          setSelectedSeats={setSelectedSeats}
-          confirmationData={confirmationData}
-          event={events}
-          order={order}
-          setOrderSteps={setOrderSteps}
-        />
-      ) : (
+    const handleClose = () => {
+        setActiveAuthPanel(false);
+    };
+
+    const checkOutHandle = () => {
+        const allSeatsMatch = selectedSeats.every(
+            (seat) => seat.rowInfo.rowNumber && seat.seatNumber
+        );
+
+        if (allSeatsMatch) {
+            setIsSelected(true);
+        }
+    };
+
+    return (
         <>
-          <NavBar />
-
-          <section className="event-page-container">
-            <Link to={"/"} className="link-back">
-              <FontAwesomeIcon icon={faAngleLeft} />
-              Wróć
-            </Link>
-            <section className="section1-container">
-              <section className="section1-wrapper">
-                <div className="cover-buy-wrapper">
-                  <div className="cover-image">
-                    <img src={events.coverImage} />
-                  </div>
-                  <div className="title-descp">
-                    <div className="descp">
-                      <h2>
-                        {events.title}
-
-                        {allowedRoles.some(i => auth?.roles?.includes(i)) && (
-                          <button onClick={() => nav(`/edit-page/${id}`)}>
-                            <FontAwesomeIcon icon={faPen} />
-                          </button>
-                        )}
-                      </h2>
-                    </div>
-                    <div className="date-place">
-                      <div className="place">
-                        <FontAwesomeIcon
-                          icon={faCalendar}
-                          className="place-icon"
-                        />
-                        <div className="place-info">
-                          <p className="start-date">{events.startDate}</p>
-                          <p className="hours">19:00 - 21:00</p>
-                        </div>
-                      </div>
-                      <div className="date">
-                        <FontAwesomeIcon
-                          icon={faLocationDot}
-                          className="date-icon"
-                        />
-                        <p className="city">{events.city}</p>
-                      </div>
-                    </div>
-                    <div className="btns">
-                      <button onClick={handleFavorite}>
-                        <FontAwesomeIcon
-                          icon={isFavorite ? fullHeart : emptyHeart}
-                          className="heart-icon"
-                        />
-                      </button>
-                      <button>
-                        <FontAwesomeIcon
-                          icon={faShare}
-                          className="share-icon"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <p>{events.description}</p>
-              </section>
-            </section>
-            <section className="section2-wrapper">
-              {orderSteps === 1 ? (
-                <BuyTicket
-                  order={order}
-                  setOrder={setOrder}
-                  event={events}
-                  setOrderSteps={setOrderSteps}
-                  setActiveAuthPanel={setActiveAuthPanel}
+            {activeAuthPanel && <AuthPanel handleClose={handleClose} />}
+            {orderSteps === 4 ? (
+                <SuccessBuy />
+            ) : orderSteps === 3 ? (
+                <Confirmation
+                    selectedSeats={selectedSeats}
+                    setSelectedSeats={setSelectedSeats}
+                    confirmationData={confirmationData}
+                    event={events}
+                    order={order}
+                    setOrderSteps={setOrderSteps}
                 />
-              ) : (
-                <SectorMap
-                  order={order}
-                  setOrder={setOrder}
-                  event={events}
-                  selectedSeats={selectedSeats}
-                  setSelectedSeats={setSelectedSeats}
-                  checkOutHandle={checkOutHandle}
-                  maxSelected={order.sum}
-                  setOrderSteps={setOrderSteps}
-                />
-              )}
-            </section>
-          </section>
+            ) : (
+                <>
+                    <NavBar />
+                    <section className="event-page-container">
+                        <LinkBack to="/" text="Wróć" />
+                        <section className="section1-container">
+                            <section className="section1-wrapper">
+                                <div className="cover-buy-wrapper">
+                                    <div className="cover-image">
+                                        <img
+                                            src={events.coverImage}
+                                            alt={`${events.title} Cover`}
+                                        />
+                                    </div>
+                                    <div className="title-descp">
+                                        <div className="descp">
+                                            <h2>
+                                                {events.title}
+                                                {allowedRoles.some((role) =>
+                                                    auth?.roles?.includes(role)
+                                                ) && (
+                                                    <button
+                                                        onClick={() =>
+                                                            navigate(
+                                                                `/edit-page/${id}`
+                                                            )
+                                                        }
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            icon={faPen}
+                                                        />
+                                                    </button>
+                                                )}
+                                            </h2>
+                                        </div>
+                                        <div className="date-place">
+                                            <div className="place">
+                                                <FontAwesomeIcon
+                                                    icon={faCalendar}
+                                                    className="place-icon"
+                                                />
+                                                <div className="place-info">
+                                                    <p className="start-date">
+                                                        {events.startDate}
+                                                    </p>
+                                                    <p className="hours">
+                                                        19:00 - 21:00
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="date">
+                                                <FontAwesomeIcon
+                                                    icon={faLocationDot}
+                                                    className="date-icon"
+                                                />
+                                                <p className="city">
+                                                    {events.city}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="btns">
+                                            <button onClick={handleFavorite}>
+                                                <FontAwesomeIcon
+                                                    icon={
+                                                        isFavorite
+                                                            ? fullHeart
+                                                            : emptyHeart
+                                                    }
+                                                    className="heart-icon"
+                                                />
+                                            </button>
+                                            <button>
+                                                <FontAwesomeIcon
+                                                    icon={faShare}
+                                                    className="share-icon"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p>{events.description}</p>
+                            </section>
+                        </section>
+                        <section className="section2-wrapper">
+                            {orderSteps === 1 ? (
+                                <BuyTicket
+                                    order={order}
+                                    setOrder={setOrder}
+                                    event={events}
+                                    setOrderSteps={setOrderSteps}
+                                    setActiveAuthPanel={setActiveAuthPanel}
+                                />
+                            ) : events.seated ? (
+                                <SectorMap
+                                    order={order}
+                                    setOrder={setOrder}
+                                    event={events}
+                                    selectedSeats={selectedSeats}
+                                    setSelectedSeats={setSelectedSeats}
+                                    checkOutHandle={checkOutHandle}
+                                    maxSelected={order.sum}
+                                    setOrderSteps={setOrderSteps}
+                                />
+                            ) : null}
+                        </section>
+                    </section>
+                </>
+            )}
         </>
-      )}
-    </>
-  );
+    );
 };
 
 export default EventPage;

@@ -83,7 +83,18 @@ const BuyTicket = ({
     const handleSubmit = () => {
         handleAuth();
         if (order.normal !== 0 || order.discounted !== 0 || order.senior !== 0)
-            setOrderSteps(2);
+            if (event.seated) {
+                setOrderSteps(2);
+            } else {
+                setOrderSteps(3);
+                setOrder((prev) => ({
+                    ...prev,
+                    total:
+                        event.ticketInfo[0].normal * prev.normal +
+                        event.ticketInfo[0].discounted * prev.discounted +
+                        event.ticketInfo[0].senior * prev.senior,
+                }));
+            }
     };
 
     return (
@@ -100,7 +111,9 @@ const BuyTicket = ({
                                 </div>
 
                                 <span className="choice-box-range">
-                                    {`${pricesRange.normal.min} - ${pricesRange.normal.max}`}
+                                    {event.seated
+                                        ? `${pricesRange.normal.min} - ${pricesRange.normal.max}`
+                                        : `${pricesRange.normal.max}`}
                                     <br />
                                     PLN
                                 </span>
@@ -135,7 +148,9 @@ const BuyTicket = ({
                                 </div>
 
                                 <span className="choice-box-range">
-                                    {`${pricesRange.discounted.min} - ${pricesRange.discounted.max}`}
+                                    {event.seated
+                                        ? `${pricesRange.discounted.min} - ${pricesRange.discounted.max}`
+                                        : `${pricesRange.discounted.max}`}
                                     <br />
                                     PLN
                                 </span>
@@ -174,7 +189,9 @@ const BuyTicket = ({
                                 </div>
 
                                 <span className="choice-box-range">
-                                    {`${pricesRange.senior.min} - ${pricesRange.senior.max}`}
+                                    {event.seated
+                                        ? `${pricesRange.senior.min} - ${pricesRange.senior.max}`
+                                        : `${pricesRange.senior.max}`}
                                     <br />
                                     PLN
                                 </span>
