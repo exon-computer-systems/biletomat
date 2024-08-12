@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import CheckmarkAnimation from "./CheckmarkAnimation";
+import KioskBoard from "kioskboard";
 
 const LoginForm = ({ handleClose, response, setResponse }) => {
     const { setAuth } = useAuth();

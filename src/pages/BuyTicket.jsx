@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios, { axiosPrivate } from "./api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleLeft,
-  faMinus,
-  faPlus,
+    faAngleLeft,
+    faMinus,
+    faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import Confirmation from "./Confirmation";
 import useAuth from "./hooks/useAuth";
@@ -13,175 +13,211 @@ import "./BuyTicket.css";
 import SectorMap from "./components/sectorMap/SectorMap";
 
 const BuyTicket = ({
-  event,
-  order,
-  setOrder,
-  setOrderSteps,
-  setActiveAuthPanel,
+    event,
+    order,
+    setOrder,
+    setOrderSteps,
+    setActiveAuthPanel,
 }) => {
-  const [pricesRange, setPricesRange] = useState();
-  const { auth } = useAuth();
-  const nav = useNavigate();
+    const [pricesRange, setPricesRange] = useState();
+    const { auth } = useAuth();
+    const nav = useNavigate();
 
-  const handleAuth = () => {
-    auth?.email ? setActiveAuthPanel(true) : setActiveAuthPanel(false);
-  };
-
-  useEffect(() => {
-    const initialValues = {
-      normal: { min: Infinity, max: -Infinity },
-      discounted: { min: Infinity, max: -Infinity },
-      senior: { min: Infinity, max: -Infinity },
+    const handleAuth = () => {
+        auth?.email == undefined
+            ? setActiveAuthPanel(true)
+            : setActiveAuthPanel(false);
     };
 
-    if (event?._id) {
-      const prices = event.ticketInfo.reduce((acc, curr) => {
-        acc.normal.min = Math.min(acc.normal.min, curr.normal);
-        acc.normal.max = Math.max(acc.normal.max, curr.normal);
-        acc.discounted.min = Math.min(acc.discounted.min, curr.discounted);
-        acc.discounted.max = Math.max(acc.discounted.max, curr.discounted);
-        acc.senior.min = Math.min(acc.senior.min, curr.senior);
-        acc.senior.max = Math.max(acc.senior.max, curr.senior);
-        return acc;
-      }, initialValues);
+    useEffect(() => {
+        const initialValues = {
+            normal: { min: Infinity, max: -Infinity },
+            discounted: { min: Infinity, max: -Infinity },
+            senior: { min: Infinity, max: -Infinity },
+        };
 
-      setPricesRange(prices);
-    }
-  }, [event]);
+        if (event?._id) {
+            const prices = event.ticketInfo.reduce((acc, curr) => {
+                acc.normal.min = Math.min(acc.normal.min, curr.normal);
+                acc.normal.max = Math.max(acc.normal.max, curr.normal);
+                acc.discounted.min = Math.min(
+                    acc.discounted.min,
+                    curr.discounted
+                );
+                acc.discounted.max = Math.max(
+                    acc.discounted.max,
+                    curr.discounted
+                );
+                acc.senior.min = Math.min(acc.senior.min, curr.senior);
+                acc.senior.max = Math.max(acc.senior.max, curr.senior);
+                return acc;
+            }, initialValues);
 
-  const handleDecrease = ticketType => {
-    setOrder(prev => ({
-      ...prev,
-      [ticketType]:
-        prev[ticketType] > 0 ? prev[ticketType] - 1 : prev[ticketType],
-    }));
-  };
+            setPricesRange(prices);
+        }
+    }, [event]);
 
-  const handleIncrease = ticketType => {
-    setOrder(prev => ({
-      ...prev,
-      [ticketType]:
-        prev[ticketType] < 10 ? prev[ticketType] + 1 : prev[ticketType],
-    }));
-  };
+    const handleDecrease = (ticketType) => {
+        setOrder((prev) => ({
+            ...prev,
+            [ticketType]:
+                prev[ticketType] > 0 ? prev[ticketType] - 1 : prev[ticketType],
+        }));
+    };
 
-  useEffect(() => {
-    setOrder(prevOrder => ({
-      ...prevOrder,
-      sum: prevOrder.normal + prevOrder.discounted + prevOrder.senior,
-    }));
-  }, [order.normal, order.discounted, order.senior]);
+    const handleIncrease = (ticketType) => {
+        setOrder((prev) => ({
+            ...prev,
+            [ticketType]:
+                prev[ticketType] < 10 ? prev[ticketType] + 1 : prev[ticketType],
+        }));
+    };
 
-  const handleSubmit = () => {
-    handleAuth();
-    if (order.normal !== 0 || order.discounted !== 0 || order.senior !== 0)
-      setOrderSteps(2);
-  };
+    useEffect(() => {
+        setOrder((prevOrder) => ({
+            ...prevOrder,
+            sum: prevOrder.normal + prevOrder.discounted + prevOrder.senior,
+        }));
+    }, [order.normal, order.discounted, order.senior]);
 
-  return (
-    <>
-      {pricesRange && (
-        <div className="wrapper">
-          <section className="container">
-            <section className="choice-boxes">
-              <h2>Wybierz bilety</h2>
+    const handleSubmit = () => {
+        handleAuth();
+        if (order.normal !== 0 || order.discounted !== 0 || order.senior !== 0)
+            setOrderSteps(2);
+    };
 
-              <div className="choice-box">
-                <div className="ticket-name">
-                  <h2>Normalny</h2>
+    return (
+        <>
+            {pricesRange && (
+                <div className="wrapper">
+                    <section className="container">
+                        <section className="choice-boxes">
+                            <h2>Wybierz bilety</h2>
+
+                            <div className="choice-box">
+                                <div className="ticket-name">
+                                    <h2>Normalny</h2>
+                                </div>
+
+                                <span className="choice-box-range">
+                                    {`${pricesRange.normal.min} - ${pricesRange.normal.max}`}
+                                    <br />
+                                    PLN
+                                </span>
+
+                                <div className="input">
+                                    <button
+                                        className="cta-btns"
+                                        onClick={() => handleDecrease("normal")}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faMinus}
+                                            className="minus-btn"
+                                        />
+                                    </button>
+                                    <span className="cta-quant">
+                                        {order.normal}
+                                    </span>
+                                    <button
+                                        className="cta-btns"
+                                        onClick={() => handleIncrease("normal")}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faPlus}
+                                            className="plus-btn"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="choice-box">
+                                <div className="ticket-name">
+                                    <h2>Ulgowy</h2>
+                                </div>
+
+                                <span className="choice-box-range">
+                                    {`${pricesRange.discounted.min} - ${pricesRange.discounted.max}`}
+                                    <br />
+                                    PLN
+                                </span>
+
+                                <div className="input">
+                                    <button
+                                        className="cta-btns"
+                                        onClick={() =>
+                                            handleDecrease("discounted")
+                                        }
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faMinus}
+                                            className="minus-btn"
+                                        />
+                                    </button>
+                                    <span className="cta-quant">
+                                        {order.discounted}
+                                    </span>
+                                    <button
+                                        className="cta-btns"
+                                        onClick={() =>
+                                            handleIncrease("discounted")
+                                        }
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faPlus}
+                                            className="plus-btn"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="choice-box">
+                                <div className="ticket-name">
+                                    <h2>Senior</h2>
+                                </div>
+
+                                <span className="choice-box-range">
+                                    {`${pricesRange.senior.min} - ${pricesRange.senior.max}`}
+                                    <br />
+                                    PLN
+                                </span>
+
+                                <div className="input">
+                                    <button
+                                        className="cta-btns"
+                                        onClick={() => handleDecrease("senior")}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faMinus}
+                                            className="minus-btn"
+                                        />
+                                    </button>
+                                    <span className="cta-quant">
+                                        {order.senior}
+                                    </span>
+                                    <button
+                                        className="cta-btns"
+                                        onClick={() => handleIncrease("senior")}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faPlus}
+                                            className="plus-btn"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="summary">
+                            <h2>
+                                Łącznie <span>{order.sum}</span> biletów
+                            </h2>
+                            <button type="submit" onClick={handleSubmit}>
+                                DALEJ
+                            </button>
+                        </div>
+                    </section>
                 </div>
-
-                <span className="choice-box-range">
-                  {`${pricesRange.normal.min} - ${pricesRange.normal.max}`}
-                  <br />
-                  PLN
-                </span>
-
-                <div className="input">
-                  <button
-                    className="cta-btns"
-                    onClick={() => handleDecrease("normal")}
-                  >
-                    <FontAwesomeIcon icon={faMinus} className="minus-btn" />
-                  </button>
-                  <span className="cta-quant">{order.normal}</span>
-                  <button
-                    className="cta-btns"
-                    onClick={() => handleIncrease("normal")}
-                  >
-                    <FontAwesomeIcon icon={faPlus} className="plus-btn" />
-                  </button>
-                </div>
-              </div>
-              <div className="choice-box">
-                <div className="ticket-name">
-                  <h2>Ulgowy</h2>
-                </div>
-
-                <span className="choice-box-range">
-                  {`${pricesRange.discounted.min} - ${pricesRange.discounted.max}`}
-                  <br />
-                  PLN
-                </span>
-
-                <div className="input">
-                  <button
-                    className="cta-btns"
-                    onClick={() => handleDecrease("discounted")}
-                  >
-                    <FontAwesomeIcon icon={faMinus} className="minus-btn" />
-                  </button>
-                  <span className="cta-quant">{order.discounted}</span>
-                  <button
-                    className="cta-btns"
-                    onClick={() => handleIncrease("discounted")}
-                  >
-                    <FontAwesomeIcon icon={faPlus} className="plus-btn" />
-                  </button>
-                </div>
-              </div>
-              <div className="choice-box">
-                <div className="ticket-name">
-                  <h2>Senior</h2>
-                </div>
-
-                <span className="choice-box-range">
-                  {`${pricesRange.senior.min} - ${pricesRange.senior.max}`}
-                  <br />
-                  PLN
-                </span>
-
-                <div className="input">
-                  <button
-                    className="cta-btns"
-                    onClick={() => handleDecrease("senior")}
-                  >
-                    <FontAwesomeIcon icon={faMinus} className="minus-btn" />
-                  </button>
-                  <span className="cta-quant">{order.senior}</span>
-                  <button
-                    className="cta-btns"
-                    onClick={() => handleIncrease("senior")}
-                  >
-                    <FontAwesomeIcon icon={faPlus} className="plus-btn" />
-                  </button>
-                </div>
-              </div>
-            </section>
-
-            <div className="summary">
-              <h2>
-                Łącznie <span>{order.sum}</span> biletów
-              </h2>
-              <button type="submit" onClick={handleSubmit}>
-                DALEJ
-              </button>
-            </div>
-          </section>
-        </div>
-      )}
-    </>
-  );
+            )}
+        </>
+    );
 };
 
 export default BuyTicket;
