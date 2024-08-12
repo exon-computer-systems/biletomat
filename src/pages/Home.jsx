@@ -22,13 +22,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   // const [isLogged, setIsLogged] = useState(false);
   // const [activeAuthPanel, setActiveAuthPanel] = useState(false);
-  const [activeAuthPanel, setActiveAuthPanel] = useState(false);
-  const handleAuth = () => {
-    auth?.email ? nav("/user") : setActiveAuthPanel(true);
-  };
-  const handleClose = () => {
-    setActiveAuthPanel(false);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,12 +43,7 @@ const Home = () => {
     <>
       {/* {isActive && <Welcome handleClick={() => setIsActive(false)} />} */}
       {/* {isLogged && <LogIn isLogged={isLogged} handleClose={close} />} */}
-      <Navbar
-        activeAuthPanel={activeAuthPanel}
-        setActiveAuthPanel={setActiveAuthPanel}
-        handleAuth={handleAuth}
-        handleClose={handleClose}
-      />
+      <Navbar />
       <section className="home">
         <SearchBar events={events} />
 

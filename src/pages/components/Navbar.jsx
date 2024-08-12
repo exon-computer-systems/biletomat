@@ -13,15 +13,16 @@ import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import AuthPanel from "./authPanel/AuthPanel";
 
-const Navbar = ({
-  handlePanel,
-  activeAuthPanel,
-  setActiveAuthPanel,
-  handleAuth,
-  handleClose,
-}) => {
+const Navbar = ({ handlePanel }) => {
   const nav = useNavigate();
   const { auth } = useAuth();
+  const [activeAuthPanel, setActiveAuthPanel] = useState(false);
+  const handleAuth = () => {
+    auth?.email ? nav("/user") : setActiveAuthPanel(true);
+  };
+  const handleClose = () => {
+    setActiveAuthPanel(false);
+  };
 
   const allowedRoles = [1984, 2150];
 

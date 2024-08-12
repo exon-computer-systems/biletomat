@@ -24,7 +24,7 @@ const BuyTicket = ({
   const nav = useNavigate();
 
   const handleAuth = () => {
-    auth?.email ? nav("/user") : setActiveAuthPanel(true);
+    auth?.email ? setActiveAuthPanel(true) : setActiveAuthPanel(false);
   };
 
   useEffect(() => {
