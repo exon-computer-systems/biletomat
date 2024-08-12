@@ -24,6 +24,10 @@ const Navbar = ({ handlePanel }) => {
         auth?.email ? nav("/user") : setActiveAuthPanel(true);
     };
 
+    const handleClose = () => {
+        setActiveAuthPanel(false);
+    };
+
     return (
         <>
             <div className="wave-background"></div>
@@ -79,9 +83,7 @@ const Navbar = ({ handlePanel }) => {
                 </div>
             </header>
 
-            {activeAuthPanel && (
-                <AuthPanel handleClose={() => setActiveAuthPanel(false)} />
-            )}
+            {activeAuthPanel && <AuthPanel handleClose={handleClose} />}
         </>
     );
 };
