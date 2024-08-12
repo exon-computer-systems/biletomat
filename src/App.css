@@ -17,5 +17,9 @@ body {
 }
 
 .section {
-    padding: 1rem;
+  padding: 1rem;
 }
+
+/* section {
+  z-index: 5;
+} */
