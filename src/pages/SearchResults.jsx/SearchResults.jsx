@@ -4,13 +4,18 @@ import axios from "../api/axios";
 import Navbar from "../components/Navbar";
 import "./SearchResults.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import SearchBar from "../components/searchBar/SearchBar";
+import useAuth from "../hooks/useAuth";
 
 const SearchResults = () => {
   const [eventResults, setEventResults] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [events, setEvents] = useState({});
   const location = useLocation();
   const nav = useNavigate();
+  const { auth } = useAuth();
 
   const queryParams = new URLSearchParams(location.search);
   const searchParams = {
@@ -19,6 +24,23 @@ const SearchResults = () => {
     startDate: queryParams.get("startDate") || "",
     city: queryParams.get("city") || "",
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/events`);
+        setEvents(response.data);
+      } catch (error) {
+        console.error("Error fetching event data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setIsFavorite(auth?.likedEvents?.includes(events.tid));
+  }, [auth, events]);
 
   useEffect(() => {
     const queryResults = async () => {
@@ -55,7 +77,10 @@ const SearchResults = () => {
                 <div>
                   <div className="title-favourite">
                     <h2>{event.title}</h2>
-                    <FontAwesomeIcon icon={faHeart} />
+                    <FontAwesomeIcon
+                      icon={isFavorite ? fullHeart : emptyHeart}
+                      className="heart-icon"
+                    />
                   </div>
                   <p>
                     {event.startDate} | {event.city}

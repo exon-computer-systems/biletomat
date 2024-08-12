@@ -143,12 +143,15 @@ const SeatMap = ({
               );
             })}
       </form>
-      <button
-        disabled={selectedSeats.length < maxSelected}
-        onClick={handleClick}
-      >
-        Rezerwuj
-      </button>
+      <div className="reserve-wrapper">
+        <button
+          className="reserve-btn"
+          disabled={selectedSeats.length < maxSelected}
+          onClick={handleClick}
+        >
+          ZAREZERWUJ
+        </button>
+      </div>
     </section>
   );
 };

@@ -1,51 +1,51 @@
-import { faCircle, faHeart } from "@fortawesome/free-regular-svg-icons";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Navigate, useNavigate } from "react-router-dom";
-
-import React, { useState } from "react";
+import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Event = ({
   id,
   tid,
   title,
-  desc,
   date,
   city,
   coverImage,
   sale,
   goingFast,
+  isFavorite,
+  toggleFavorite,
 }) => {
-  // const [getId, setId] = useState("");
   const nav = useNavigate();
-  // const handleNavigation = e => {
-  //   eprDefault();
-  //   setId(ecurrentTargetgetAttribute("data-value"));
-  //   consolelog(getId);
-  // };
+
   return (
-    <>
-      <section
-        // key={}
-        className="search-results-wrapper event-wrap"
-        onClick={() => nav(`/event/${tid}`)}
-      >
-        <div className="result-img-cover">
-          <img src={coverImage} alt={`${title} cover`} />
-        </div>
-        <section className="results-info">
-          <div>
-            <div className="title-favourite">
-              <h2>{title}</h2>
-              <FontAwesomeIcon icon={faHeart} />
-            </div>
-            <p>
-              {date} | {city}
-            </p>
+    <section
+      className="search-results-wrapper event-wrap"
+      // onClick={() => nav(`/event/${tid}`)}
+    >
+      <div className="result-img-cover">
+        <img src={coverImage} alt={`${title} cover`} />
+      </div>
+      <section className="results-info">
+        <div>
+          <div className="title-favourite">
+            <h2>{title}</h2>
+            <FontAwesomeIcon
+              icon={isFavorite ? fullHeart : emptyHeart}
+              className="heart-icon"
+              onClick={e => {
+                e.stopPropagation(); // Prevent navigation on icon click
+                toggleFavorite();
+              }}
+            />
           </div>
-          <button>Sprawdź bilet</button>
-        </section>
+          <p>
+            {date} | {city}
+          </p>
+        </div>
+        <button onClick={() => nav(`/event/${tid}`)}>Sprawdź bilet</button>
       </section>
-    </>
+    </section>
   );
 };
 
