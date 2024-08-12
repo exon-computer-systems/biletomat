@@ -71,8 +71,10 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
                 console.error("No server response");
             } else if (err.response?.status === 400) {
                 console.error("Missing username or password");
+                setErrorMsg("Email i haslo są wymagane");
             } else if (err.response?.status === 401) {
                 console.error("Unauthorized");
+                setErrorMsg("Nie pasujące dane logowania");
             } else {
                 console.error("Login failed");
             }

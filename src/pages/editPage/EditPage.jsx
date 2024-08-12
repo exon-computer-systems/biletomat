@@ -6,41 +6,915 @@ import Navbar from "../components/Navbar";
 import LinkBack from "../components/LinkBack/LinkBack";
 
 const EditPage = () => {
+    let data = {
+        theater: {
+            name: "Kino Exon",
+            location: "Toruń",
+            sectors: [
+                {
+                    sectorName: "A",
+                    rows: [
+                        {
+                            rowNumber: 1,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 2,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 3,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 4,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 5,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    sectorName: "B",
+                    rows: [
+                        {
+                            rowNumber: 1,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 2,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 3,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 4,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 5,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 6,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 7,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                        {
+                            rowNumber: 8,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    sectorName: "C",
+                    rows: [
+                        {
+                            rowNumber: 1,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 2,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 3,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 4,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 5,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 6,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 7,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 8,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 9,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 10,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 11,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 12,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 13,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    sectorName: "D",
+                    rows: [
+                        {
+                            rowNumber: 1,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 2,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 3,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 4,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 5,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 6,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 7,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 8,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 9,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 10,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 11,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 12,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                        {
+                            rowNumber: 13,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    sectorName: "E",
+                    rows: [
+                        {
+                            rowNumber: 1,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 2,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 3,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 4,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 5,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 6,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 7,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                        {
+                            rowNumber: 8,
+                            seats: [
+                                { seatNumber: 1 },
+                                { seatNumber: 2 },
+                                { seatNumber: 3 },
+                                { seatNumber: 4 },
+                                { seatNumber: 5 },
+                                { seatNumber: 6 },
+                                { seatNumber: 7 },
+                                { seatNumber: 8 },
+                                { seatNumber: 9 },
+                                { seatNumber: 10 },
+                                { seatNumber: 11 },
+                                { seatNumber: 12 },
+                                { seatNumber: 13 },
+                                { seatNumber: 14 },
+                                { seatNumber: 15 },
+                                { seatNumber: 16 },
+                                { seatNumber: 17 },
+                                { seatNumber: 18 },
+                                { seatNumber: 19 },
+                                { seatNumber: 20 },
+                                { seatNumber: 21 },
+                                { seatNumber: 22 },
+                                { seatNumber: 23 },
+                                { seatNumber: 24 },
+                                { seatNumber: 25 },
+                                { seatNumber: 26 },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+    };
     const { setAuth, auth } = useAuth();
     const { id } = useParams();
+    const nav = useNavigate();
     // const [inputData, setInputData] = useState([]);
 
     const axiosPrivate = useAxiosPrivate();
     // const [isClicked, setIsClicked] = useState("");
     const [postPageData, setPostPageData] = useState({
         title: "",
-        artists: [],
+        artists: "",
         tid: "",
         description: "",
         startDate: "",
         endDate: "",
         city: "",
         coverImage: "",
-        eventType: "",
-        adultTicket: "",
-        kidTicket: "",
-        vipTicket: "",
-        totalSeats: "",
-        availableSeats: "",
+        eventType: "koncert",
+        totalSeats: 542,
+        availableSeats: 542,
         sale: false,
-        goingFast: true,
+        goingFast: false,
+        seated: false,
+        ticketInfo: [
+            {
+                sector: "A",
+                normal: 0,
+                discounted: 0,
+                senior: 0,
+            },
+            {
+                sector: "B",
+                normal: 0,
+                discounted: 0,
+                senior: 0,
+            },
+            {
+                sector: "C",
+                normal: 0,
+                discounted: 0,
+                senior: 0,
+            },
+            {
+                sector: "D",
+                normal: 0,
+                discounted: 0,
+                senior: 0,
+            },
+            {
+                sector: "E",
+                normal: 0,
+                discounted: 0,
+                senior: 0,
+            },
+        ],
+        theater: data.theater,
     });
-
     const handleInputArtists = (e) => {
         const { name, value, type } = e.target;
         const inputArtist = value.split(",");
         setPostPageData((prev) => ({ ...prev, artists: inputArtist }));
     };
 
+    // const handleInputChange = (e) => {
+    //     const { name, value, type } = e.target;
+    //     const inputValue = type === "number" ? Number(value) : value;
+    //     setPostPageData((prev) => ({ ...prev, [name]: inputValue }));
+    // };
+
     const handleInputChange = (e) => {
         const { name, value, type } = e.target;
         const inputValue = type === "number" ? Number(value) : value;
         setPostPageData((prev) => ({ ...prev, [name]: inputValue }));
+    };
+
+    const handleTicketInfoChange = (sector, type, value) => {
+        setPostPageData((prevData) => ({
+            ...prevData,
+            ticketInfo: prevData.ticketInfo.map((ticket) =>
+                ticket.sector === sector
+                    ? { ...ticket, [type]: Number(value) }
+                    : ticket
+            ),
+        }));
+    };
+
+    const handleDelete = async () => {
+        try {
+            const response = axiosPrivate.delete(`/events/${id}`);
+
+            console.log(response);
+        } catch (err) {
+            console.warn(err);
+        } finally {
+            // nav("/");
+        }
     };
 
     useEffect(() => {
@@ -52,8 +926,43 @@ const EditPage = () => {
         fetchData();
     }, [id]);
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axiosPrivate.put(
+    //             `/events/${id}`,
+    //             JSON.stringify(postPageData),
+    //             {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                 },
+    //                 withCredentials: true,
+    //             }
+    //         );
+    //         console.log(response);
+    //     } catch (err) {
+    //         if (!err?.response) {
+    //             console.error("No server response");
+    //         } else if (err.response?.status === 400) {
+    //             console.error(
+    //                 "Bad Request:",
+    //                 err.response?.data?.message || "Check your input data."
+    //             );
+    //         } else if (err.response?.status === 401) {
+    //             console.error("Unauthorized");
+    //         } else {
+    //             console.error(
+    //                 "Submit failed:",
+    //                 err.response?.data?.message || "Unknown error."
+    //             );
+    //         }
+    //     }
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log(data);
         try {
             const response = await axiosPrivate.put(
                 `/events/${id}`,
@@ -65,7 +974,10 @@ const EditPage = () => {
                     withCredentials: true,
                 }
             );
+
             console.log(response);
+
+            // nav("/success"); // Navigate to a success page if needed
         } catch (err) {
             if (!err?.response) {
                 console.error("No server response");
@@ -85,7 +997,7 @@ const EditPage = () => {
         }
     };
 
-    console.log(postPageData);
+    // console.log(postPageData);
 
     return (
         <>
@@ -104,7 +1016,6 @@ const EditPage = () => {
                                     name="title"
                                     id="title"
                                     value={postPageData.title}
-                                    placeholder={postPageData.title}
                                     required
                                     onChange={handleInputChange}
                                 />
@@ -117,7 +1028,7 @@ const EditPage = () => {
                                     id="artists"
                                     value={postPageData.artists}
                                     required
-                                    onChange={handleInputArtists}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -148,6 +1059,19 @@ const EditPage = () => {
                                 />
                             </div>
                             <div className="form-group">
+                                <label htmlFor="city">Miasto</label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    id="city"
+                                    value={postPageData.city}
+                                    required
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-group">
                                 <label htmlFor="startDate">
                                     Rozpoczęcie Zdarzenia
                                 </label>
@@ -161,8 +1085,6 @@ const EditPage = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                        </div>
-                        <div className="form-row">
                             <div className="form-group">
                                 <label htmlFor="endDate">
                                     Zakończenia Zdarzenia
@@ -173,17 +1095,6 @@ const EditPage = () => {
                                     id="endDate"
                                     placeholder="YYYY-MM-DD"
                                     value={postPageData.endDate}
-                                    required
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="city">Miasto</label>
-                                <input
-                                    type="text"
-                                    name="city"
-                                    id="city"
-                                    value={postPageData.city}
                                     required
                                     onChange={handleInputChange}
                                 />
@@ -216,73 +1127,155 @@ const EditPage = () => {
                                 />
                             </div>
                         </div>
+                        <div className="form-row">
+                            <div className="form-checkbox">
+                                <label htmlFor="eventType">
+                                    Wydarzenie z miejscami siedzącymi (sektory)?
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    checked={postPageData.seated}
+                                    onChange={(e) => {
+                                        console.log(e.target.checked);
+                                        setPostPageData((prev) => ({
+                                            ...prev,
+                                            seated: e.target.checked,
+                                        }));
+                                    }}
+                                />
+                            </div>
+                        </div>
+
                         <section className="edit-tickets">
-                            <div className="form-row">
-                                <h2>Bilety</h2>
-                                <div className="form-group">
-                                    <label htmlFor="adultTicket">
-                                        Bilet dla dorosłych
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="adultTicket"
-                                        id="adultTicket"
-                                        value={postPageData.adultTicket}
-                                        required
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="kidTicket">
-                                        Bilet dla dzieci
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="kidTicket"
-                                        id="kidTicket"
-                                        value={postPageData.kidTicket}
-                                        required
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <label htmlFor="vipTicket">Bilet VIP</label>
-                                    <input
-                                        type="number"
-                                        name="vipTicket"
-                                        id="vipTicket"
-                                        value={postPageData.vipTicket}
-                                        required
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="totalSeats">
-                                        Ilość miejsc
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="totalSeats"
-                                        id="totalSeats"
-                                        value={postPageData.totalSeats}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="availableSeats">
-                                        Dostępne miejsca
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="availableSeats"
-                                        id="availableSeats"
-                                        value={postPageData.availableSeats}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                            </div>
+                            <h2>Bilety</h2>
+                            {postPageData.seated
+                                ? postPageData.ticketInfo.map(
+                                      (ticket, index) => (
+                                          <div className="form-row" key={index}>
+                                              {ticket.sector + ": "}
+                                              <div className="form-group">
+                                                  <label htmlFor="normal">
+                                                      Normalny
+                                                  </label>
+                                                  <input
+                                                      type="number"
+                                                      name="normal"
+                                                      id="normal"
+                                                      value={ticket.normal}
+                                                      onChange={(e) =>
+                                                          handleTicketInfoChange(
+                                                              ticket.sector,
+                                                              "normal",
+                                                              e.target.value
+                                                          )
+                                                      }
+                                                      required
+                                                  />
+                                              </div>
+                                              <div className="form-group">
+                                                  <label htmlFor="discounted">
+                                                      Ulgowy
+                                                  </label>
+                                                  <input
+                                                      type="number"
+                                                      name="discounted"
+                                                      id="discounted"
+                                                      value={ticket.discounted}
+                                                      onChange={(e) =>
+                                                          handleTicketInfoChange(
+                                                              ticket.sector,
+                                                              "discounted",
+                                                              e.target.value
+                                                          )
+                                                      }
+                                                      required
+                                                  />
+                                              </div>
+                                              <div className="form-group">
+                                                  <label htmlFor="vipTicket">
+                                                      Senior
+                                                  </label>
+                                                  <input
+                                                      type="number"
+                                                      name="senior"
+                                                      id="senior"
+                                                      value={ticket.senior}
+                                                      onChange={(e) =>
+                                                          handleTicketInfoChange(
+                                                              ticket.sector,
+                                                              "senior",
+                                                              e.target.value
+                                                          )
+                                                      }
+                                                      required
+                                                  />
+                                              </div>
+                                          </div>
+                                      )
+                                  )
+                                : postPageData.ticketInfo
+                                      .slice(0, 1)
+                                      .map((ticket, index) => (
+                                          <div className="form-row" key={index}>
+                                              <div className="form-group">
+                                                  <label htmlFor="normal">
+                                                      Normalny
+                                                  </label>
+                                                  <input
+                                                      type="number"
+                                                      name="normal"
+                                                      id="normal"
+                                                      value={ticket.normal}
+                                                      onChange={(e) =>
+                                                          handleTicketInfoChange(
+                                                              ticket.sector,
+                                                              "normal",
+                                                              e.target.value
+                                                          )
+                                                      }
+                                                      required
+                                                  />
+                                              </div>
+                                              <div className="form-group">
+                                                  <label htmlFor="discounted">
+                                                      Ulgowy
+                                                  </label>
+                                                  <input
+                                                      type="number"
+                                                      name="discounted"
+                                                      id="discounted"
+                                                      value={ticket.discounted}
+                                                      onChange={(e) =>
+                                                          handleTicketInfoChange(
+                                                              ticket.sector,
+                                                              "discounted",
+                                                              e.target.value
+                                                          )
+                                                      }
+                                                      required
+                                                  />
+                                              </div>
+                                              <div className="form-group">
+                                                  <label htmlFor="vipTicket">
+                                                      Senior
+                                                  </label>
+                                                  <input
+                                                      type="number"
+                                                      name="senior"
+                                                      id="senior"
+                                                      value={ticket.senior}
+                                                      onChange={(e) =>
+                                                          handleTicketInfoChange(
+                                                              ticket.sector,
+                                                              "senior",
+                                                              e.target.value
+                                                          )
+                                                      }
+                                                      required
+                                                  />
+                                              </div>
+                                          </div>
+                                      ))}
                         </section>
                         <div className="edit-page-btn-container">
                             <button
@@ -294,7 +1287,8 @@ const EditPage = () => {
                             </button>
                             <button
                                 className="delete-btn edit-page-btn"
-                                type="submit"
+                                type="button"
+                                onClick={handleDelete}
                             >
                                 Usuń post
                             </button>

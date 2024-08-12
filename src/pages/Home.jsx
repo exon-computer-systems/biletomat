@@ -21,15 +21,18 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setIsLoading(true);
+            try {
+                setIsLoading(true);
+                const res = await axios.get("/events");
 
-            const res = await axios.get("/events");
+                console.log(res.data);
 
-            //   console.log(res.data);
-
-            setEvents(res.data);
-
-            setIsLoading(false);
+                setEvents(res.data);
+            } catch (err) {
+                console.warn(err);
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         fetchData();
