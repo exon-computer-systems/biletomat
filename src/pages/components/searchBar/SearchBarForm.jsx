@@ -64,7 +64,7 @@ const SearchBarForm = ({ events, onSearch }) => {
         <div className="search-box search">
           <input
             type="text"
-            placeholder="Wyszukaj"
+            placeholder="Wydarzenie"
             onChange={handleChange}
             value={searchData.title}
             name="title"
@@ -88,7 +88,9 @@ const SearchBarForm = ({ events, onSearch }) => {
         <div className="search-box localization">
           <FontAwesomeIcon className="icons" icon={faLocationDot} />
           <select onChange={handleChange} value={searchData.city} name="city">
-            <option value=""></option>
+            <option value="" disabled selected hidden>
+              Lokalizacja
+            </option>
             <option value="Bydgoszcz">Bydgoszcz</option>
             <option value="Toruń">Toruń</option>
             <option value="Warszawa">Warszawa</option>

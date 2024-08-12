@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./EventList.css";
 import Event from "./Event";
+import useAuth from "../../hooks/useAuth";
 
 const EventList = ({ events, isLoading }) => {
+  const { auth } = useAuth();
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    // Initialize favorite states for each event
+    const initialFavorites = events.map(event =>
+      auth?.likedEvents?.includes(event.tid)
+    );
+    setFavorites(initialFavorites);
+  }, [auth, events]);
+
+  const toggleFavorite = index => {
+    const updatedFavorites = [...favorites];
+    updatedFavorites[index] = !updatedFavorites[index];
+    setFavorites(updatedFavorites);
+
+    // Here you could also update the user's favorite events on the backend or in local storage
+  };
+
   return (
     <section className="e-list-wrap">
       <section className="e-list">
@@ -22,6 +42,8 @@ const EventList = ({ events, isLoading }) => {
                 coverImage={el.coverImage}
                 sale={el.sale}
                 goingFast={el.goingFast}
+                isFavorite={favorites[idx]}
+                toggleFavorite={() => toggleFavorite(idx)}
               />
             ))
           )}
