@@ -37,7 +37,6 @@ const EventPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
-  const [showAuthPanel, setAuthPanel] = useState(false);
   const [confirmationData, setConfirmationData] = useState({
     firstName: "",
     lastName: "",
@@ -52,6 +51,12 @@ const EventPage = () => {
     senior: 0,
     sum: 0,
   });
+
+  const [activeAuthPanel, setActiveAuthPanel] = useState(false);
+
+  const handleClose = () => {
+    setActiveAuthPanel(false);
+  };
 
   useEffect(() => {
     console.log(order);
@@ -91,7 +96,7 @@ const EventPage = () => {
     // console.log(auth.id);
     // console.log(events.tid);
     if (auth.email == undefined) {
-      setAuthPanel(true);
+      setActiveAuthPanel(true);
       return;
     }
 
@@ -122,7 +127,7 @@ const EventPage = () => {
 
   return (
     <>
-      {showAuthPanel && <AuthPanel />}
+      {activeAuthPanel && <AuthPanel handleClose={handleClose} />}
       {orderSteps === 4 ? (
         <SuccessBuy />
       ) : isSelected ? (
@@ -207,7 +212,7 @@ const EventPage = () => {
                   setOrder={setOrder}
                   event={events}
                   setOrderSteps={setOrderSteps}
-                  setAuthPanel={setAuthPanel}
+                  setActiveAuthPanel={setActiveAuthPanel}
                 />
               ) : (
                 <SectorMap

@@ -12,9 +12,20 @@ import useAuth from "./hooks/useAuth";
 import "./BuyTicket.css";
 import SectorMap from "./components/sectorMap/SectorMap";
 
-const BuyTicket = ({ event, order, setOrder, setOrderSteps, setAuthPanel }) => {
+const BuyTicket = ({
+  event,
+  order,
+  setOrder,
+  setOrderSteps,
+  setActiveAuthPanel,
+}) => {
   const [pricesRange, setPricesRange] = useState();
   const { auth } = useAuth();
+  const nav = useNavigate();
+
+  const handleAuth = () => {
+    auth?.email ? setActiveAuthPanel(true) : setActiveAuthPanel(false);
+  };
 
   useEffect(() => {
     const initialValues = {
@@ -62,7 +73,7 @@ const BuyTicket = ({ event, order, setOrder, setOrderSteps, setAuthPanel }) => {
   }, [order.normal, order.discounted, order.senior]);
 
   const handleSubmit = () => {
-    if (auth.email == undefined) setAuthPanel(true);
+    handleAuth();
     if (order.normal !== 0 || order.discounted !== 0 || order.senior !== 0)
       setOrderSteps(2);
   };
