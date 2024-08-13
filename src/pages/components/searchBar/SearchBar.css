@@ -17,7 +17,7 @@
   grid-template-rows: 1fr;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
-  z-index: 4;
+  z-index: 20;
   position: relative;
 }
 .active {
@@ -98,6 +98,7 @@
   overflow-y: scroll;
   border-radius: 0 0 1rem 1rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  z-index: 30;
 }
 
 .searched-cards {
