@@ -48,16 +48,7 @@ html {
   justify-content: center;
 
   gap: 1.8rem;
-  .confirmation-cover {
-    display: flex;
-    width: 350px;
-    height: 450px;
-  }
-  .confirmation-img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
+
   .confirmation-info {
     display: flex;
     width: 50%;
@@ -78,6 +69,16 @@ html {
       scale: 2;
     }
   }
+}
+.confirmation-cover {
+  display: flex;
+  width: 350px;
+  height: 450px;
+}
+.confirmation-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .ticket-info-wrapper {
