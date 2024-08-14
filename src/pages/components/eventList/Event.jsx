@@ -43,7 +43,7 @@ const Event = ({
             {date} | {city}
           </p>
         </div>
-        <button onClick={() => nav(`/event/${tid}`)}>Sprawdź bilet</button>
+        <button onClick={() => nav(`/event/${tid}`)}>Kup bilet</button>
       </section>
     </section>
   );

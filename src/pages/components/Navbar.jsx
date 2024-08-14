@@ -50,7 +50,7 @@ const Navbar = ({ handlePanel }) => {
               </button>
             </div>
           )}
-          <div className="scan">
+          {/* <div className="scan">
             <button
               className="nav-btn log-btn"
               type="button"
@@ -58,7 +58,7 @@ const Navbar = ({ handlePanel }) => {
             >
               <FontAwesomeIcon icon={faQrcode} className="nav-icn" />
             </button>
-          </div>
+          </div> */}
           <div className="login">
             <button
               className="nav-btn log-btn"
