@@ -169,7 +169,7 @@ const Confirmation = ({
           )}
         </section>
         <section className="conf-cta">
-          <h2>Łącznie: {order.total}</h2>
+          <h2>Łącznie: {order.total} PLN</h2>
           <section className="conf-cta-btn">
             <button onClick={handleSubmit}>Kup Bilet</button>
           </section>

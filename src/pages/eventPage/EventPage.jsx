@@ -205,7 +205,7 @@ const EventPage = () => {
                   setOrderSteps={setOrderSteps}
                   setActiveAuthPanel={setActiveAuthPanel}
                 />
-              ) : events.seated ? (
+              ) : auth.email !== undefined && events.seated ? (
                 <SectorMap
                   order={order}
                   setOrder={setOrder}
@@ -216,7 +216,15 @@ const EventPage = () => {
                   maxSelected={order.sum}
                   setOrderSteps={setOrderSteps}
                 />
-              ) : null}
+              ) : (
+                <BuyTicket
+                  order={order}
+                  setOrder={setOrder}
+                  event={events}
+                  setOrderSteps={setOrderSteps}
+                  setActiveAuthPanel={setActiveAuthPanel}
+                />
+              )}
             </section>
           </section>
         </>

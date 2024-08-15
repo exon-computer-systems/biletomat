@@ -165,7 +165,7 @@ const SeatMap = ({
         <h2>
           Łącznie <span>{order.sum}</span> biletów
         </h2>
-        <button>WRÓĆ</button>
+        <button onClick={() => setOrderSteps(1)}>WRÓĆ</button>
         <button
           disabled={selectedSeats.length < maxSelected}
           onClick={handleClick}
