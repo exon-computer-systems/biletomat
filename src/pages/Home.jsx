@@ -11,6 +11,7 @@ import LogIn from "./components/logIn/LogIn";
 import axios from "./api/axios";
 import useAuth from "./hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import Redeem from "./components/redeem/Redeem";
 
 const Home = () => {
     const [isActive, setIsActive] = useState(true);
@@ -53,6 +54,7 @@ const Home = () => {
                 <Slider events={events} isLoading={isLoading} />
                 {/* <PromoSlider /> */}
                 <EventList events={events} isLoading={isLoading} />
+                <Redeem />
             </section>
         </>
     );
