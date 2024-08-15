@@ -103,10 +103,8 @@ const SeatMap = ({
     }
   };
 
-  const handleClick = () => {
-    // console.log(prices);
-    // console.log(order);
-
+  const handleClick = async () => {
+    // Oblicz całkowitą kwotę
     let total =
       order.normal * prices.normal +
       order.discounted * prices.discounted +
@@ -115,6 +113,26 @@ const SeatMap = ({
     setOrder(prev => ({ ...prev, total: total }));
     setOrderSteps(3);
     checkOutHandle();
+
+    // Wyślij e-mail
+    try {
+      const emailData = {
+        to: auth?.user?.email, // Załóżmy, że email użytkownika jest w auth.user.email
+        subject: `Rezerwacja na wydarzenie: ${eventData.name}`,
+        text: `Dziękujemy za rezerwację. Zarezerwowane miejsca: ${selectedSeats
+          .map(seat => seat.rowInfo.rowNumber + seat.seatNumber)
+          .join(", ")}. Całkowita kwota: ${total} zł.`,
+      };
+
+      const response = await axios.post("/send-email", emailData);
+      if (response.status === 200) {
+        console.log("Email sent successfully");
+      } else {
+        console.error("Failed to send email:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
 
   return (
