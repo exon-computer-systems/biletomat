@@ -1,122 +1,123 @@
 .succbuy-cont {
-    width: 100vw;
-    height: 100dvh;
-    background-color: #fff;
-    padding: 2em;
+  width: 100vw;
+  height: 100dvh;
+  background-color: #fff;
+  padding: 2em;
 
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 100;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-    color: #802e50;
+  color: black;
 }
 
 .succbuy {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .succbuy-title {
-    text-align: center;
-    font-size: 3rem !important;
+  text-align: center;
+  font-size: 3rem !important;
 }
 
 .succbuy-icon {
-    font-size: 7.5rem;
+  font-size: 7.5rem;
+  color: #4caf50;
 }
 
 .succbuy-btn-cont {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
 }
 
 .succbuy-btn-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .succbuy-btn {
-    text-transform: uppercase;
-    width: 120px;
-    height: 40px;
-    border: 2px solid #802e50;
-    background-color: #fff;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
+  text-transform: uppercase;
+  width: 120px;
+  height: 40px;
+  border: 2px solid #0154bb;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .succbuy-text {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .nonprimary {
-    border: 2px solid #802e50;
-    background-color: #fff;
-    color: #802e50;
+  border: 2px solid #0154bb;
+  background-color: #fff;
+  color: #0154bb;
 }
 
 .primary {
-    background-color: #802e50;
-    border: none;
-    color: #fff;
+  background-color: #0154bb;
+  border: none;
+  color: #fff;
 }
 
 @media only screen and (min-width: 768px) {
-    .succbuy-cont {
-        width: 100vw;
-        height: 100dvh;
+  .succbuy-cont {
+    width: 100vw;
+    height: 100dvh;
 
-        padding: 8em;
-    }
+    padding: 8em;
+  }
 
-    .succbuy {
-        gap: 4rem;
-    }
+  .succbuy {
+    gap: 4rem;
+  }
 
-    .succbuy-title {
-        font-size: 7.5rem !important;
-    }
+  .succbuy-title {
+    font-size: 7.5rem !important;
+  }
 
-    .succbuy-icon {
-        font-size: 15rem;
-    }
+  .succbuy-icon {
+    font-size: 15rem;
+  }
 
-    .succbuy-text {
-        font-size: 3rem;
-    }
+  .succbuy-text {
+    font-size: 3rem;
+  }
 
-    .succbuy-btn-cont {
-        gap: 5rem;
-    }
+  .succbuy-btn-cont {
+    gap: 5rem;
+  }
 
-    .succbuy-btn-wrap {
-        gap: 5rem;
-    }
+  .succbuy-btn-wrap {
+    gap: 5rem;
+  }
 
-    .succbuy-text {
-        font-size: 3rem;
-    }
+  .succbuy-text {
+    font-size: 3rem;
+  }
 
-    .succbuy-btn {
-        width: 300px;
-        height: 100px;
-        font-size: 2rem;
-    }
+  .succbuy-btn {
+    width: 300px;
+    height: 100px;
+    font-size: 2rem;
+  }
 }
