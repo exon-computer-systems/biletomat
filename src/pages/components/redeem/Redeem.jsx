@@ -56,8 +56,12 @@ const Redeem = () => {
 
             const response = await axios.post("/events/redeem", { qrCodeData });
 
+            console.log(response);
+
             if (response.status === 200) {
                 setStatus(true);
+            } else if (response.status === 202) {
+                setStatus(false);
             }
         } catch (err) {
             console.warn(err);
@@ -71,7 +75,8 @@ const Redeem = () => {
     };
 
     return (
-        // <section className="red-cont">
+        // <section className="red-cont">y
+        
         <>
             {showConfirmation ? (
                 <section className="redeem-succ-cont">
