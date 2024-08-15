@@ -13,7 +13,7 @@ const SuccessBuy = ({ purchased }) => {
             const requests = purchased.map((ticket) => {
                 console.log(ticket);
                 return axios.post("/events/print", {
-                    qrSrc: ticket.data.qrCodeUrl,
+                    qrSrc: ticket.data,
                 });
             });
 
