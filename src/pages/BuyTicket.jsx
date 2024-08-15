@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios, { axiosPrivate } from "./api/axios";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faAngleLeft,
-    faMinus,
-    faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import Confirmation from "./Confirmation";
-import useAuth from "./hooks/useAuth";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./BuyTicket.css";
-import SectorMap from "./components/sectorMap/SectorMap";
+import useAuth from "./hooks/useAuth";
 
 const BuyTicket = ({
     event,
@@ -236,6 +229,7 @@ const BuyTicket = ({
                             <h2>
                                 Łącznie <span>{order.sum}</span> biletów
                             </h2>
+                            <button>WRÓĆ</button>
                             <button type="submit" onClick={handleSubmit}>
                                 DALEJ
                             </button>

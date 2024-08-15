@@ -52,15 +52,16 @@
     padding: 1rem;
     font-size: 1rem;
     font-weight: 600;
-    border: 1px solid black;
+    border: none;
     border-radius: 0.5rem;
-    background-color: white;
+    background-color: #0254bc;
+    color: white;
 
     cursor: pointer;
   }
 
   button:hover {
-    background-color: black;
+    background-color: #0b4797;
     color: white;
   }
 
