@@ -23,12 +23,12 @@ const Redeem = () => {
     useEffect(() => {
         focusInput();
 
-        document.addEventListener("click", focusInput);
+        // document.addEventListener("click", focusInput);
 
-        return () => {
-            document.removeEventListener("click", focusInput());
-        };
-    });
+        // return () => {
+        //     document.removeEventListener("click", focusInput());
+        // };
+    }, []);
 
     const focusInput = () => {
         inputRef?.current?.focus();
@@ -105,7 +105,7 @@ const Redeem = () => {
                         <input
                             // onSubmit={handleSubmit}
                             className="red-input"
-                            type="text"
+                            type="password"
                             ref={inputRef}
                             value={code}
                             onChange={handleChange}
