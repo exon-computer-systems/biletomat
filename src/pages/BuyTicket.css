@@ -9,6 +9,22 @@
   width: 100%;
   height: 100%;
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.divider {
+  border: 0.5px solid black;
+}
+
+.choose-tickets-h2 {
+  padding: 0.5rem 1rem;
+  font-size: 3rem;
+  border-radius: 1rem;
+  background-color: orange;
+  text-align: center;
+  color: white;
 }
 
 .buy-txt {
@@ -50,7 +66,7 @@
   color: black;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 4rem;
   padding-bottom: 4rem;
   h2 {
     font-size: 2.5rem;

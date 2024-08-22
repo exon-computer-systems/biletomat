@@ -3,6 +3,7 @@ import {
   faMagnifyingGlass,
   faCalendar,
   faLocationDot,
+  faMasksTheater,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -62,6 +63,7 @@ const SearchBarForm = ({ events, onSearch }) => {
         className={`search-bar ${isSelected !== "" ? "active" : ""}`}
       >
         <div className="search-box search">
+          <FontAwesomeIcon className="icons" icon={faMasksTheater} />
           <input
             type="text"
             placeholder="Wydarzenie"
