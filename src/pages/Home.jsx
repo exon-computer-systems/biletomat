@@ -44,7 +44,7 @@ const Home = () => {
     }, []);
 
     return (
-        <>
+        <section className="home-cont">
             {/* {isActive && <Welcome handleClick={() => setIsActive(false)} />} */}
             {/* {isLogged && <LogIn isLogged={isLogged} handleClose={close} />} */}
             <Navbar />
@@ -56,7 +56,7 @@ const Home = () => {
                 <EventList events={events} isLoading={isLoading} />
                 <Redeem />
             </section>
-        </>
+        </section>
     );
 };
 
