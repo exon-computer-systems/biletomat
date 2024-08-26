@@ -130,7 +130,7 @@ const SeatMap = ({
             order.senior * prices.senior;
 
         setOrder((prev) => ({ ...prev, total: total }));
-        setOrderSteps(4);
+        setOrderSteps(5);
         checkOutHandle();
     };
 
@@ -171,22 +171,24 @@ const SeatMap = ({
                           })}
                 </form>
                 <div className="summary">
+                    <span className="summary-btn-cont">
+                        <button
+                            onClick={() => {
+                                console.log("seatmap back");
+                                setSelectedSeats([]);
+                                setOrderSteps(2);
+                            }}
+                        >
+                            WRÓĆ
+                        </button>
+                        <button
+                            disabled={selected !== 0} // Disable the button if no seats are selected
+                            onClick={handleClick}
+                        >
+                            DALEJ
+                        </button>
+                    </span>
                     <h2>Wybierz jeszcze {selected} biletów</h2>
-                    <button
-                        onClick={() => {
-                            console.log("seatmap back");
-                            setSelectedSeats([]);
-                            setOrderSteps(2);
-                        }}
-                    >
-                        WRÓĆ
-                    </button>
-                    <button
-                        disabled={selected !== 0} // Disable the button if no seats are selected
-                        onClick={handleClick}
-                    >
-                        DALEJ
-                    </button>
                 </div>
             </section>
         </>

@@ -8,6 +8,7 @@
 
     padding: 1rem 3rem;
     gap: 3rem;
+    /* z-index: 15; */
     h1 {
         font-size: 3rem;
     }
@@ -284,4 +285,58 @@
     flex-direction: column;
     align-self: center;
     gap: 1.5rem;
+}
+
+/* LOGIN PROVIDER */
+
+.lp-cont {
+    height: 1050px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    border-radius: 2rem;
+    color: black;
+    background-color: white;
+    border: none;
+    padding: 2rem 5rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.lp {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.lp-text {
+    font-size: 2.5rem;
+}
+.lp-text2 {
+    font-size: 2.125rem;
+}
+
+.lp-input {
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+    padding: 2rem 1rem;
+    border: 1px solid hsla(0, 0%, 71%, 1);
+    border-radius: 9px;
+    outline: none;
+}
+
+.lp-input:focus {
+    outline: auto #485bfe;
+}
+
+.lp-authpanel {
+    cursor: pointer;
+    font-size: 1.75rem;
+    color: #0254bc;
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem 2rem;
 }

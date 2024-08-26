@@ -215,13 +215,15 @@ const BuyTicket = ({
                         </section>
 
                         <div className="summary">
+                            <span className="summary-btn-cont">
+                                <button onClick={() => nav("/")}>WRÓĆ</button>
+                                <button type="submit" onClick={handleSubmit}>
+                                    DALEJ
+                                </button>
+                            </span>
                             <h2>
                                 Łącznie <span>{order.sum}</span> biletów
                             </h2>
-                            <button onClick={() => nav("/")}>WRÓĆ</button>
-                            <button type="submit" onClick={handleSubmit}>
-                                DALEJ
-                            </button>
                         </div>
                     </section>
                 </>

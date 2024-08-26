@@ -117,21 +117,23 @@ const SectorMap = ({
                 </section>
                 {/* <section className="summary-cont"> */}
                 <div className="summary">
+                    <span className="summary-btn-cont">
+                        <button onClick={() => setOrderSteps(1)}>WRÓĆ</button>
+                        <button
+                            type="submit"
+                            disabled={!sector}
+                            onClick={() => {
+                                if (sector) {
+                                    setOrderSteps(3);
+                                }
+                            }}
+                        >
+                            DALEJ
+                        </button>
+                    </span>
                     <h2>
                         Łącznie <span>{order.sum}</span> biletów
                     </h2>
-                    <button onClick={() => setOrderSteps(1)}>WRÓĆ</button>
-                    <button
-                        type="submit"
-                        disabled={!sector}
-                        onClick={() => {
-                            if (sector) {
-                                setOrderSteps(3);
-                            }
-                        }}
-                    >
-                        DALEJ
-                    </button>
                 </div>
                 {/* </section> */}
             </section>

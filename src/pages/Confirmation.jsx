@@ -110,41 +110,6 @@ const Confirmation = ({
     return (
         <section className="confirmation-container">
             <section className="confirmation-wrapper">
-                <section className="confirmation-header-cont">
-                    <div className="confirmation-header">
-                        <div className="confirmation-cover">
-                            <img
-                                src={event.coverImage}
-                                alt={event.title}
-                                className="confirmation-img"
-                            />
-                        </div>
-                        <div className="confirmation-info">
-                            <h1>{event.title}</h1>
-                            <div className="date-place">
-                                <div className="place">
-                                    <FontAwesomeIcon
-                                        icon={faCalendar}
-                                        className="place-icon"
-                                    />
-                                    <div className="place-info">
-                                        <p className="start-date">
-                                            {event.startDate}
-                                        </p>
-                                        <p className="hours">19:00 - 21:00</p>
-                                    </div>
-                                </div>
-                                <div className="date">
-                                    <FontAwesomeIcon
-                                        icon={faLocationDot}
-                                        className="date-icon"
-                                    />
-                                    <p className="city">{event.city}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
                 <section className="ticket-info-cont">
                     <section className="ticket-info-wrapper">
                         <div className="section-info">

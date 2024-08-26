@@ -24,6 +24,7 @@ import AuthPanel from "../components/authPanel/AuthPanel";
 
 import "./EventPage.css";
 import SeatMap from "../components/sectorMap/SeatMap";
+import LoginProvider from "./LoginProvider";
 
 const EventPage = () => {
     const { auth, setAuth } = useAuth();
@@ -268,6 +269,16 @@ const EventPage = () => {
                                     />
                                 );
                             case 5:
+                                return (
+                                    <LoginProvider
+                                        setOrderSteps={setOrderSteps}
+                                        selectedSeats={selectedSeats}
+                                        setSelectedSeats={setSelectedSeats}
+                                        order={order}
+                                        event={event}
+                                    />
+                                );
+                            case 6:
                                 return <SuccessBuy />;
                         }
                     })()}

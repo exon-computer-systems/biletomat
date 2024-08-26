@@ -143,8 +143,15 @@
     font-weight: 600;
 }
 
+.summary-btn-cont {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
 .summary {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
