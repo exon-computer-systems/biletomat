@@ -5,6 +5,7 @@ import "./App.css";
 import BuyTicket from "./pages/BuyTicket";
 import LogIn from "./pages/components/logIn/LogIn";
 import EventPage from "./pages/eventPage/EventPage";
+import EventPage2 from "./pages/eventPage/EventPage2";
 import RequireAuth from "./pages/components/RequireAuth";
 import UserPage from "./pages/components/userPage/UserPage";
 import CreateNewPage from "./pages/createNewPage/CreateNewPage";
@@ -27,7 +28,8 @@ function App() {
             <Routes>
                 {/* public routes */}
                 <Route path="/" element={<Home />} />
-                <Route path={`/event/:id`} element={<EventPage />} />
+                {/* <Route path={`/event/:id`} element={<EventPage />} /> */}
+                <Route path={`/event/:id`} element={<EventPage2 />} />
                 <Route path={`/redeem`} element={<RedeemTicket />} />
                 <Route path="/search-results" element={<SearchResults />} />
                 <Route path="/rodo" element={<Rodo />} />
