@@ -5,7 +5,8 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+
+  padding: 1rem 3rem;
   gap: 3rem;
   h1 {
     font-size: 3rem;
@@ -17,7 +18,6 @@
 
 .section1-container {
   z-index: 12;
-  padding: 1rem 3rem;
 }
 
 .section1-wrapper {
@@ -284,5 +284,4 @@
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  padding: 0 3rem;
 }
