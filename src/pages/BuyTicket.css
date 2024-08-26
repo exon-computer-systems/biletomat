@@ -122,12 +122,16 @@
 
 .choice-box span {
   font-weight: 600;
-
-  text-align: center;
-  font-size: 2rem;
+  width: 100%;
+  text-align: center; /* Centers the text horizontally */
+  display: flex;
+  justify-content: center; /* Centers content within the flex container */
+  align-items: center; /* Aligns content vertically within the flex container */
+  font-size: 1.8rem;
   border: 1px solid transparent;
   background-color: white;
   border-radius: 1.8rem;
+  white-space: nowrap; /* Prevents text from wrapping */
 }
 
 .ticket-name h2 {
@@ -145,7 +149,7 @@
   padding: 0 64px;
   border-radius: 20px;
   h2 {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 400;
   }
   button {

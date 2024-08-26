@@ -109,8 +109,7 @@ const BuyTicket = ({
                 <span className="choice-box-range">
                   {event.seated
                     ? `${pricesRange.normal.min} - ${pricesRange.normal.max}`
-                    : `${pricesRange.normal.max}`}
-                  <br />
+                    : `${pricesRange.normal.max}`}{" "}
                   PLN
                 </span>
 
@@ -139,8 +138,7 @@ const BuyTicket = ({
                 <span className="choice-box-range">
                   {event.seated
                     ? `${pricesRange.discounted.min} - ${pricesRange.discounted.max}`
-                    : `${pricesRange.discounted.max}`}
-                  <br />
+                    : `${pricesRange.discounted.max}`}{" "}
                   PLN
                 </span>
 
@@ -169,8 +167,7 @@ const BuyTicket = ({
                 <span className="choice-box-range">
                   {event.seated
                     ? `${pricesRange.senior.min} - ${pricesRange.senior.max}`
-                    : `${pricesRange.senior.max}`}
-                  <br />
+                    : `${pricesRange.senior.max}`}{" "}
                   PLN
                 </span>
 

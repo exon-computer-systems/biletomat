@@ -6,166 +6,165 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
 const SeatMap = ({
-    rows,
-    cols,
-    maxSelected,
-    sectorId,
-    event,
-    selectedSeats,
-    setSelectedSeats,
-    checkOutHandle,
-    order,
-    setOrder,
-    setOrderSteps,
+  rows,
+  cols,
+  maxSelected,
+  sectorId,
+  event,
+  selectedSeats,
+  setSelectedSeats,
+  checkOutHandle,
+  order,
+  setOrder,
+  setOrderSteps,
 }) => {
-    const { auth } = useAuth();
-    const { id } = useParams();
+  const { auth } = useAuth();
+  const { id } = useParams();
 
-    // const [selectedSeats, setSelectedSeats] = useState([]);
-    const [seatsData, setSeatsData] = useState([]);
-    const [eventData, setEventData] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-    const [prices, setPrices] = useState({});
+  const [seatsData, setSeatsData] = useState([]);
+  const [eventData, setEventData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [prices, setPrices] = useState({});
 
-    const flattenSeats = (rows) => {
-        let seats = [];
-
-        rows.forEach((row) => {
-            row.seats.forEach((seat) => {
-                seats.push({
-                    ...seat,
-                    rowInfo: {
-                        rowNumber: row.rowNumber,
-                        sectorName: sectorId,
-                    },
-                });
-            });
+  const flattenSeats = rows => {
+    let seats = [];
+    rows.forEach(row => {
+      row.seats.forEach(seat => {
+        seats.push({
+          ...seat,
+          rowInfo: {
+            rowNumber: row.rowNumber,
+            sectorName: sectorId,
+          },
         });
+      });
+    });
+    return seats;
+  };
 
-        return seats;
+  useEffect(() => {
+    const fetchSeatData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`/events/${id}`);
+
+        console.log(response.data);
+        setEventData(response.data);
+
+        const sectorArray = response.data.theater.sectors.find(
+          sector => sector.sectorName === sectorId
+        );
+
+        const pricesObj = response.data.ticketInfo.find(
+          sector => sector.sector === sectorId
+        );
+
+        setPrices(pricesObj);
+
+        console.log(sectorArray);
+
+        // Log the response to inspect structure
+        const flatSeats = flattenSeats(sectorArray.rows);
+        console.log(flatSeats);
+        setSeatsData(flatSeats);
+      } catch (err) {
+        console.warn(err);
+      } finally {
+        setIsLoading(false); // Ensure loading state is reset
+      }
     };
 
-    useEffect(() => {
-        // console.log(auth);
+    if (sectorId) {
+      fetchSeatData();
+    }
+  }, [sectorId]);
 
-        const fetchSeatData = async () => {
-            setIsLoading(true);
-            try {
-                const response = await axios.get(`/events/${id}`);
+  const localStyle = {
+    gridTemplateColumns: `repeat(${cols}, 1fr)`,
+    gridTemplateRows: `repeat(${rows}, 1fr)`,
+  };
 
-                console.log(response.data);
-                setEventData(response.data);
+  // Updated handleSeatClick function to update the order sum
+  const handleSeatClick = seat => {
+    console.log(seat);
+    if (seat.status === "free") {
+      if (selectedSeats.some(el => el._id === seat._id)) {
+        // If the seat is already selected, remove it
+        const updatedSeats = selectedSeats.filter(
+          selected => selected._id !== seat._id
+        );
+        setSelectedSeats(updatedSeats);
 
-                const sectorArray = response.data.theater.sectors.find(
-                    (sector) => sector.sectorName === sectorId
-                );
+        // Increase the order sum dynamically when a seat is deselected
+        setOrder(prevOrder => ({
+          ...prevOrder,
+          sum: prevOrder.sum + 1,
+        }));
+      } else if (selectedSeats.length < maxSelected) {
+        // If the seat is not selected and max is not reached, add it
+        const updatedSeats = [...selectedSeats, seat];
+        setSelectedSeats(updatedSeats);
 
-                const pricesObj = response.data.ticketInfo.find(
-                    (sector) => sector.sector === sectorId
-                );
+        // Decrease the order sum dynamically when a seat is selected
+        setOrder(prevOrder => ({
+          ...prevOrder,
+          sum: prevOrder.sum - 1,
+        }));
+      }
+    }
+  };
 
-                setPrices(pricesObj);
+  const handleClick = async () => {
+    // Calculate total amount
+    let total =
+      order.normal * prices.normal +
+      order.discounted * prices.discounted +
+      order.senior * prices.senior;
 
-                console.log(sectorArray);
+    setOrder(prev => ({ ...prev, total: total }));
+    setOrderSteps(3);
+    checkOutHandle();
+  };
 
-                // Log the response to inspect structure
-                const flatSeats = flattenSeats(sectorArray.rows);
-                console.log(flatSeats);
-                setSeatsData(flatSeats);
-            } catch (err) {
-                console.warn(err);
-            } finally {
-                setIsLoading(false); // Ensure loading state is reset
-            }
-        };
-
-        if (sectorId) {
-            fetchSeatData();
-        }
-    }, [sectorId]);
-
-    const localStyle = {
-        gridTemplateColumns: `repeat(${cols}, 1fr)`,
-        gridTemplateRows: `repeat(${rows}, 1fr)`,
-    };
-
-    const handleSeatClick = (seat) => {
-        console.log(seat);
-        if (seat.status === "free") {
-            console.log(seat);
-            if (selectedSeats.some((el) => el._id === seat._id)) {
-                setSelectedSeats(
-                    selectedSeats.filter(
-                        (selected) => selected._id !== seat._id
-                    )
-                );
-            } else if (selectedSeats.length < maxSelected) {
-                setSelectedSeats([...selectedSeats, seat]);
-            }
-        }
-    };
-
-    const handleClick = async () => {
-        // Oblicz całkowitą kwotę
-        let total =
-            order.normal * prices.normal +
-            order.discounted * prices.discounted +
-            order.senior * prices.senior;
-
-        setOrder((prev) => ({ ...prev, total: total }));
-        setOrderSteps(3);
-        checkOutHandle();
-    };
-
-    return (
-        <section className="seat-map-cont">
-            <form className="seat-map" style={localStyle}>
-                {isLoading
-                    ? "Loading..."
-                    : seatsData.map((seat, i) => {
-                          //   console.log(seat);
-                          return (
-                              <div
-                                  key={seat._id} // Use _id as the unique key for each seat
-                                  className={`seat ${
-                                      selectedSeats.some(
-                                          (el) => el._id === seat._id
-                                      )
-                                          ? "selected"
-                                          : ""
-                                  } ${
-                                      seat.status === "reserved"
-                                          ? "reserved"
-                                          : "free"
-                                  }`}
-                                  onClick={() => {
-                                      handleSeatClick(seat);
-                                      console.log(selectedSeats);
-                                  }}
-                              >
-                                  <span>{seatsData[i].seatNumber}</span>
-                                  <FontAwesomeIcon
-                                      icon={faCouch}
-                                      className="seat-icon"
-                                  />
-                              </div>
-                          );
-                      })}
-            </form>
-            <div className="summary">
-                <h2>
-                    Łącznie <span>{order.sum}</span> biletów
-                </h2>
-                <button onClick={() => setOrderSteps(1)}>WRÓĆ</button>
-                <button
-                    disabled={selectedSeats.length < maxSelected}
-                    onClick={handleClick}
+  return (
+    <section className="seat-map-cont">
+      <form className="seat-map" style={localStyle}>
+        {isLoading
+          ? "Loading..."
+          : seatsData.map((seat, i) => {
+              return (
+                <div
+                  key={seat._id} // Use _id as the unique key for each seat
+                  className={`seat ${
+                    selectedSeats.some(el => el._id === seat._id)
+                      ? "selected"
+                      : ""
+                  } ${seat.status === "reserved" ? "reserved" : "free"}`}
+                  onClick={() => {
+                    handleSeatClick(seat);
+                    console.log(selectedSeats);
+                  }}
                 >
-                    DALEJ
-                </button>
-            </div>
-        </section>
-    );
+                  <span>{seatsData[i].seatNumber}</span>
+                  <FontAwesomeIcon icon={faCouch} className="seat-icon" />
+                </div>
+              );
+            })}
+      </form>
+      <div className="summary">
+        <h2>
+          Łącznie <span>{order.sum}</span> biletów
+        </h2>
+        <button onClick={() => setOrderSteps(1)}>WRÓĆ</button>
+        <button
+          disabled={selectedSeats.length === 0} // Disable the button if no seats are selected
+          onClick={handleClick}
+        >
+          DALEJ
+        </button>
+      </div>
+    </section>
+  );
 };
 
 export default SeatMap;
