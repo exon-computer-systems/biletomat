@@ -130,7 +130,7 @@ const SeatMap = ({
             order.senior * prices.senior;
 
         setOrder((prev) => ({ ...prev, total: total }));
-        setOrderSteps(5);
+        setOrderSteps(4);
         checkOutHandle();
     };
 
