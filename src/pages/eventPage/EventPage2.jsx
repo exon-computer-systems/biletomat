@@ -283,7 +283,7 @@ const EventPage = () => {
                                     />
                                 );
                             case 6:
-                                return <SuccessBuy />;
+                                return <SuccessBuy purchased={purchased} />;
                         }
                     })()}
                 </section>
