@@ -14,9 +14,107 @@ const Confirmation = ({
     setSelectedSeats,
     setOrderSteps,
     setPurchased,
+    setUserEmail,
+    userEmail,
 }) => {
     const nav = useNavigate();
     const { auth } = useAuth();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (event.seated) {
+                // For seated events, reserve specific seats
+                const requests = selectedSeats.map((selectedSeat) => {
+                    return axios.post("/events/reserve", {
+                        eventId: event._id,
+                        sectorName: selectedSeat.rowInfo.sectorName,
+                        rowNumber: selectedSeat.rowInfo.rowNumber,
+                        seatNumber: selectedSeat.seatNumber,
+                        // userId: auth.id,
+                        ...(auth.id
+                            ? { userId: auth.id }
+                            : { guestEmail: userEmail }),
+                    });
+                });
+
+                const responses = await Promise.all(requests);
+
+                responses.forEach((response) => {
+                    console.log("Response:", response.data.qrCodeUrl);
+                });
+            } else {
+                // For non-seated events, reserve tickets based on order types
+                const ticketRequests = [];
+
+                // Create reservation requests for each ticket type
+                if (order.normal > 0) {
+                    for (let i = 0; i < order.normal; i++) {
+                        ticketRequests.push(
+                            axios.post("/events/reserve", {
+                                eventId: event._id,
+                                sectorName: "",
+                                rowNumber: 0,
+                                seatNumber: 0,
+                                // userId: auth.id,
+                                ...(auth.id
+                                    ? { userId: auth.id }
+                                    : { guestEmail: userEmail }),
+                            })
+                        );
+                    }
+                }
+
+                if (order.discounted > 0) {
+                    for (let i = 0; i < order.discounted; i++) {
+                        ticketRequests.push(
+                            axios.post("/events/reserve", {
+                                eventId: event._id,
+                                sectorName: "",
+                                rowNumber: 0,
+                                seatNumber: 0,
+                                // userId: auth.id,
+                                ...(auth.id
+                                    ? { userId: auth.id }
+                                    : { guestEmail: userEmail }),
+                            })
+                        );
+                    }
+                }
+
+                if (order.senior > 0) {
+                    for (let i = 0; i < order.senior; i++) {
+                        ticketRequests.push(
+                            axios.post("/events/reserve", {
+                                eventId: event._id,
+                                sectorName: "",
+                                rowNumber: 0,
+                                seatNumber: 0,
+                                // userId: auth.id,
+                                ...(auth.id
+                                    ? { userId: auth.id }
+                                    : { guestEmail: userEmail }),
+                            })
+                        );
+                    }
+                }
+
+                console.log(ticketRequests);
+
+                const responses = await Promise.all(ticketRequests);
+                // setPurchased(responses);
+                responses.forEach((response) => {
+                    console.log("Response:", response.data.qrCodeUrl);
+                });
+            }
+        } catch (err) {
+            console.warn(err);
+        } finally {
+            setSelectedSeats([]);
+            setOrderSteps(6);
+        }
+    };
 
     return (
         <section className="confirmation-container">
@@ -65,8 +163,8 @@ const Confirmation = ({
             <section className="conf-cta">
                 <h3>Łącznie: {order.total} PLN</h3>
                 <section className="conf-cta-btn">
-                    <button onClick={() => setOrderSteps(3)}>Anuluj</button>
-                    <button onClick={() => setOrderSteps(5)}>Kup Bilet</button>
+                    <button onClick={() => setOrderSteps(4)}>Anuluj</button>
+                    <button onClick={handleSubmit}>Kup Bilet</button>
                 </section>
             </section>
         </section>
