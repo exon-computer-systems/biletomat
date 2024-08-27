@@ -8,59 +8,167 @@ import useAuth from "./hooks/useAuth";
 import axios from "./api/axios";
 
 const Confirmation = ({
-  selectedSeats,
-  event,
-  order,
-  setSelectedSeats,
-  setOrderSteps,
-  setPurchased,
+    selectedSeats,
+    event,
+    order,
+    setSelectedSeats,
+    setOrderSteps,
+    setPurchased,
+    setUserEmail,
+    userEmail,
 }) => {
-  const nav = useNavigate();
-  const { auth } = useAuth();
+    const nav = useNavigate();
+    const { auth } = useAuth();
 
-  return (
-    <section className="confirmation-container">
-      <div>
-        <h2 className="conf-h1">Podsumowanie</h2>
-        <span></span>
-      </div>
-      <section className="confirmation-wrapper">
-        <section className="ticket-info-wrapper">
-          <div className="section-info">
-            <div className="ticket-type info1">
-              <h2>Rodzaj biletu</h2>
-              {order.normal > 0 && <p>{`Normalny: ${order.normal}`}</p>}
-              {order.discounted > 0 && <p>{`Ulgowy: ${order.discounted}`}</p>}
-              {order.senior > 0 && <p>{`Senior: ${order.senior}`}</p>}
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (event.seated) {
+                // For seated events, reserve specific seats
+                const requests = selectedSeats.map((selectedSeat) => {
+                    return axios.post("/events/reserve", {
+                        eventId: event._id,
+                        sectorName: selectedSeat.rowInfo.sectorName,
+                        rowNumber: selectedSeat.rowInfo.rowNumber,
+                        seatNumber: selectedSeat.seatNumber,
+                        // userId: auth.id,
+                        ...(auth.id
+                            ? { userId: auth.id }
+                            : { guestEmail: userEmail }),
+                    });
+                });
+
+                const responses = await Promise.all(requests);
+
+                responses.forEach((response) => {
+                    console.log("Response:", response.data.qrCodeUrl);
+                });
+            } else {
+                // For non-seated events, reserve tickets based on order types
+                const ticketRequests = [];
+
+                // Create reservation requests for each ticket type
+                if (order.normal > 0) {
+                    for (let i = 0; i < order.normal; i++) {
+                        ticketRequests.push(
+                            axios.post("/events/reserve", {
+                                eventId: event._id,
+                                sectorName: "",
+                                rowNumber: 0,
+                                seatNumber: 0,
+                                // userId: auth.id,
+                                ...(auth.id
+                                    ? { userId: auth.id }
+                                    : { guestEmail: userEmail }),
+                            })
+                        );
+                    }
+                }
+
+                if (order.discounted > 0) {
+                    for (let i = 0; i < order.discounted; i++) {
+                        ticketRequests.push(
+                            axios.post("/events/reserve", {
+                                eventId: event._id,
+                                sectorName: "",
+                                rowNumber: 0,
+                                seatNumber: 0,
+                                // userId: auth.id,
+                                ...(auth.id
+                                    ? { userId: auth.id }
+                                    : { guestEmail: userEmail }),
+                            })
+                        );
+                    }
+                }
+
+                if (order.senior > 0) {
+                    for (let i = 0; i < order.senior; i++) {
+                        ticketRequests.push(
+                            axios.post("/events/reserve", {
+                                eventId: event._id,
+                                sectorName: "",
+                                rowNumber: 0,
+                                seatNumber: 0,
+                                // userId: auth.id,
+                                ...(auth.id
+                                    ? { userId: auth.id }
+                                    : { guestEmail: userEmail }),
+                            })
+                        );
+                    }
+                }
+
+                console.log(ticketRequests);
+
+                const responses = await Promise.all(ticketRequests);
+                // setPurchased(responses);
+                responses.forEach((response) => {
+                    console.log("Response:", response.data.qrCodeUrl);
+                });
+            }
+        } catch (err) {
+            console.warn(err);
+        } finally {
+            setSelectedSeats([]);
+            setOrderSteps(6);
+        }
+    };
+
+    return (
+        <section className="confirmation-container">
+            <div>
+                <h2 className="conf-h1">Podsumowanie</h2>
+                <span></span>
             </div>
-            <div className="info1">
-              <h2>Sektor</h2>
-              <p>{selectedSeats?.[0]?.rowInfo?.sectorName || "N/A"}</p>
-            </div>
-          </div>
-          {event.seated && (
-            <div className="section-info">
-              <div className="seats info1">
-                <h2>Miejsca</h2>
-                {selectedSeats.map(el => (
-                  <p key={el._id}>
-                    R{el?.rowInfo?.rowNumber} {el?.seatNumber}
-                  </p>
-                ))}
-              </div>
-            </div>
-          )}
+            <section className="confirmation-wrapper">
+                <section className="ticket-info-wrapper">
+                    <div className="section-info">
+                        <div className="ticket-type info1">
+                            <h2>Rodzaj biletu</h2>
+                            {order.normal > 0 && (
+                                <p>{`Normalny: ${order.normal}`}</p>
+                            )}
+                            {order.discounted > 0 && (
+                                <p>{`Ulgowy: ${order.discounted}`}</p>
+                            )}
+                            {order.senior > 0 && (
+                                <p>{`Senior: ${order.senior}`}</p>
+                            )}
+                        </div>
+                        <div className="info1">
+                            <h2>Sektor</h2>
+                            <p>
+                                {selectedSeats?.[0]?.rowInfo?.sectorName ||
+                                    "N/A"}
+                            </p>
+                        </div>
+                    </div>
+                    {event.seated && (
+                        <div className="section-info">
+                            <div className="seats info1">
+                                <h2>Miejsca</h2>
+                                {selectedSeats.map((el) => (
+                                    <p key={el._id}>
+                                        R{el?.rowInfo?.rowNumber}{" "}
+                                        {el?.seatNumber}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </section>
+            </section>
+            <section className="conf-cta">
+                <h3>Łącznie: {order.total} PLN</h3>
+                <section className="conf-cta-btn">
+                    <button onClick={() => setOrderSteps(4)}>Anuluj</button>
+                    <button onClick={handleSubmit}>Kup Bilet</button>
+                </section>
+            </section>
         </section>
-      </section>
-      <section className="conf-cta">
-        <h3>Łącznie: {order.total} PLN</h3>
-        <section className="conf-cta-btn">
-          <button onClick={() => setOrderSteps(3)}>COFNIJ</button>
-          <button onClick={() => setOrderSteps(5)}>DALEJ</button>
-        </section>
-      </section>
-    </section>
-  );
+    );
 };
 
 export default Confirmation;

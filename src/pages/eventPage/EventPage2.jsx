@@ -59,6 +59,7 @@ const EventPage = () => {
         cols: 0,
     });
     const [activeAuthPanel, setActiveAuthPanel] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
 
     const allowedRoles = [1984, 2150];
 
@@ -126,7 +127,7 @@ const EventPage = () => {
     useEffect(() => {
         console.log(orderSteps);
         if (orderSteps === 2 && event.seated === false) {
-            setOrderSteps(5);
+            setOrderSteps(4);
         }
     }, [orderSteps, event.seated, setOrderSteps]);
 
@@ -258,6 +259,18 @@ const EventPage = () => {
                                 );
                             case 4:
                                 return (
+                                    <LoginProvider
+                                        setOrderSteps={setOrderSteps}
+                                        selectedSeats={selectedSeats}
+                                        setSelectedSeats={setSelectedSeats}
+                                        order={order}
+                                        event={event}
+                                        setUserEmail={setUserEmail}
+                                        userEmail={userEmail}
+                                    />
+                                );
+                            case 5:
+                                return (
                                     <Confirmation
                                         selectedSeats={selectedSeats}
                                         setSelectedSeats={setSelectedSeats}
@@ -266,16 +279,7 @@ const EventPage = () => {
                                         order={order}
                                         setOrderSteps={setOrderSteps}
                                         setPurchased={setPurchased}
-                                    />
-                                );
-                            case 5:
-                                return (
-                                    <LoginProvider
-                                        setOrderSteps={setOrderSteps}
-                                        selectedSeats={selectedSeats}
-                                        setSelectedSeats={setSelectedSeats}
-                                        order={order}
-                                        event={event}
+                                        userEmail={userEmail}
                                     />
                                 );
                             case 6:
