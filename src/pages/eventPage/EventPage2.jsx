@@ -126,7 +126,7 @@ const EventPage = () => {
     useEffect(() => {
         console.log(orderSteps);
         if (orderSteps === 2 && event.seated === false) {
-            setOrderSteps(4);
+            setOrderSteps(5);
         }
     }, [orderSteps, event.seated, setOrderSteps]);
 

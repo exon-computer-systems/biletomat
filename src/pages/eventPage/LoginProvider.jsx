@@ -97,7 +97,7 @@ const LoginProvider = ({
                 console.log(ticketRequests);
 
                 const responses = await Promise.all(ticketRequests);
-                setPurchased(responses);
+                // setPurchased(responses);
                 responses.forEach((response) => {
                     console.log("Response:", response.data.qrCodeUrl);
                 });
