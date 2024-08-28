@@ -44,10 +44,14 @@ const SearchResults = () => {
 
   useEffect(() => {
     const queryResults = async () => {
-      const response = await axios.get(`/events/search`, {
-        params: searchParams,
-      });
+      const response = await axios.get(
+        `/events/${!searchParams ? "" : "search"}`,
+        {
+          params: searchParams,
+        }
+      );
       setEventResults(response.data);
+      console.log(response.data);
     };
 
     queryResults();

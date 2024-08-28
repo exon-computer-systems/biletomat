@@ -5,7 +5,7 @@ const Searched = ({ events }) => {
 
   return (
     <>
-      {events.map((event, index) => (
+      {Object.values(events).map((event, index) => (
         <section
           className="searched-cards"
           key={index}
