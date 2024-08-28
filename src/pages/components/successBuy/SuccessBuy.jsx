@@ -9,6 +9,8 @@ const SuccessBuy = ({ purchased }) => {
     const nav = useNavigate();
 
     const fetchData = async () => {
+        console.log(purchased);
+
         try {
             const requests = purchased.map((ticket) => {
                 console.log(ticket);

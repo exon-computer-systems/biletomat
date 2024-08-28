@@ -15,6 +15,7 @@ const LoginProvider = ({
     const { auth } = useAuth();
 
     const [showAuthPanel, setShowAuthPanel] = useState(false);
+    const [emailVal, setEmailVal] = useState(false);
 
     const handleClose = () => {
         setShowAuthPanel(false);
@@ -23,6 +24,16 @@ const LoginProvider = ({
     useEffect(() => {
         if (auth.email) setOrderSteps(5);
     }, [auth.email]);
+
+    const handleChange = (e) => {
+        setUserEmail(e.target.value);
+        // if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(userEmail)) {
+        //     setEmailVal(true);
+        // } else {
+        //     setEmailVal(false);
+        // }
+        // console.log(userEmail, emailVal);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,7 +53,7 @@ const LoginProvider = ({
                         className="lp-input"
                         name="userEmail"
                         value={userEmail}
-                        onChange={(e) => setUserEmail(e.target.value)}
+                        onChange={handleChange}
                         required
                     />
                     <button
@@ -58,7 +69,11 @@ const LoginProvider = ({
                         <button type="button" onClick={() => setOrderSteps(3)}>
                             WRÓĆ
                         </button>
-                        <button type="submit" onClick={handleSubmit}>
+                        <button
+                            type="submit"
+                            disabled={userEmail === ""}
+                            onClick={handleSubmit}
+                        >
                             DALEJ
                         </button>
                     </span>

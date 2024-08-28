@@ -116,58 +116,73 @@ const Confirmation = ({
         }
     };
 
+    const handleBack = () => {
+        auth.email ? setOrderSteps(3) : setOrderSteps(4);
+    };
+
+    console.log(selectedSeats);
+
     return (
-        <section className="confirmation-container">
-            <div>
-                <h2 className="conf-h1">Podsumowanie</h2>
-                <span></span>
-            </div>
-            <section className="confirmation-wrapper">
+        <>
+            <h2 className="choose-tickets-h2">Podsumowanie</h2>
+            <section className="confirmation-container">
                 <section className="ticket-info-wrapper">
-                    <div className="section-info">
-                        <div className="ticket-type info1">
-                            <h2>Rodzaj biletu</h2>
-                            {order.normal > 0 && (
-                                <p>{`Normalny: ${order.normal}`}</p>
-                            )}
-                            {order.discounted > 0 && (
-                                <p>{`Ulgowy: ${order.discounted}`}</p>
-                            )}
-                            {order.senior > 0 && (
-                                <p>{`Senior: ${order.senior}`}</p>
-                            )}
-                        </div>
-                        <div className="info1">
+                    <div className="ticket-type info1">
+                        <h2>Wybrane bilety</h2>
+                        <span className="info2">
+                            <p>{`Normalny: ${order.normal}`}</p>
+
+                            <p>{`Ulgowy: ${order.discounted}`}</p>
+
+                            <p>{`Senior: ${order.senior}`}</p>
+                        </span>
+                    </div>
+
+                    <section className="ticket-info-scroll">
+                        {/* <section className="info1"></section>
+                         */}
+
+                        {selectedSeats.map((el, idx) => (
+                            <section className="info3" key={idx}>
+                                <p>{`Bilet ${idx + 1}`}</p>
+                                <p>{`Sektor ${el.rowInfo.sectorName}`}</p>
+                                <p>{`Rząd ${el.rowInfo.rowNumber}`}</p>
+                                <p>{`Miejsce ${el.seatNumber}`}</p>
+                            </section>
+                        ))}
+                    </section>
+                    {/* <div className="info1">
                             <h2>Sektor</h2>
                             <p>
                                 {selectedSeats?.[0]?.rowInfo?.sectorName ||
                                     "N/A"}
                             </p>
-                        </div>
-                    </div>
-                    {event.seated && (
-                        <div className="section-info">
-                            <div className="seats info1">
-                                <h2>Miejsca</h2>
-                                {selectedSeats.map((el) => (
-                                    <p key={el._id}>
-                                        R{el?.rowInfo?.rowNumber}{" "}
-                                        {el?.seatNumber}
-                                    </p>
-                                ))}
+                        </div> */}
+
+                    {/* {event.seated && (
+                            <div className="section-info">
+                                <div className="seats info1">
+                                    <h2>Miejsca</h2>
+                                    {selectedSeats.map((el) => (
+                                        <p key={el._id}>
+                                            R{el?.rowInfo?.rowNumber}{" "}
+                                            {el?.seatNumber}
+                                        </p>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )} */}
+                </section>
+
+                <section className="conf-cta">
+                    <h3>Łącznie: {order.total} PLN</h3>
+                    <section className="conf-cta-btn">
+                        <button onClick={handleBack}>Anuluj</button>
+                        <button onClick={handleSubmit}>Kup Bilet</button>
+                    </section>
                 </section>
             </section>
-            <section className="conf-cta">
-                <h3>Łącznie: {order.total} PLN</h3>
-                <section className="conf-cta-btn">
-                    <button onClick={() => setOrderSteps(4)}>Anuluj</button>
-                    <button onClick={handleSubmit}>Kup Bilet</button>
-                </section>
-            </section>
-        </section>
+        </>
     );
 };
 

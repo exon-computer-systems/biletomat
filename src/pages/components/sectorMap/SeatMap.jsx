@@ -25,7 +25,9 @@ const SeatMap = ({
     const [eventData, setEventData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [prices, setPrices] = useState({});
-    const [selected, setSelected] = useState(maxSelected);
+    const [selected, setSelected] = useState(
+        maxSelected - selectedSeats.length
+    );
 
     console.log(maxSelected);
 
@@ -188,7 +190,7 @@ const SeatMap = ({
                             DALEJ
                         </button>
                     </span>
-                    <h2>Wybierz jeszcze {selected} biletów</h2>
+                    <h2>Wybierz jeszcze: {selected}</h2>
                 </div>
             </section>
         </>
