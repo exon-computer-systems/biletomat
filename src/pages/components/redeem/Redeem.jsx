@@ -80,7 +80,7 @@ const Redeem = () => {
 
         <>
             {showConfirmation ? (
-                <section className="redeem-succ-cont">
+                <section className="redeem-succ-cont testclass">
                     <section className="redeem-succ">
                         <h1 className="redeem-succ-title">
                             {status
