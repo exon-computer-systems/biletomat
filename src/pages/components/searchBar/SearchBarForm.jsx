@@ -23,6 +23,8 @@ const SearchBarForm = ({ events, onSearch }) => {
     city: "",
   });
 
+  console.log(events);
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -36,14 +38,23 @@ const SearchBarForm = ({ events, onSearch }) => {
       Object.entries(searchData).filter(([key, value]) => value !== "")
     );
 
-    if (Object.keys(filteredSearchData).length > 0) {
+    if (Object.keys(filteredSearchData).length >= 0) {
       const searchParams = new URLSearchParams(filteredSearchData).toString();
       nav(`/search-results?${searchParams}`);
     }
   };
 
-  const handleChange = e => {
+  const handleSearch = e => {
+    e.preventDefault();
     setIsSelected(() => e.target.value);
+    const { name, value } = e.target;
+    const updatedSearchData = { ...searchData, [name]: value };
+    console.log(updatedSearchData);
+    setSearchData(updatedSearchData);
+    onSearch(searchData);
+  };
+  const handleChange = e => {
+    e.preventDefault();
     const { name, value } = e.target;
     const updatedSearchData = { ...searchData, [name]: value };
     console.log(updatedSearchData);
@@ -55,6 +66,7 @@ const SearchBarForm = ({ events, onSearch }) => {
     setHeight(isSelected.length > 0 ? "auto" : 0);
   }, [isSelected]);
 
+  console.log(isSelected);
   return (
     <section className="search-wrapper">
       <form
@@ -67,7 +79,7 @@ const SearchBarForm = ({ events, onSearch }) => {
           <input
             type="text"
             placeholder="Wydarzenie"
-            onChange={handleChange}
+            onChange={handleSearch}
             value={searchData.title}
             name="title"
           />
@@ -89,8 +101,13 @@ const SearchBarForm = ({ events, onSearch }) => {
         </div>
         <div className="search-box localization">
           <FontAwesomeIcon className="icons" icon={faLocationDot} />
-          <select onChange={handleChange} value={searchData.city} name="city">
-            <option value="" disabled selected hidden>
+          <select
+            // defaultValue={"DEFAULT"}
+            value={searchData.city}
+            name="city"
+            onChange={handleChange}
+          >
+            <option hidden selected>
               Lokalizacja
             </option>
             <option value="Bydgoszcz">Bydgoszcz</option>
