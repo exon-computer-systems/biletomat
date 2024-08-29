@@ -140,58 +140,87 @@ const SeatMap = ({
         <>
             <h2 className="choose-tickets-h2">Wybierz miejsce</h2>
             <section className="seat-map-cont">
-                <form className="seat-map" style={localStyle}>
-                    {isLoading
-                        ? "Loading..."
-                        : seatsData.map((seat, i) => {
-                              return (
-                                  <div
-                                      key={seat._id} // Use _id as the unique key for each seat
-                                      className={`seat ${
-                                          selectedSeats.some(
-                                              (el) => el._id === seat._id
-                                          )
-                                              ? "selected"
-                                              : ""
-                                      } ${
-                                          seat.status === "reserved"
-                                              ? "reserved"
-                                              : "free"
-                                      }`}
-                                      onClick={() => {
-                                          handleSeatClick(seat);
-                                          console.log(selectedSeats);
-                                      }}
-                                  >
-                                      <span>{seatsData[i].seatNumber}</span>
-                                      <FontAwesomeIcon
-                                          icon={faCouch}
-                                          className="seat-icon"
-                                      />
-                                  </div>
-                              );
-                          })}
-                </form>
-                <div className="summary">
-                    <span className="summary-btn-cont">
-                        <button
-                            onClick={() => {
-                                console.log("seatmap back");
-                                setSelectedSeats([]);
-                                setOrderSteps(2);
-                            }}
-                        >
-                            WRÓĆ
-                        </button>
-                        <button
-                            disabled={selected !== 0} // Disable the button if no seats are selected
-                            onClick={handleClick}
-                        >
-                            DALEJ
-                        </button>
+                <section className="seat-map-content">
+                    <p className="seat-map-stage">SCENA</p>
+                    <form className="seat-map" style={localStyle}>
+                        {isLoading
+                            ? "Loading..."
+                            : seatsData.map((seat, i) => {
+                                  return (
+                                      <div
+                                          key={seat._id} // Use _id as the unique key for each seat
+                                          className={`seat ${
+                                              selectedSeats.some(
+                                                  (el) => el._id === seat._id
+                                              )
+                                                  ? "selected"
+                                                  : ""
+                                          } ${
+                                              seat.status === "reserved"
+                                                  ? "reserved"
+                                                  : "free"
+                                          }`}
+                                          onClick={() => {
+                                              handleSeatClick(seat);
+                                              console.log(selectedSeats);
+                                          }}
+                                      >
+                                          <span>{seatsData[i].seatNumber}</span>
+                                          <FontAwesomeIcon
+                                              icon={faCouch}
+                                              className="seat-icon"
+                                          />
+                                      </div>
+                                  );
+                              })}
+                    </form>
+                </section>
+                <section className="summary-cont">
+                    <span className="summary-legend">
+                        <p className="summary-legend-info">
+                            <FontAwesomeIcon
+                                icon={faCouch}
+                                style={{ color: "#4caf50" }}
+                            />{" "}
+                            Wolne
+                        </p>
+
+                        <p className="summary-legend-info">
+                            <FontAwesomeIcon
+                                icon={faCouch}
+                                style={{ color: "#000" }}
+                            />{" "}
+                            Wybrane
+                        </p>
+                        <p className="summary-legend-info">
+                            <FontAwesomeIcon
+                                icon={faCouch}
+                                style={{ color: "#838f97" }}
+                            />{" "}
+                            Zajęte
+                        </p>
                     </span>
-                    <h2>Wybierz jeszcze: {selected}</h2>
-                </div>
+                    <div className="summary">
+                        <span className="summary-btn-cont">
+                            <button
+                                onClick={() => {
+                                    console.log("seatmap back");
+                                    setSelectedSeats([]);
+                                    setOrderSteps(2);
+                                }}
+                            >
+                                WRÓĆ
+                            </button>
+                            <button
+                                disabled={selected !== 0} // Disable the button if no seats are selected
+                                onClick={handleClick}
+                            >
+                                DALEJ
+                            </button>
+                        </span>
+                        <h2>Wybierz jeszcze: {selected}</h2>
+                    </div>
+                </section>
             </section>
         </>
     );
