@@ -144,10 +144,12 @@ const Confirmation = ({
 
                         {selectedSeats.map((el, idx) => (
                             <section className="info3" key={idx}>
-                                <p>{`Bilet ${idx + 1}`}</p>
-                                <p>{`Sektor ${el.rowInfo.sectorName}`}</p>
-                                <p>{`Rząd ${el.rowInfo.rowNumber}`}</p>
-                                <p>{`Miejsce ${el.seatNumber}`}</p>
+                                <p className="info3-title">{`Bilet ${
+                                    idx + 1
+                                }`}</p>
+                                <p className="info3-sector">{`Sektor ${el.rowInfo.sectorName}`}</p>
+                                <p className="info3-row">{`Rząd ${el.rowInfo.rowNumber}`}</p>
+                                <p className="info3-seat">{`Miejsce ${el.seatNumber}`}</p>
                             </section>
                         ))}
                     </section>

@@ -66,7 +66,14 @@ const LoginProvider = ({
                 </section>
                 <section className="summary">
                     <span className="summary-btn-cont">
-                        <button type="button" onClick={() => setOrderSteps(3)}>
+                        <button
+                            type="button"
+                            onClick={() =>
+                                event.seated
+                                    ? setOrderSteps(3)
+                                    : setOrderSteps(1)
+                            }
+                        >
                             WRÓĆ
                         </button>
                         <button

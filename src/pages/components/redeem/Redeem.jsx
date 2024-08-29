@@ -21,15 +21,15 @@ const Redeem = () => {
 
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    useEffect(() => {
-        focusInput();
+    // useEffect(() => {
+    //     focusInput();
 
-        // document.addEventListener("click", focusInput);
+    //     // document.addEventListener("click", focusInput);
 
-        // return () => {
-        //     document.removeEventListener("click", focusInput());
-        // };
-    }, []);
+    //     // return () => {
+    //     //     document.removeEventListener("click", focusInput());
+    //     // };
+    // }, []);
 
     const focusInput = () => {
         inputRef?.current?.focus();
@@ -80,7 +80,7 @@ const Redeem = () => {
 
         <>
             {showConfirmation ? (
-                <section className="redeem-succ-cont">
+                <section className="redeem-succ-cont testclass">
                     <section className="redeem-succ">
                         <h1 className="redeem-succ-title">
                             {status
@@ -96,7 +96,11 @@ const Redeem = () => {
                     </section>
                 </section>
             ) : (
-                <form className="red" onSubmit={handleSubmit}>
+                <form
+                    className="red"
+                    onSubmit={handleSubmit}
+                    onClick={focusInput}
+                >
                     <h3 className="red-title">Zeskanuj bilet poniżej</h3>
 
                     <FontAwesomeIcon className="red-icon" icon={faBarcode} />
