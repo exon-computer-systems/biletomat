@@ -1,158 +1,157 @@
 /* AUTH PANEL */
 
 .overlay {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 200;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 150;
 
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .apanel-cont {
-    width: 820px;
-    height: 790px;
-    padding: 5rem;
+  width: 820px;
+  height: 790px;
+  padding: 5rem;
 
-    z-index: 250;
+  z-index: 250;
 
-    border: 1px solid hsla(0, 0%, 89%, 0.7);
-    border-radius: 40px;
+  border: 1px solid hsla(0, 0%, 89%, 0.7);
+  border-radius: 40px;
 
-    background-color: #fff;
+  background-color: #fff;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
 
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-        0 8px 10px -6px rgb(0 0 0 / 0.1);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 /* AUTH PANEL BUTTONS */
 .apanel-switch-cont {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* gap: 2rem; */
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 2rem; */
 }
 
 .apanel-switch-btn {
-    width: calc(50% - 1px);
-    background-color: transparent;
-    border: 0;
-    text-transform: uppercase;
-    /* padding: 1rem 5rem; */
-    font-size: 2rem;
-    color: #b4b4b4;
-    cursor: pointer;
+  width: calc(50% - 1px);
+  background-color: transparent;
+  border: 0;
+  text-transform: uppercase;
+  /* padding: 1rem 5rem; */
+  font-size: 2rem;
+  color: #b4b4b4;
+  cursor: pointer;
 }
 
 .active {
-    color: #000;
+  color: #000;
 }
 
 .vert-line {
-    width: 2px;
-    height: 2rem;
-    border: 0.1px solid hsla(0, 0%, 71%, 1);
+  width: 2px;
+  height: 2rem;
+  border: 0.1px solid hsla(0, 0%, 71%, 1);
 }
 
 .apanel-form-cont {
-    /* background-color: lightcyan; */
-    width: 100%;
-    height: calc(100% - 100px - 3rem);
+  /* background-color: lightcyan; */
+  width: 100%;
+  height: calc(100% - 100px - 3rem);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
 
-    gap: 2rem;
+  gap: 2rem;
 }
 
 .apanel-form {
-    /* background-color: lightcoral; */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+  /* background-color: lightcoral; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .apanel-inputs {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .apanel-title {
-    font-size: 2rem;
-    font-weight: 500;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .apanel-label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 75%;
 }
 
 .apanel-error {
-    width: 75%;
-    text-align: left;
-    color: #f44336;
+  width: 75%;
+  text-align: left;
+  color: #f44336;
 }
 
 .apanel-input {
-    padding: 1rem;
-    border: 1px solid hsla(0, 0%, 71%, 1);
-    border-radius: 9px;
-    outline: none;
+  padding: 1rem;
+  border: 1px solid hsla(0, 0%, 71%, 1);
+  border-radius: 9px;
+  outline: none;
 }
 
 .apanel-input:focus {
-    outline: auto #485bfe;
+  outline: auto #485bfe;
 }
 
 .apanel-btn {
-    width: 250px;
-    height: 60px;
-    border-radius: 20px;
-    border: none;
-    font-size: 1rem;
-    border: 1px solid hsla(0, 0%, 71%, 0.7);
-    cursor: pointer;
-    color: white;
-    font-weight: 500;
-    background-color: #0254bc;
-    box-shadow: 0 4px 6px -5px#0254bc, 0 2px 4px -2px#0254bc;
-    border: none;
+  width: 250px;
+  height: 60px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  border: 1px solid hsla(0, 0%, 71%, 0.7);
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  background-color: #0254bc;
+  box-shadow: 0 4px 6px -5px#0254bc, 0 2px 4px -2px#0254bc;
+  border: none;
 }
 
 .apanel-btn-cont {
-    width: 75%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 1rem;
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 /* .apanel-inputs-half {
@@ -163,9 +162,9 @@
 } */
 
 .success-svg {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    scale: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  scale: 2;
 }

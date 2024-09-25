@@ -1,28 +1,41 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import CheckmarkAnimation from "./CheckmarkAnimation";
-// import KioskBoard from "kioskboard";
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 
 const LoginForm = ({ handleClose, response, setResponse }) => {
   const { setAuth } = useAuth();
 
   const emailRef = useRef();
+  const passwordRef = useRef();
 
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showKeyboard, setShowKeyboard] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [activeInput, setActiveInput] = useState("");
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-  const [errorMsg, setErrorMsg] = useState("");
 
-  useEffect(() => {
-    emailRef.current?.focus();
-  }, []);
+  const handleKeyChange = input => {
+    if (activeInput === "email") {
+      setEmailInput(input);
+      setUserData(prev => ({ ...prev, email: input }));
+    } else if (activeInput === "password") {
+      setPasswordInput(input);
+      setUserData(prev => ({ ...prev, password: input }));
+    }
+  };
 
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setUserData(prev => ({ ...prev, [name]: value }));
+  const handleKeyPress = button => {
+    if (button === "{enter}") {
+      setShowKeyboard(false);
+    }
   };
 
   const handleSubmit = async e => {
@@ -41,7 +54,6 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
         }
       );
       setResponse(response.status === 200);
-      console.log(JSON.stringify(response?.data));
 
       const {
         accessToken,
@@ -91,13 +103,21 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
             <p className="login-label-text">Email</p>
             <input
               className="apanel-input"
-              type="email"
+              type="text"
               name="email"
-              onChange={handleInputChange}
-              value={userData.email}
+              onChange={e => {
+                const { value } = e.target;
+                setEmailInput(value);
+                setUserData(prev => ({ ...prev, email: value }));
+              }}
+              value={emailInput}
               ref={emailRef}
               required
               autoComplete="off"
+              onFocus={() => {
+                setShowKeyboard(true);
+                setActiveInput("email");
+              }}
             />
           </label>
 
@@ -107,9 +127,18 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
               className="apanel-input"
               type="password"
               name="password"
-              onChange={handleInputChange}
-              value={userData.password}
+              onChange={e => {
+                const { value } = e.target;
+                setPasswordInput(value);
+                setUserData(prev => ({ ...prev, password: value }));
+              }}
+              value={passwordInput}
+              ref={passwordRef}
               required
+              onFocus={() => {
+                setShowKeyboard(true);
+                setActiveInput("password");
+              }}
             />
           </label>
           <p className="apanel-error">{errorMsg}</p>
@@ -118,6 +147,9 @@ const LoginForm = ({ handleClose, response, setResponse }) => {
           Zaloguj
         </button>
       </form>
+      {showKeyboard && (
+        <Keyboard onChange={handleKeyChange} onKeyPress={handleKeyPress} />
+      )}
     </section>
   );
 };

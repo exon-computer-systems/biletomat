@@ -20,8 +20,10 @@ const Slider = ({ events, isLoading }) => {
   const startScrolling = () => {
     intervalRef.current = setInterval(() => {
       if (ref.current) {
-        scrollBy(width);
+        // Scroll the ref element instead of using scrollBy
+        ref.current.scrollLeft += 200;
 
+        // Reset the scroll position if it reaches halfway
         if (ref.current.scrollLeft >= ref.current.scrollWidth / 2) {
           ref.current.scrollLeft = 0;
         }

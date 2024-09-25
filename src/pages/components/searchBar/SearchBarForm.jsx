@@ -6,15 +6,28 @@ import {
   faMasksTheater,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AnimateHeight from "react-animate-height";
 import Searched from "./Searched";
 import { useNavigate } from "react-router-dom";
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 
 const SearchBarForm = ({ events, onSearch }) => {
   const [isSelected, setIsSelected] = useState("");
   const [height, setHeight] = useState(0);
+  const [showKeyboard, setShowKeyboard] = useState(false); // State for keyboard visibility
+  const [keyboardInput, setKeyboardInput] = useState(""); // State to track keyboard input
   const nav = useNavigate();
+
+  const handleKeyChange = input => {
+    setKeyboardInput(input); // Update the state with virtual keyboard input
+    setSearchData(prev => ({ ...prev, title: input }));
+  };
+
+  const handleKeyPress = button => {
+    button === "{enter}" && setShowKeyboard(false);
+  };
 
   const [searchData, setSearchData] = useState({
     title: "",
@@ -23,7 +36,29 @@ const SearchBarForm = ({ events, onSearch }) => {
     city: "",
   });
 
+  const keyboardRef = useRef(null);
+
   console.log(events);
+  console.log(searchData);
+
+  const handleSearch = e => {
+    e.preventDefault();
+    setIsSelected(() => e.target.value);
+    const { name, value } = e.target;
+    const updatedSearchData = { ...searchData, [name]: value };
+    console.log(updatedSearchData);
+    setSearchData(updatedSearchData);
+    onSearch(searchData);
+  };
+
+  const handleChange = e => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const updatedSearchData = { ...searchData, [name]: value };
+    console.log(updatedSearchData);
+    setSearchData(updatedSearchData);
+    onSearch(searchData);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -44,29 +79,12 @@ const SearchBarForm = ({ events, onSearch }) => {
     }
   };
 
-  const handleSearch = e => {
-    e.preventDefault();
-    setIsSelected(() => e.target.value);
-    const { name, value } = e.target;
-    const updatedSearchData = { ...searchData, [name]: value };
-    console.log(updatedSearchData);
-    setSearchData(updatedSearchData);
-    onSearch(searchData);
-  };
-  const handleChange = e => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    const updatedSearchData = { ...searchData, [name]: value };
-    console.log(updatedSearchData);
-    setSearchData(updatedSearchData);
-    onSearch(searchData);
-  };
-
   useEffect(() => {
     setHeight(isSelected.length > 0 ? "auto" : 0);
   }, [isSelected]);
 
-  console.log(isSelected);
+  console.log("ss", isSelected);
+
   return (
     <section className="search-wrapper">
       <form
@@ -79,9 +97,17 @@ const SearchBarForm = ({ events, onSearch }) => {
           <input
             type="text"
             placeholder="Wydarzenie"
-            onChange={handleSearch}
-            value={searchData.title}
+            onChange={e => {
+              const { value } = e.target;
+              setKeyboardInput(value);
+              setSearchData(prev => ({ ...prev, title: value }));
+            }}
+            value={keyboardInput}
             name="title"
+            ref={keyboardRef}
+            data-kioskboard-specialcharacters="true"
+            data-kioskboard-type="keyboard"
+            onFocus={() => setShowKeyboard(true)}
           />
           <span></span>
         </div>
@@ -94,19 +120,14 @@ const SearchBarForm = ({ events, onSearch }) => {
             onFocus={e => (e.target.type = "date")}
             onBlur={e => (e.target.type = "text")}
             onChange={handleChange}
-            value={searchData.date}
+            value={searchData.startDate}
             name="startDate"
           />
           <span></span>
         </div>
         <div className="search-box localization">
           <FontAwesomeIcon className="icons" icon={faLocationDot} />
-          <select
-            // defaultValue={"DEFAULT"}
-            value={searchData.city}
-            name="city"
-            onChange={handleChange}
-          >
+          <select value={searchData.city} name="city" onChange={handleChange}>
             <option hidden selected>
               Lokalizacja
             </option>
@@ -130,6 +151,13 @@ const SearchBarForm = ({ events, onSearch }) => {
           <Searched events={events} />
         </AnimateHeight>
       </form>
+      {showKeyboard && (
+        <Keyboard
+          onChange={handleKeyChange}
+          onKeyPress={handleKeyPress}
+          inputName="title"
+        />
+      )}
     </section>
   );
 };
